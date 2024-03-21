@@ -13,6 +13,6 @@ Der Solar System Simulator wird eine interaktive Simulation unseres Sonnensystem
 | Ivan Starcevic | starciva | starciva@students.zhaw.ch | - |
 | Fabian Walter | waltefab | waltefab@students.zhaw.ch | - |
 | Alexis Tziantopoulos | tzianale | tzianale@students.zhaw.ch | - |
-| Aleksandar Stojilkovic | stojial | stojial@students.zhaw.ch | - |
+| Aleksandar Stojilkovic | stojial1 | stojial1@students.zhaw.ch | - |
 | Riccardo Maffei | mafferic | mafferic@students.zhaw.ch | - |
 | Juvan Thavalingam | thavajuv | thavajuv@students.zhaw.ch | - |
