@@ -20,14 +20,20 @@ public class GameStateScript : MonoBehaviour
         }
     }
 
-    public void increaseSimulationSpeed()
-    {
-        Time.timeScale = 1000;
-    }
 
     public void setNormalSpeed()
     {
         Time.timeScale = 1;
     }
-   
+
+    public void increaseSpeedTen()
+    {
+        Time.timeScale = 10;
+    }
+
+    public void simSpeedMaximum()
+    {
+        Time.timeScale = 100;
+    }
+
 }
