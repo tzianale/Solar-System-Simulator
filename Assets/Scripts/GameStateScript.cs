@@ -18,8 +18,16 @@ public class GameStateScript : MonoBehaviour
             Time.timeScale = 1;
             isPaused = false;
         }
-        
     }
 
+    public void increaseSimulationSpeed()
+    {
+        Time.timeScale = 1000;
+    }
+
+    public void setNormalSpeed()
+    {
+        Time.timeScale = 1;
+    }
    
 }

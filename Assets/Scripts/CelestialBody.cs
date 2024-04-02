@@ -42,15 +42,4 @@ public class Planet : MonoBehaviour
     {   
         rb.position += velocity;
     }
-
-    public void pauseGame()
-    {
-        Time.timeScale = 0;
-    }
-
-    public void resumeGame()
-    {
-        Time.timeScale = 1;
-    }
-
 }
