@@ -20,6 +20,7 @@ public class GameStateScript : MonoBehaviour
             Time.timeScale = lastSpeed;
             isPaused = false;
         }
+        Debug.Log("LastSpeed " + lastSpeed + " ActualSpeed " + Time.timeScale);
     }
 
 
