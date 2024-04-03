@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class GameStateScript : MonoBehaviour
 {
     private bool isPaused = false;
-    public float lastSpeed = 1f;
+    private float lastSpeed = 1f;
 
-    public void pauseResumeGame()
+    public void playPause()
     {
-        if (!isPaused)
+        if (Time.timeScale != 0)
         {
             lastSpeed = Time.timeScale;
             Time.timeScale = 0;
@@ -20,23 +20,22 @@ public class GameStateScript : MonoBehaviour
             Time.timeScale = lastSpeed;
             isPaused = false;
         }
-        Debug.Log("LastSpeed " + lastSpeed + " ActualSpeed " + Time.timeScale);
     }
 
 
     public void setNormalSpeed()
     {
-        Time.timeScale = 1;
+        if (Time.timeScale != 0) Time.timeScale = 1;        
     }
 
     public void increaseSpeedTen()
     {
-        Time.timeScale = 10;
+        if (Time.timeScale != 0) Time.timeScale = 10;
     }
 
-    public void simSpeedMaximum()
+    public void simSpeedMaximum() 
     {
-        Time.timeScale = 100;
+       if(Time.timeScale != 0) Time.timeScale = 100;
     }
 
 }
