@@ -19,17 +19,18 @@ public class PlanetListContainerScript : MonoBehaviour
 
     public void OnArrowClick()
     {
+        Debug.Log("Arrow clicked");
         if (_listIsOpen)
         {
             // Start moving down
-            StartCoroutine(MovePanel(Vector3.back * moveDistance));
+            StartCoroutine(MovePanel(Vector3.down * moveDistance));
             _listIsOpen = false;
             buttonText.text = "↑";
         }
         else
         {
             // Start moving up
-            StartCoroutine(MovePanel(Vector3.forward * moveDistance));
+            StartCoroutine(MovePanel(Vector3.up * moveDistance));
             _listIsOpen = true;
             buttonText.text = "↓";
         }
