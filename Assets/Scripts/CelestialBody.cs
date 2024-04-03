@@ -1,45 +1,69 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Planet : MonoBehaviour
+public class CelestialBody : MonoBehaviour
 {
+    public enum CelestialBodyType { Sun, Planet, Moon };
     Rigidbody rb;
+    public CelestialBodyType celestType;
     public Vector3 velocity;
-    public float gravitationalPull;
     public float mass;
-    private Planet[] planets;
+    public bool isGravityOn;
+    public int day;
+    public float orbitRadius;
+    public float ratioToEarthYear = 1;
+    private CelestialBody[] celestialBodies;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        planets = FindObjectsOfType<Planet>();
+        celestialBodies = FindObjectsOfType<CelestialBody>();
     }
 
     void FixedUpdate()
     {
-        foreach (Planet planet in planets)
+        if (isGravityOn)
         {
-            if (planet != this)
+            foreach (CelestialBody planet in celestialBodies)
             {
-                UpdateVelocity(planet);
+                if (planet != this)
+                {
+                    UpdateVelocity(planet);
+                }
+            }
+            UpdatePosition();
+        }
+        else
+        {
+            if (celestType != CelestialBodyType.Sun)
+            {
+                UpdatePositionByDate();
             }
         }
-        UpdatePosition();
     }
 
-    private void UpdateVelocity(Planet planet)
+    private void UpdateVelocity(CelestialBody planet)
     {
-        float gravitationalConstant = 0.006674f;
+        float gravitationalConstant = 6.67f * (float) Math.Pow(10, -6);
         float rSqr = (planet.rb.position - rb.position).sqrMagnitude;
         Vector3 forceDir = (planet.rb.position - rb.position).normalized;
         Vector3 force = forceDir * gravitationalConstant * mass * planet.mass / rSqr;
-        velocity += force / mass;
+        velocity += force * (float)Math.Pow(10, -12) / mass;
     }
 
     private void UpdatePosition()
-    {   
+    {
         rb.position += velocity;
     }
+
+    private void UpdatePositionByDate()
+    {
+        float x = (float) Math.Cos(2 * Math.PI / (365.256363004 * ratioToEarthYear) * day) * orbitRadius;
+        float z = (float) Math.Sin(2 * Math.PI / (365.256363004 * ratioToEarthYear) * day) * orbitRadius;
+        rb.MovePosition(new Vector3(x, 0, z));
+    }
+
 }
