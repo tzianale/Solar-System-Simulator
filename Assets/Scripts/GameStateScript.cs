@@ -6,16 +6,18 @@ using UnityEngine.UI;
 public class GameStateScript : MonoBehaviour
 {
     private bool isPaused = false;
+    public float lastSpeed = 1f;
 
     public void pauseResumeGame()
     {
         if (!isPaused)
         {
+            lastSpeed = Time.timeScale;
             Time.timeScale = 0;
             isPaused = true;
         } else
         {
-            Time.timeScale = 1;
+            Time.timeScale = lastSpeed;
             isPaused = false;
         }
     }
