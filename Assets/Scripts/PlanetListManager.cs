@@ -18,7 +18,8 @@ public class PlanetListManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> planetModels;
 
-    [SerializeField] private List<int> cameraAdjustments;
+    [SerializeField] 
+    private List<Vector3> cameraAdjustments;
 
     [SerializeField]
     private Camera gameCamera;
@@ -39,7 +40,7 @@ public class PlanetListManager : MonoBehaviour
         }
     }
 
-    private void CreateNewPlanet(Sprite planetSprite, string planetName, GameObject planetObject, int cameraAdjustment, Camera cameraToLink)
+    private void CreateNewPlanet(Sprite planetSprite, string planetName, GameObject planetObject, Vector3 cameraAdjustment, Camera cameraToLink)
     {
         var planet = Instantiate(planetPrefab, planetListContent);
         
