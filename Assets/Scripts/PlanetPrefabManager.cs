@@ -15,18 +15,18 @@ public class PlanetPrefabManager : MonoBehaviour, IPointerClickHandler
     private GameObject planet3DObject;
 
     [SerializeField] 
-    private Camera linkedCamera;
+    private GameObject focalPoint;
 
     [SerializeField] 
     private Vector3 cameraAdjustmentOnPlanetClick;
     
-    public void SetPlanetInfo(Sprite inputSprite, string inputName, GameObject planetModel, Vector3 cameraAdjustment, Camera gameCamera)
+    public void SetPlanetInfo(Sprite inputSprite, string inputName, GameObject planetModel, Vector3 cameraAdjustment, GameObject focalPoint)
     {
         planetSprite.GetComponent<Image>().sprite = inputSprite;
         planetName.GetComponent<TextMeshProUGUI>().text = inputName;
         
         planet3DObject = planetModel;
-        linkedCamera = gameCamera;
+        this.focalPoint = focalPoint;
 
         cameraAdjustmentOnPlanetClick = cameraAdjustment;
     }
@@ -41,9 +41,9 @@ public class PlanetPrefabManager : MonoBehaviour, IPointerClickHandler
             case 2: 
                 Debug.Log("Planet " + planetName.GetComponent<TextMeshProUGUI>().text + " double clicked");
 
-                var objectFollower = linkedCamera.GetComponent<ObjectFollower>();
+                var objectFollower = focalPoint.GetComponent<CameraControl>();
                 
-                objectFollower.SetTarget(planet3DObject.transform, cameraAdjustmentOnPlanetClick);
+                objectFollower.SetFocusedObject(planet3DObject.transform);
                 
                 break;
         }

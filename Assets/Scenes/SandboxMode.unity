@@ -1443,6 +1443,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 963194227}
     - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: focalPointObject
+      value: 
+      objectReference: {fileID: 791345433}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: planetNames.Array.size
       value: 9
       objectReference: {fileID: 0}

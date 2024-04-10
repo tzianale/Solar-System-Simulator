@@ -17,7 +17,11 @@ public class CameraControl : MonoBehaviour
     private float verticalAngle = 0f;
     private float distanceToPivot;
 
-    void Start()
+    private bool isFollowingObject = false;
+    
+    private Transform objectPosition;
+
+    private void Start()
     {
         mainCamera = Camera.main;
         pivotPoint = parentModel.transform.position;
@@ -33,8 +37,10 @@ public class CameraControl : MonoBehaviour
     }
 
 
-    void Update()
+    private void Update()
     {
+        if (isFollowingObject) pivotPoint = objectPosition.position;
+        
         if (Input.GetMouseButton(1)) // Right-click to rotate
         {
             CamOrbit();
@@ -127,11 +133,23 @@ public class CameraControl : MonoBehaviour
     }
 
 
-
     void SetFixedView(Vector3 direction)
     {
         transform.position = pivotPoint + direction * distanceToPivot;
         transform.LookAt(pivotPoint);
+    }
+
+
+    public void SetFocusedObject(Transform objectToFollow)
+    {
+        isFollowingObject = true;
+        objectPosition = objectToFollow;
+    }
+
+
+    public void ClearFocusedObject()
+    {
+        isFollowingObject = false;
     }
 
 

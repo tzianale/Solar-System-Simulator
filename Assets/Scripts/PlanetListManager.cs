@@ -22,7 +22,7 @@ public class PlanetListManager : MonoBehaviour
     private List<Vector3> cameraAdjustments;
 
     [SerializeField]
-    private Camera gameCamera;
+    private GameObject focalPointObject;
 
     // Start is called before the first frame update
     private void Start()
@@ -35,17 +35,17 @@ public class PlanetListManager : MonoBehaviour
         {
             for (var planetIndex = 0; planetIndex < planetNames.Count; planetIndex++)
             {
-                CreateNewPlanet(planetSprites[planetIndex], planetNames[planetIndex], planetModels[planetIndex], cameraAdjustments[planetIndex], gameCamera);
+                CreateNewPlanet(planetSprites[planetIndex], planetNames[planetIndex], planetModels[planetIndex], cameraAdjustments[planetIndex], focalPointObject);
             }
         }
     }
 
-    private void CreateNewPlanet(Sprite planetSprite, string planetName, GameObject planetObject, Vector3 cameraAdjustment, Camera cameraToLink)
+    private void CreateNewPlanet(Sprite planetSprite, string planetName, GameObject planetObject, Vector3 cameraAdjustment, GameObject focalPoint)
     {
         var planet = Instantiate(planetPrefab, planetListContent);
         
         var planetCreator = planet.GetComponent<PlanetPrefabManager>();
         
-        planetCreator.SetPlanetInfo(planetSprite, planetName, planetObject, cameraAdjustment, cameraToLink);
+        planetCreator.SetPlanetInfo(planetSprite, planetName, planetObject, cameraAdjustment, focalPoint);
     }
 }
