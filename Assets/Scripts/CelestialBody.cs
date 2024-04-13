@@ -10,8 +10,6 @@ public class CelestialBody : MonoBehaviour
     public CelestialBodyType celestType;
     public Vector3 velocity;
     public float mass;
-    public bool isGravityOn;
-    public int day;
     public float orbitRadius;
     public float ratioToEarthYear = 1;
     private CelestialBody[] celestialBodies;
@@ -25,7 +23,7 @@ public class CelestialBody : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isGravityOn)
+        if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Sandbox)
         {
             foreach (CelestialBody planet in celestialBodies)
             {
@@ -61,8 +59,8 @@ public class CelestialBody : MonoBehaviour
 
     private void UpdatePositionByDate()
     {
-        float x = (float) Math.Cos(2 * Math.PI / (365.256363004 * ratioToEarthYear) * day) * orbitRadius;
-        float z = (float) Math.Sin(2 * Math.PI / (365.256363004 * ratioToEarthYear) * day) * orbitRadius;
+        float x = (float) Math.Cos(2 * Math.PI / (365.256363004 * ratioToEarthYear) * GameStateController.explorerModeDay) * orbitRadius;
+        float z = (float) Math.Sin(2 * Math.PI / (365.256363004 * ratioToEarthYear) * GameStateController.explorerModeDay) * orbitRadius;
         rb.MovePosition(new Vector3(x, 0, z));
     }
 
