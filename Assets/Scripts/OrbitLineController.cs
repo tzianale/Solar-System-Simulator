@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class OrbitLineController : MonoBehaviour
 {
     private LineRenderer lineRenderer;
     [SerializeField] private CelestialBody celestialBody;
+    private Vector3[] last100Points = new Vector3[100];
 
     public CelestialBody CelestialBody
     {
@@ -16,15 +18,31 @@ public class OrbitLineController : MonoBehaviour
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        Vector3[] orbitPoints = celestialBody.GetOrbitLinePoints();
-        lineRenderer.positionCount = orbitPoints.Length;
-        lineRenderer.SetPositions(orbitPoints);
+        if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer)
+        {
+            Vector3[] orbitPoints = celestialBody.GetOrbitLinePoints();
+            lineRenderer.positionCount = orbitPoints.Length;
+            lineRenderer.SetPositions(orbitPoints);
+        } else
+        {
+            last100Points = new Vector3[100];
+            lineRenderer.loop = false;
+        }
 
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Sandbox)
+        {
+            for (int i = last100Points.Length - 1; i > 0; i--)
+            {
+                last100Points[i] = last100Points[i - 1];
+            }
+            last100Points[0] = celestialBody.getPostion();
 
+            lineRenderer.positionCount = last100Points.Length;
+            lineRenderer.SetPositions(last100Points);
+        }
     }
 }

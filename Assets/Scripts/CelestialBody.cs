@@ -94,4 +94,8 @@ public class CelestialBody : MonoBehaviour
         orbitLineController.CelestialBody = this;
     }
 
+    public Vector3 getPostion()
+    {
+        return GetComponent<Transform>().position;
+    }
 }
