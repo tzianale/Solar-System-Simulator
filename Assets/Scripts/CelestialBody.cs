@@ -19,6 +19,8 @@ public class CelestialBody : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         celestialBodies = FindObjectsOfType<CelestialBody>();
+
+        GenerateOrbitLine();
     }
 
     void FixedUpdate()
@@ -62,6 +64,34 @@ public class CelestialBody : MonoBehaviour
         float x = (float) Math.Cos(2 * Math.PI / (365.256363004 * ratioToEarthYear) * GameStateController.explorerModeDay) * orbitRadius;
         float z = (float) Math.Sin(2 * Math.PI / (365.256363004 * ratioToEarthYear) * GameStateController.explorerModeDay) * orbitRadius;
         rb.MovePosition(new Vector3(x, 0, z));
+    }
+
+    public Vector3[] GetOrbitLinePoints()
+    {
+        int pointsLentgth = 360;
+        Vector3[] points = new Vector3[pointsLentgth];
+
+        for (int i = 0; i < pointsLentgth;  i++)
+        {
+            float x = (float)Math.Cos(2 * Math.PI / pointsLentgth * i) * orbitRadius;
+            float z = (float)Math.Sin(2 * Math.PI / pointsLentgth * i) * orbitRadius;
+            points[i] = new Vector3(x, 0, z);
+        }
+
+        return points;
+    }
+
+    private void GenerateOrbitLine()
+    {
+        GameObject orbitLineGameObject = new GameObject("OrbitLine");
+        orbitLineGameObject.transform.SetParent(transform);
+
+        LineRenderer lineRenderer = orbitLineGameObject.AddComponent<LineRenderer>();
+        lineRenderer.loop = true;
+        lineRenderer.widthMultiplier = 10;
+
+        OrbitLineController orbitLineController = orbitLineGameObject.AddComponent<OrbitLineController>();
+        orbitLineController.CelestialBody = this;
     }
 
 }
