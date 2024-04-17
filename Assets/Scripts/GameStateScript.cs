@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameStateScript : MonoBehaviour
 {
-    private bool isPaused = false;
+    public bool isPaused = false;
     private float lastSpeed = 1f;
 
     public void playPause()
