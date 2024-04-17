@@ -7,11 +7,15 @@ public class PlanetListContainerScript : MonoBehaviour
     private Transform _planetListContainerTransform;
     private bool _listIsOpen;
     
-    public float moveDistance = 210f; // The distance to move the panel.
-    public float moveSpeed = 5.0f; // How fast the panel moves.
+    [SerializeField]
+    private Vector3 moveDistance;
+    
+    [SerializeField]
+    private float moveSpeed = 1.0f;
+    
     public TextMeshProUGUI buttonText;
 
-    // Start is called before the first frame update
+    
     private void Start()
     {
         _planetListContainerTransform = transform;
@@ -22,15 +26,11 @@ public class PlanetListContainerScript : MonoBehaviour
         Debug.Log("Arrow clicked");
         if (_listIsOpen)
         {
-            // Start moving down
-            StartCoroutine(MovePanel(Vector3.down * moveDistance));
+            StartCoroutine(MovePanel(moveDistance));
             _listIsOpen = false;
             buttonText.text = "↑";
-        }
-        else
-        {
-            // Start moving up
-            StartCoroutine(MovePanel(Vector3.up * moveDistance));
+        } else {
+            StartCoroutine(MovePanel(-moveDistance));
             _listIsOpen = true;
             buttonText.text = "↓";
         }
@@ -50,7 +50,6 @@ public class PlanetListContainerScript : MonoBehaviour
             yield return null;
         }
 
-        // Ensure the final position is set
         _planetListContainerTransform.position = endPosition;
     }
 }

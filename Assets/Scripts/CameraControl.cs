@@ -17,23 +17,45 @@ public class CameraControl : MonoBehaviour
     private float verticalAngle = 0f;
     private float distanceToPivot;
 
+    private bool isFollowing;
+    private Transform followTarget;
+    private Vector3 followOffset = new Vector3(0, 1, -10);
+
+
     void Start()
+
     {
         mainCamera = Camera.main;
         pivotPoint = parentModel.transform.position;
-
         defaultPosition = pivotPoint + new Vector3(0, 1, -1) * distanceToPivot;
+        defaultRotation = Quaternion.LookRotation(pivotPoint - defaultPosition);
         transform.position = defaultPosition;
-        transform.LookAt(pivotPoint);
-        defaultRotation = transform.rotation;
-
-        Zoom(0.2f);
-
-        mainCamera.fieldOfView = 60f;
+        transform.rotation = defaultRotation;
+        Zoom(0.1f);
     }
 
 
-    void Update()
+    private void Update()
+    {
+        if (isFollowing && followTarget)
+        {
+            pivotPoint = followTarget.position;
+            
+        }
+        else
+        {
+            HandleManualControls();
+        }
+
+        Zoom(Input.GetAxis("Mouse ScrollWheel"));
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ResetCameraView();
+        }
+    }
+
+    private void HandleManualControls()
     {
         if (Input.GetMouseButton(1)) // Right-click to rotate
         {
@@ -45,16 +67,9 @@ public class CameraControl : MonoBehaviour
             Pan();
         }
 
-        Zoom(-Input.GetAxis("Mouse ScrollWheel"));
-
         if (Input.GetKeyDown(KeyCode.Keypad5))
         {
             mainCamera.orthographic = !mainCamera.orthographic;
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ResetCameraView();
         }
 
         if (Input.GetKeyDown(KeyCode.Keypad1))
@@ -81,10 +96,10 @@ public class CameraControl : MonoBehaviour
         Quaternion horizontalRotation = Quaternion.AngleAxis(horizontalInput, Vector3.up);
         Quaternion verticalRotation = Quaternion.AngleAxis(-verticalInput, transform.right);
 
-        Vector3 direction = (transform.position - pivotPoint).normalized;
+        Vector3 direction = (transform.position - pivotPoint).normalized * distanceToPivot;
         Quaternion targetRotation = horizontalRotation * verticalRotation * transform.rotation;
         transform.rotation = targetRotation;
-        transform.position = pivotPoint + direction * distanceToPivot;
+        transform.position = pivotPoint + direction;
     }
 
 
@@ -118,14 +133,11 @@ public class CameraControl : MonoBehaviour
 
         float newDistance = distanceToPivot + zoomDiff * dynamicZoomSpeed;
 
-        Debug.Log(newDistance);
-
         newDistance = Mathf.Clamp(newDistance, -maxZoomOut, maxZoomIn);
 
         distanceToPivot = newDistance;
         transform.position = pivotPoint - (transform.up * distanceToPivot);
     }
-
 
 
     void SetFixedView(Vector3 direction)
@@ -137,10 +149,29 @@ public class CameraControl : MonoBehaviour
 
     void ResetCameraView()
     {
+        StopFollowing();
+        Zoom(0.1f);
+    }
+
+    public void SetToFollowPosition(Transform target)
+    {
+        isFollowing = true;
+        followTarget = target;
+        pivotPoint = followTarget.position;
+        followOffset = transform.position - pivotPoint;
+        transform.LookAt(pivotPoint);
+    }
+
+    public void StopFollowing()
+    {
+        isFollowing = false;
         transform.position = defaultPosition;
         transform.rotation = defaultRotation;
-        pivotPoint = parentModel.transform.position;
-        distanceToPivot = Vector3.Distance(transform.position, pivotPoint);
-        Zoom(0.2f);
+        pivotPoint = parentModel.transform.position;  // Reset pivot
+    }
+
+    public bool getFollowingStatus()
+    {
+        return isFollowing;
     }
 }
