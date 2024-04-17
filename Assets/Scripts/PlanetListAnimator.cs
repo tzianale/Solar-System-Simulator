@@ -4,40 +4,47 @@ using System.Collections;
 
 public class PlanetListContainerScript : MonoBehaviour
 {
-    private Transform _planetListContainerTransform;
-    private bool _listIsOpen;
+    public Transform _planetListContainerTransform;
+    public bool _listIsOpen;
     
     public float moveDistance = 210f; // The distance to move the panel.
     public float moveSpeed = 5.0f; // How fast the panel moves.
     public TextMeshProUGUI buttonText;
 
     // Start is called before the first frame update
-    private void Start()
+    public void Start()
     {
         _planetListContainerTransform = transform;
     }
 
     public void OnArrowClick()
+{
+    Debug.Log("OnArrowClick called. Current _listIsOpen: " + _listIsOpen);
+
+    if (_listIsOpen)
     {
-        Debug.Log("Arrow clicked");
-        if (_listIsOpen)
-        {
-            // Start moving down
-            StartCoroutine(MovePanel(Vector3.down * moveDistance));
-            _listIsOpen = false;
-            buttonText.text = "↑";
-        }
-        else
-        {
-            // Start moving up
-            StartCoroutine(MovePanel(Vector3.up * moveDistance));
-            _listIsOpen = true;
-            buttonText.text = "↓";
-        }
+        StartCoroutine(MovePanel(Vector3.down * moveDistance));
+        _listIsOpen = false;
+        buttonText.text = "↑";
+        Debug.Log("Panel is now closing. New text: " + buttonText.text);
     }
+    else
+    {
+        StartCoroutine(MovePanel(Vector3.up * moveDistance));
+        _listIsOpen = true;
+        buttonText.text = "↓";
+        Debug.Log("Panel is now opening. New text: " + buttonText.text);
+    }
+}
+
 
     private IEnumerator MovePanel(Vector3 target)
     {
+        if (_planetListContainerTransform == null)
+    {
+        Debug.LogError("Transform is not initialized!");
+        yield break; // Early exit from the coroutine if the transform is null
+    }
         var startPosition = _planetListContainerTransform.position;
         var endPosition = startPosition + target;
 
