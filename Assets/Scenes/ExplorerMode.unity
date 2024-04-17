@@ -164,8 +164,6 @@ MonoBehaviour:
   celestType: 0
   velocity: {x: 0, y: 0, z: 0}
   mass: 1.99e+22
-  isGravityOn: 0
-  day: 0
   orbitRadius: 0
   ratioToEarthYear: 1
 --- !u!135 &236659529
@@ -345,8 +343,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 5}
   mass: 1.898e+19
-  isGravityOn: 0
-  day: 10
   orbitRadius: 10400
   ratioToEarthYear: 11.9
 --- !u!135 &469337564
@@ -498,8 +494,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 2.5}
   mass: 5.68e+18
-  isGravityOn: 0
-  day: 10
   orbitRadius: 19140
   ratioToEarthYear: 29.4
 --- !u!135 &532052287
@@ -651,8 +645,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 21.3}
   mass: 8.68e+17
-  isGravityOn: 0
-  day: 10
   orbitRadius: 38340
   ratioToEarthYear: 84
 --- !u!135 &711106383
@@ -1071,8 +1063,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 9}
   mass: 6.42e+15
-  isGravityOn: 0
-  day: 10
   orbitRadius: 3040
   ratioToEarthYear: 1.9
 --- !u!135 &1222205785
@@ -1292,8 +1282,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 12}
   mass: 3.3e+15
-  isGravityOn: 0
-  day: 10
   orbitRadius: 774
   ratioToEarthYear: 0.2
 --- !u!135 &1512896391
@@ -1445,8 +1433,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 23.5}
   mass: 1.02e+18
-  isGravityOn: 0
-  day: 10
   orbitRadius: 60360
   ratioToEarthYear: 165
 --- !u!135 &1918121191
@@ -1571,8 +1557,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 11.2}
   mass: 5.97217e+16
-  isGravityOn: 0
-  day: 10
   orbitRadius: 2000
   ratioToEarthYear: 1
 --- !u!135 &1923049640
@@ -1853,8 +1837,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 10.4}
   mass: 0.815
-  isGravityOn: 0
-  day: 10
   orbitRadius: 1446
   ratioToEarthYear: 0.6
 --- !u!135 &1996431361
@@ -1951,6 +1933,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 963194228}
     m_Modifications:
+    - target: {fileID: 1532994944392091478, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.000030517578
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617561218475947577, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617561218475947577, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2617561218475947577, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4484248817493086626, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: m_Name
       value: PlanetListCanvas
