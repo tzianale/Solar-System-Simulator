@@ -18,11 +18,8 @@ public class PlanetListManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> planetModels;
 
-    [SerializeField] 
-    private List<Vector3> cameraAdjustments;
-
     [SerializeField]
-    private Camera gameCamera;
+    private CameraControl cameraControl;
 
     // Start is called before the first frame update
     private void Start()
@@ -33,19 +30,18 @@ public class PlanetListManager : MonoBehaviour
         }
         else
         {
-            for (var planetIndex = 0; planetIndex < planetNames.Count; planetIndex++)
+            for (int i = 0; i < planetNames.Count; i++)
             {
-                CreateNewPlanet(planetSprites[planetIndex], planetNames[planetIndex], planetModels[planetIndex], cameraAdjustments[planetIndex], gameCamera);
+                CreateNewPlanet(planetSprites[i], planetNames[i], planetModels[i]);
             }
         }
     }
 
-    private void CreateNewPlanet(Sprite planetSprite, string planetName, GameObject planetObject, Vector3 cameraAdjustment, Camera cameraToLink)
+    private void CreateNewPlanet(Sprite planetSprite, string planetName, GameObject planetObject)
     {
-        var planet = Instantiate(planetPrefab, planetListContent);
-        
-        var planetCreator = planet.GetComponent<PlanetPrefabManager>();
-        
-        planetCreator.SetPlanetInfo(planetSprite, planetName, planetObject, cameraAdjustment, cameraToLink);
+        var planetInstance = Instantiate(planetPrefab, planetListContent);
+        var planetManager = planetInstance.GetComponent<PlanetPrefabManager>();
+        Debug.Log(cameraControl);
+        planetManager.SetPlanetInfo(planetSprite, planetName, planetObject, cameraControl);
     }
 }

@@ -14,21 +14,16 @@ public class PlanetPrefabManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] 
     private GameObject planet3DObject;
 
-    [SerializeField] 
-    private Camera linkedCamera;
+    [SerializeField]
+    private CameraControl cameraControl;
 
-    [SerializeField] 
-    private Vector3 cameraAdjustmentOnPlanetClick;
-    
-    public void SetPlanetInfo(Sprite inputSprite, string inputName, GameObject planetModel, Vector3 cameraAdjustment, Camera gameCamera)
+    public void SetPlanetInfo(Sprite inputSprite, string inputName, GameObject planetModel, CameraControl cameraCtrl)
     {
         planetSprite.GetComponent<Image>().sprite = inputSprite;
         planetName.GetComponent<TextMeshProUGUI>().text = inputName;
         
         planet3DObject = planetModel;
-        linkedCamera = gameCamera;
-
-        cameraAdjustmentOnPlanetClick = cameraAdjustment;
+        cameraControl = cameraCtrl;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -41,10 +36,15 @@ public class PlanetPrefabManager : MonoBehaviour, IPointerClickHandler
             case 2: 
                 Debug.Log("Planet " + planetName.GetComponent<TextMeshProUGUI>().text + " double clicked");
 
-                var objectFollower = linkedCamera.GetComponent<ObjectFollower>();
-                
-                objectFollower.SetTarget(planet3DObject.transform, cameraAdjustmentOnPlanetClick);
-                
+                if (cameraControl.getFollowingStatus())
+                {
+                    cameraControl.StopFollowing();
+                }
+                else
+                {
+                    cameraControl.SetToFollowPosition(planet3DObject.transform);
+                }
+
                 break;
         }
     }
