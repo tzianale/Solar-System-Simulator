@@ -15,8 +15,8 @@ public class CelestialBodyPlayTests
         sun.isGravityOn = true;
         sun.orbitRadius = 0;
         var sunRb = sun.gameObject.AddComponent<Rigidbody>();
-        sunRb.useGravity = false; // Deaktivieren der Unity-eigenen Gravitation
-        sunRb.isKinematic = true; // Verhindert, dass die Rigidbody-Physik die Position beeinflusst
+        sunRb.useGravity = false; // Deactivating Unity's own gravity
+        sunRb.isKinematic = true; // Prevents rigid body physics from influencing the position
 
         var mercury = new GameObject().AddComponent<CelestialBody>();
         mercury.transform.position = new Vector3(755, 0, 0); // Start 10 units away
@@ -25,9 +25,9 @@ public class CelestialBodyPlayTests
         mercury.isGravityOn = true;
         mercury.orbitRadius = 775f;
         var planetRb = mercury.gameObject.AddComponent<Rigidbody>();
-        planetRb.useGravity = false; // Deaktivieren der Unity-eigenen Gravitation
-        planetRb.isKinematic = true; // Verhindert, dass die Rigidbody-Physik die Position beeinflusst
-
+        planetRb.useGravity = false; // Deactivating Unity's own gravity
+        planetRb.isKinematic = true; // Prevents rigid body physics from influencing the position
+  
         // Allow some time for gravity to act
         yield return new WaitForSeconds(0.004f);
 
