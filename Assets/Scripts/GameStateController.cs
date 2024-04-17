@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using TMPro;
 using UnityEngine;
 
@@ -19,8 +21,8 @@ public class GameStateController : MonoBehaviour
     {
         if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer && !isPaused)
         {
+            DisplayDate(ComputeDateByCurrentDate(explorerModeDay));
             explorerModeDay += Time.deltaTime;
-            dayText.text = "Day: " + explorerModeDay.ToString();
         }
     }
 
@@ -43,4 +45,13 @@ public class GameStateController : MonoBehaviour
         if (Time.timeScale != 0) Time.timeScale = timeScale;
     }
 
+    private DateTime ComputeDateByCurrentDate(double daysPassed)
+    {
+        return DateTime.Now.AddDays(daysPassed);
+    }
+
+    private void DisplayDate(DateTime date)
+    {
+        dayText.text = date.ToString("d");
+    }
 }
