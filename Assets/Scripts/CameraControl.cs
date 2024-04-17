@@ -23,6 +23,7 @@ public class CameraControl : MonoBehaviour
 
 
     void Start()
+
     {
         mainCamera = Camera.main;
         pivotPoint = parentModel.transform.position;
@@ -34,11 +35,11 @@ public class CameraControl : MonoBehaviour
     }
 
 
-    void Update()
+    private void Update()
     {
         if (isFollowing && followTarget)
         {
-            pivotPoint = followTarget.position; // Set pivot point to the planet's position
+            pivotPoint = followTarget.position;
             
         }
         else
@@ -46,7 +47,6 @@ public class CameraControl : MonoBehaviour
             HandleManualControls();
         }
 
-        // Handle zoom and rotation whether following or not
         Zoom(Input.GetAxis("Mouse ScrollWheel"));
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -138,7 +138,6 @@ public class CameraControl : MonoBehaviour
         distanceToPivot = newDistance;
         transform.position = pivotPoint - (transform.up * distanceToPivot);
     }
-
 
 
     void SetFixedView(Vector3 direction)

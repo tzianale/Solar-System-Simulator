@@ -19,6 +19,7 @@ public class PlanetListManager : MonoBehaviour
     private List<GameObject> planetModels;
 
     [SerializeField]
+
     private CameraControl cameraControl;
 
     // Start is called before the first frame update
@@ -32,6 +33,7 @@ public class PlanetListManager : MonoBehaviour
         {
             for (int i = 0; i < planetNames.Count; i++)
             {
+
                 CreateNewPlanet(planetSprites[i], planetNames[i], planetModels[i]);
             }
         }

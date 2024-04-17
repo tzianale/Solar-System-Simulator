@@ -18,12 +18,15 @@ public class PlanetPrefabManager : MonoBehaviour, IPointerClickHandler
     private CameraControl cameraControl;
 
     public void SetPlanetInfo(Sprite inputSprite, string inputName, GameObject planetModel, CameraControl cameraCtrl)
+
     {
         planetSprite.GetComponent<Image>().sprite = inputSprite;
         planetName.GetComponent<TextMeshProUGUI>().text = inputName;
         
         planet3DObject = planetModel;
+
         cameraControl = cameraCtrl;
+
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -44,7 +47,6 @@ public class PlanetPrefabManager : MonoBehaviour, IPointerClickHandler
                 {
                     cameraControl.SetToFollowPosition(planet3DObject.transform);
                 }
-
                 break;
         }
     }
