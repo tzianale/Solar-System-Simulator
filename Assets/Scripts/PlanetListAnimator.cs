@@ -12,7 +12,7 @@ public class PlanetListContainerScript : MonoBehaviour
     public TextMeshProUGUI buttonText;
 
     // Start is called before the first frame update
-    public void Start()
+    void Start()
     {
         _planetListContainerTransform = transform;
     }
