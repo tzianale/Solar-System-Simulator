@@ -4,17 +4,25 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameStateController : MonoBehaviour
 {
-    private bool isPaused = false;
+    public static bool isPaused = false;
     private float lastSpeed = 1f;
     public static double explorerModeDay;
     public TextMeshProUGUI dayText;
+    public TextMeshProUGUI simulationSpeedText;
+    public Slider simulationSpeedSlider;
 
     private void Start()
     {
         explorerModeDay = 0;
+    }
+
+    private void Update()
+    {
+        simulationSpeedText.text = simulationSpeedSlider.value.ToString("0") + "x";
     }
 
     private void FixedUpdate()
@@ -28,16 +36,7 @@ public class GameStateController : MonoBehaviour
 
     public void playPause()
     {
-        if (Time.timeScale != 0)
-        {
-            lastSpeed = Time.timeScale;
-            Time.timeScale = 0;
-            isPaused = true;
-        } else
-        {
-            Time.timeScale = lastSpeed;
-            isPaused = false;
-        }
+        isPaused = !isPaused;
     }
 
     public void setTimeScale(float timeScale)

@@ -24,23 +24,25 @@ public class CelestialBody : MonoBehaviour
     }
 
     void FixedUpdate()
-    {
-        if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Sandbox)
+    {   if (!GameStateController.isPaused)
         {
-            foreach (CelestialBody planet in celestialBodies)
+            if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Sandbox)
             {
-                if (planet != this)
+                foreach (CelestialBody planet in celestialBodies)
                 {
-                    UpdateVelocity(planet);
+                    if (planet != this)
+                    {
+                        UpdateVelocity(planet);
+                    }
                 }
+                UpdatePosition();
             }
-            UpdatePosition();
-        }
-        else
-        {
-            if (celestType != CelestialBodyType.Sun)
+            else
             {
-                UpdatePositionByDate();
+                if (celestType != CelestialBodyType.Sun)
+                {
+                    UpdatePositionByDate();
+                }
             }
         }
     }
