@@ -227,8 +227,6 @@ MonoBehaviour:
   celestType: 0
   velocity: {x: 0, y: 0, z: 0}
   mass: 1.99e+22
-  isGravityOn: 0
-  day: 0
   orbitRadius: 0
   ratioToEarthYear: 1
 --- !u!135 &236659529
@@ -537,8 +535,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 5}
   mass: 1.898e+19
-  isGravityOn: 1
-  day: 10
   orbitRadius: 10400
   ratioToEarthYear: 1
 --- !u!135 &469337564
@@ -690,8 +686,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 3}
   mass: 5.68e+18
-  isGravityOn: 1
-  day: 10
   orbitRadius: 19140
   ratioToEarthYear: 1
 --- !u!135 &532052287
@@ -848,8 +842,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 21.3}
   mass: 8.68e+17
-  isGravityOn: 1
-  day: 10
   orbitRadius: 38340
   ratioToEarthYear: 1
 --- !u!135 &711106383
@@ -1170,10 +1162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd3075a12ac44d4690b1c09d39020ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameCamera: {fileID: 963194227}
-  _targetSet: 0
-  _target: {fileID: 0}
-  _offset: {x: 0, y: 0, z: 0}
 --- !u!1 &973121218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,8 +1319,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 9}
   mass: 6.42e+15
-  isGravityOn: 1
-  day: 10
   orbitRadius: 3040
   ratioToEarthYear: 1
 --- !u!135 &1222205785
@@ -1646,6 +1632,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 963194227}
     - target: {fileID: 6869580773035803672, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6869580773035803672, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: m_PixelPerfect
       value: 1
       objectReference: {fileID: 0}
@@ -1659,11 +1649,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7231061205755359680, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: moveDistance.y
-      value: 0
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 7231061205755359680, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: moveDistance.z
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432808031280865210, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: m_Pivot.x
@@ -1821,8 +1811,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 12}
   mass: 3.3e+15
-  isGravityOn: 1
-  day: 10
   orbitRadius: 774
   ratioToEarthYear: 1
 --- !u!135 &1512896391
@@ -1979,8 +1967,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 23.5}
   mass: 1.02e+18
-  isGravityOn: 1
-  day: 10
   orbitRadius: 60360
   ratioToEarthYear: 1
 --- !u!135 &1918121191
@@ -2105,8 +2091,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 11.2}
   mass: 5.97217e+16
-  isGravityOn: 1
-  day: 10
   orbitRadius: 2000
   ratioToEarthYear: 1
 --- !u!135 &1923049640
@@ -2285,8 +2269,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 10.4}
   mass: 0.815
-  isGravityOn: 1
-  day: 10
   orbitRadius: 1446
   ratioToEarthYear: 1
 --- !u!135 &1996431361
