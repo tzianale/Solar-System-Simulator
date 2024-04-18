@@ -17,7 +17,6 @@ public void Setup()
 
     // Directly use the existing transform rather than assigning a new one
     containerScript._planetListContainerTransform = containerGameObject.transform;
-    containerScript.Start();
 }
 
 
