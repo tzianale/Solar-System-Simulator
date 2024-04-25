@@ -5,9 +5,15 @@ public class PlanetListManager : MonoBehaviour
 {
     [SerializeField]
     private Transform planetListContent;
+    
+    [SerializeField]
+    private Transform canvas;
 
     [SerializeField]
-    private GameObject planetPrefab;
+    private GameObject planetObjectPrefab;
+    
+    [SerializeField]
+    private GameObject planetInfoPrefab;
 
     [SerializeField]
     private List<string> planetNames;
@@ -19,9 +25,9 @@ public class PlanetListManager : MonoBehaviour
     private List<GameObject> planetModels;
 
     [SerializeField]
-
     private CameraControl cameraControl;
 
+    
     // Start is called before the first frame update
     private void Start()
     {
@@ -31,9 +37,8 @@ public class PlanetListManager : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < planetNames.Count; i++)
+            for (var i = 0; i < planetNames.Count; i++)
             {
-
                 CreateNewPlanet(planetSprites[i], planetNames[i], planetModels[i]);
             }
         }
@@ -41,9 +46,20 @@ public class PlanetListManager : MonoBehaviour
 
     private void CreateNewPlanet(Sprite planetSprite, string planetName, GameObject planetObject)
     {
-        var planetInstance = Instantiate(planetPrefab, planetListContent);
-        var planetManager = planetInstance.GetComponent<PlanetPrefabManager>();
+        var planetListElement = Instantiate(planetObjectPrefab, planetListContent);
+        var planetInfoTab = Instantiate(planetInfoPrefab, canvas);
+        
+        var planetListElementPrefabController = planetListElement.GetComponent<PlanetListElementPrefabController>();
+        var planetInfoPrefabController = planetInfoTab.GetComponent<PlanetInfoPrefabController>();
+        
+        var propertyNames = new [] { "Temperature", "Size" };
+        var propertyValues = new [] { "HOT", "BIG" };
+        
         Debug.Log(cameraControl);
-        planetManager.SetPlanetInfo(planetSprite, planetName, planetObject, cameraControl);
+        
+        planetListElementPrefabController.SetPlanetInfo(planetSprite, planetName, planetObject, cameraControl, planetInfoTab);
+        planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite, propertyNames, propertyValues);
+        
+        planetInfoTab.SetActive(false);
     }
 }
