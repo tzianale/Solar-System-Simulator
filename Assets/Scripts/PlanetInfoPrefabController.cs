@@ -15,10 +15,12 @@ public class PlanetInfoPrefabController : MonoBehaviour
 
     [SerializeField] private GameObject planetPropertiesContainer;
 
+    [SerializeField] private TextMeshProUGUI planetDescriptionContainer;
+
     [SerializeField] private float propertiesTextSize;
 
 
-    public void SetPlanetInfo(string planetName, Sprite planetSprite, IEnumerable<string> planetPropertiesNames, IEnumerable<string> planetPropertiesValues)
+    public void SetPlanetInfo(string planetName, Sprite planetSprite, IEnumerable<string> planetPropertiesNames, IEnumerable<string> planetPropertiesValues, string planetDescription)
     {
         planetNameField.text = planetName;
         planetSpriteField.GetComponent<Image>().sprite = planetSprite;
@@ -27,6 +29,8 @@ public class PlanetInfoPrefabController : MonoBehaviour
         {
             childWithPropertyToAdd.transform.SetParent(planetPropertiesContainer.transform, false);
         }
+
+        planetDescriptionContainer.text = planetDescription;
     }
 
 

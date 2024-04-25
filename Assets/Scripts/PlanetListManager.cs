@@ -52,13 +52,23 @@ public class PlanetListManager : MonoBehaviour
         var planetListElementPrefabController = planetListElement.GetComponent<PlanetListElementPrefabController>();
         var planetInfoPrefabController = planetInfoTab.GetComponent<PlanetInfoPrefabController>();
         
-        var propertyNames = new [] { "Temperature", "Size" };
-        var propertyValues = new [] { "HOT", "BIG" };
+        var propertyNames = new [] { "Mass", "Radius", "Surface Temperature", "Distance from Sun" };
+        var propertyValues = new [] { "CHONKY", "LONG", "HOT", "FAR" };
+        var planetDescription = 
+            "This planet be planeting!" +
+            "This planet be planeting!" + 
+            "This planet be planeting!" +
+            "This planet be planeting!" +
+            "This planet be planeting!" +
+            "This planet be planeting!" +
+            "This planet be planeting!" +
+            "This planet be planeting!" +
+            "This planet be planeting!";
         
         Debug.Log(cameraControl);
         
         planetListElementPrefabController.SetPlanetInfo(planetSprite, planetName, planetObject, cameraControl, planetInfoTab);
-        planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite, propertyNames, propertyValues);
+        planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite, propertyNames, propertyValues, planetDescription);
         
         planetInfoTab.SetActive(false);
     }
