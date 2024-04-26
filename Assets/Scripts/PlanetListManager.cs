@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using utils;
+using Button = UnityEngine.UI.Button;
 
 public class PlanetListManager : MonoBehaviour
 {
@@ -27,6 +29,9 @@ public class PlanetListManager : MonoBehaviour
     [SerializeField]
     private CameraControl cameraControl;
 
+
+    private Wrapper<GameObject> _activeInfoTab = new (null);
+
     
     // Start is called before the first frame update
     private void Start()
@@ -51,6 +56,8 @@ public class PlanetListManager : MonoBehaviour
         
         var planetListElementPrefabController = planetListElement.GetComponent<PlanetListElementPrefabController>();
         var planetInfoPrefabController = planetInfoTab.GetComponent<PlanetInfoPrefabController>();
+
+        var planetInfoCloseButton = planetInfoTab.GetComponentInChildren<Button>();
         
         var propertyNames = new [] { "Mass", "Radius", "Surface Temperature", "Distance from Sun" };
         var propertyValues = new [] { "CHONKY", "LONG", "HOT", "FAR" };
@@ -67,7 +74,7 @@ public class PlanetListManager : MonoBehaviour
         
         Debug.Log(cameraControl);
         
-        planetListElementPrefabController.SetPlanetInfo(planetSprite, planetName, planetObject, cameraControl, planetInfoTab);
+        planetListElementPrefabController.SetPlanetInfo(planetSprite, planetName, planetObject, cameraControl, planetInfoTab, _activeInfoTab, planetInfoCloseButton);
         planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite, propertyNames, propertyValues, planetDescription);
         
         planetInfoTab.SetActive(false);
