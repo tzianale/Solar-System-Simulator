@@ -6,6 +6,9 @@ using Button = UnityEngine.UI.Button;
 public class PlanetListManager : MonoBehaviour
 {
     [SerializeField]
+    private GameObject sun;
+    
+    [SerializeField]
     private Transform planetListContent;
     
     [SerializeField]
@@ -28,7 +31,6 @@ public class PlanetListManager : MonoBehaviour
 
     [SerializeField]
     private CameraControl cameraControl;
-
 
     private Wrapper<GameObject> _activeInfoTab = new (null);
 
@@ -59,8 +61,9 @@ public class PlanetListManager : MonoBehaviour
 
         var planetInfoCloseButton = planetInfoTab.GetComponentInChildren<Button>();
         
-        var propertyNames = new [] { "Mass", "Radius", "Surface Temperature", "Distance from Sun" };
-        var propertyValues = new [] { "CHONKY", "LONG", "HOT", "FAR" };
+        var propertyNames = new [] { "Mass", "Radius", "Surface Temperature"};
+        var propertyValues = new [] { "CHONKY", "LONG", "HOT"};
+        
         var planetDescription = 
             "This planet be planeting!" +
             "This planet be planeting!" + 
@@ -74,8 +77,11 @@ public class PlanetListManager : MonoBehaviour
         
         Debug.Log(cameraControl);
         
-        planetListElementPrefabController.SetPlanetInfo(planetSprite, planetName, planetObject, cameraControl, planetInfoTab, _activeInfoTab, planetInfoCloseButton);
-        planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite, propertyNames, propertyValues, planetDescription);
+        planetListElementPrefabController.SetPlanetInfo(planetSprite, planetName, planetObject, 
+            cameraControl, planetInfoTab, _activeInfoTab, planetInfoCloseButton);
+        
+        planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite,
+            propertyNames, propertyValues, planetObject, sun, planetDescription);
         
         planetInfoTab.SetActive(false);
     }
