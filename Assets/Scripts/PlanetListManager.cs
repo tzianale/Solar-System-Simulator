@@ -32,7 +32,7 @@ public class PlanetListManager : MonoBehaviour
     [SerializeField]
     private CameraControl cameraControl;
 
-    private Wrapper<GameObject> _activeInfoTab = new (null);
+    private readonly Wrapper<GameObject> _activeInfoTab = new (null);
 
     
     // Start is called before the first frame update

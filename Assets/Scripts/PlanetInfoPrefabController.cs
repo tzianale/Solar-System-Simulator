@@ -4,22 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class PlanetInfoPrefabController : MonoBehaviour
+public abstract class PlanetInfoPrefabController : MonoBehaviour
 {
     private const string UnknownPropertyText = "Unknown";
-    private const string NameValueSeparator = " : ";
+    private protected const string NameValueSeparator = " : ";
     
-    [SerializeField] private TextMeshProUGUI planetNameField;
+    [SerializeField] private protected TextMeshProUGUI planetNameField;
 
-    [SerializeField] private GameObject planetSpriteField;
+    [SerializeField] private protected GameObject planetSpriteField;
 
-    [SerializeField] private GameObject planetStaticPropertiesContainer;
+    [SerializeField] private protected GameObject planetStaticPropertiesContainer;
 
-    [SerializeField] private GameObject planetVariablePropertiesContainer;
+    [SerializeField] private protected GameObject planetVariablePropertiesContainer;
 
-    [SerializeField] private TextMeshProUGUI planetDescriptionContainer;
-
-    [SerializeField] private float propertiesTextSize;
+    [SerializeField] private protected int propertiesTextSize;
+    
+    [SerializeField] private protected TextMeshProUGUI planetDescriptionContainer;
 
     private GameObject _linkedPlanet;
     private GameObject _linkedSun;
@@ -58,7 +58,7 @@ public class PlanetInfoPrefabController : MonoBehaviour
     {
         var newVariablePropertiesList = GenerateVariablePropertiesValues();
 
-        for (int propertyIndex = 0; propertyIndex < planetVariablePropertiesContainer.transform.childCount; propertyIndex++)
+        for (var propertyIndex = 0; propertyIndex < planetVariablePropertiesContainer.transform.childCount; propertyIndex++)
         {
             var textElement = planetVariablePropertiesContainer.transform.GetChild(propertyIndex).GetComponent<TextMeshProUGUI>();
         
@@ -88,7 +88,7 @@ public class PlanetInfoPrefabController : MonoBehaviour
             if (elementIndex < propertiesNamesCount) propertyName = planetPropertiesNames.ElementAt(elementIndex);
             if (elementIndex < propertiesValuesCount) propertyValue = planetPropertiesValues.ElementAt(elementIndex);
 
-            resultList.Add(GenerateProperty(propertyName, propertyValue));
+            resultList.Add(GeneratePropertyDependingOnSubClass(propertyName, propertyValue));
         }
 
         return resultList;
@@ -100,31 +100,28 @@ public class PlanetInfoPrefabController : MonoBehaviour
         var resultList = new List<GameObject>();
         var bodySpeed = _linkedPlanet.GetComponent<CelestialBody>().velocity.magnitude.ToString("n2");
         
-        resultList.Add(GenerateProperty("Speed", bodySpeed));
+        resultList.Add(GeneratePropertySubClassIndependently("Speed", bodySpeed));
 
         var distanceToSun = _linkedPlanet.transform.position - _linkedSun.transform.position;
         
-        resultList.Add(GenerateProperty("Distance to Sun", distanceToSun.magnitude.ToString("n2")));
+        resultList.Add(GeneratePropertySubClassIndependently("Distance to Sun", distanceToSun.magnitude.ToString("n2")));
 
         return resultList;
     }
-
-
+    
     private List<string> GenerateVariablePropertiesValues()
     {
-        var resultList = new List<string>();
-        
-        resultList.Add("Speed" + NameValueSeparator + _linkedPlanet.GetComponent<CelestialBody>().velocity.magnitude);
+        var velocity = _linkedPlanet.GetComponent<CelestialBody>().velocity.magnitude;
+        var distanceToSun = (_linkedPlanet.transform.position - _linkedSun.transform.position).magnitude;
 
-        var distanceToSun = _linkedPlanet.transform.position - _linkedSun.transform.position;
-        
-        resultList.Add("Distance to Sun" + NameValueSeparator + distanceToSun.magnitude);
-
-        return resultList;
+        return new List<string>
+        {
+            "Speed" + NameValueSeparator + velocity.ToString("F2"),
+            "Distance to Sun" + NameValueSeparator + distanceToSun.ToString("F2")
+        };
     }
-
-
-    private GameObject GenerateProperty(string propertyName, string propertyValue)
+    
+    private protected GameObject GeneratePropertySubClassIndependently(string propertyName, string propertyValue)
     {
         var newListElement = new GameObject(propertyName + " Property");
 
@@ -140,6 +137,8 @@ public class PlanetInfoPrefabController : MonoBehaviour
 
         return newListElement;
     }
+
+    private protected abstract GameObject GeneratePropertyDependingOnSubClass(string propertyName, string propertyValue);
 
 
     private static int GetMaxInt(int firstNumber, int secondNumber)
