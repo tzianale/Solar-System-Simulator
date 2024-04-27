@@ -3,15 +3,22 @@ image: Visual Studio 2019
 
 environment:
   SONARQUBE_SCANNER_MSBUILD_VERSION: 5.2.1
+  UNITY_PATH: 'C:\Program Files\Unity\Editor'  # Adjust the path based on your Unity installation location
+
+cache:
+  - '%UNITY_PATH% => AppData\Local\Unity\Cache'
 
 install:
-  # Install Unity3D
-  - ps: choco install unity -y
+  # Check if Unity is already installed to skip installation if it's cached
+  - if not exist "%UNITY_PATH%" (choco install unity --version 2022.3.18f1 -y)
 
 before_build:
   - dotnet tool install --global dotnet-sonarscanner
 
 build_script:
+  # Add Unity installation path to the system PATH
+  - set PATH=%UNITY_PATH%;%PATH%
+
   # Build your Unity project
   - unity -quit -batchmode -projectPath "%APPVEYOR_BUILD_FOLDER%" -executeMethod UnityEditor.TestTools.CommandLineTestRunner.RunAllTests -runTests
 
@@ -23,4 +30,3 @@ build_script:
 artifacts:
   - path: 'Builds/Windows'
     name: WindowsBuild
-
