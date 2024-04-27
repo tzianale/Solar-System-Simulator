@@ -10,7 +10,7 @@ cache:
 
 install:
   # Check if Unity is already installed to skip installation if it's cached
-  - if not exist "%UNITY_PATH%" (choco install unity --version 2022.3.18f1 -y)
+  - if not exist "%UNITY_PATH%" (choco install unity --version=2022.3.18 -y)
 
 before_build:
   - dotnet tool install --global dotnet-sonarscanner
