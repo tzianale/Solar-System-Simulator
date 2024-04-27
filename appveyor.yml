@@ -8,8 +8,8 @@ install:
   # Install Unity3D
   - ps: choco install unity -y
 
-  # Install SonarScanner for MSBuild
-  - ps: choco install sonarscanner-msbuild -y
+before_build:
+  - dotnet tool install --global dotnet-sonarscanner
 
 build_script:
   # Build your Unity project
