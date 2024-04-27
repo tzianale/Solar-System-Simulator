@@ -1,0 +1,26 @@
+version: 1.0.{build}
+image: Visual Studio 2019
+
+environment:
+  SONARQUBE_SCANNER_MSBUILD_VERSION: 5.2.1
+
+install:
+  # Install Unity3D
+  - ps: choco install unity -y
+
+  # Install SonarScanner for MSBuild
+  - ps: choco install sonarscanner-msbuild -y
+
+build_script:
+  # Build your Unity project
+  - unity -quit -batchmode -projectPath "%APPVEYOR_BUILD_FOLDER%" -executeMethod UnityEditor.TestTools.CommandLineTestRunner.RunAllTests -runTests
+
+  # Run SonarQube analysis
+  - sonar-scanner begin /d:sonar.host.url="http://160.85.252.80:9000" /d:sonar.login="your-sonarqube-token"
+  - msbuild /t:Rebuild
+  - sonar-scanner end /d:sonar.login="your-sonarqube-token"
+
+artifacts:
+  - path: 'Builds/Windows'
+    name: WindowsBuild
+
