@@ -11,8 +11,8 @@ before_build:
   - dotnet tool install --global dotnet-sonarscanner
 
 build_script:
-  - dir "C:\Program Files\Unity.exe" /s /b
-  - setx PATH "%PATH%;C:\Program Files\Unity\Editor" /M
+  #- dir "C:\Program Files\Unity.exe" /s /b
+  - setx PATH "%PATH%;C:\Program Files\Unity 2022.3.18f1\Editor" /M
 
   # Build your Unity project
   - unity -quit -batchmode -projectPath "%APPVEYOR_BUILD_FOLDER%" -executeMethod UnityEditor.TestTools.CommandLineTestRunner.RunAllTests -runTests
