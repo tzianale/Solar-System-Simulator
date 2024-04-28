@@ -274,9 +274,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3947558400533425857}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 141.5, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 141.5, y: -23.965}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2382303085784146779
@@ -665,8 +665,8 @@ MonoBehaviour:
   planetSpriteField: {fileID: 5880302592671117884}
   planetStaticPropertiesContainer: {fileID: 4592229094183822720}
   planetVariablePropertiesContainer: {fileID: 2417789392604347042}
-  planetDescriptionContainer: {fileID: 7270972794486920520}
   propertiesTextSize: 15
+  planetDescriptionContainer: {fileID: 7270972794486920520}
 --- !u!114 &1721943372574888020
 MonoBehaviour:
   m_ObjectHideFlags: 0

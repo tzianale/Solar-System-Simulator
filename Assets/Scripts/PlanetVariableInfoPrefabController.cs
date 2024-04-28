@@ -8,11 +8,6 @@ public class PlanetVariableInfoPrefabController : PlanetInfoPrefabController
     {
         var newListElement = GenerateInputField(propertyName, propertyValue);
 
-        var contentSizeFitter = newListElement.AddComponent<ContentSizeFitter>();
-
-        contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
-        contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-
         return newListElement;
     }
 
@@ -22,15 +17,17 @@ public class PlanetVariableInfoPrefabController : PlanetInfoPrefabController
         // Good question, I don't know either!
         var newListElement = TMP_DefaultControls.CreateInputField(new TMP_DefaultControls.Resources());
         
-        
-        
-        return newListElement;
-        
-        var textComponent = newListElement.GetComponent<TextMeshProUGUI>();
-        
-        textComponent.text = propertyName + NameValueSeparator + propertyValue;
-        textComponent.fontSize = propertiesTextSize;
+        var inputField = newListElement.GetComponent<TMP_InputField>();
+        var inputSprite = newListElement.GetComponent<Image>();
 
+        inputSprite.enabled = false;
+        
+        inputField.lineType = TMP_InputField.LineType.MultiLineSubmit;
+        inputField.pointSize = propertiesTextSize;
+        inputField.textComponent.color = Color.white;
+        
+        inputField.text = propertyName + NameValueSeparator + propertyValue;
+        
         return newListElement;
     }
 }

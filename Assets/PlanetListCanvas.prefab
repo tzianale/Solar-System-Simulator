@@ -533,6 +533,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7719326879843331342}
+  - {fileID: 6342690351533209236}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -778,7 +779,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1532994944392091478}
   - component: {fileID: 1042395342577459357}
-  - component: {fileID: 3093572256212823807}
   m_Layer: 0
   m_Name: Planet List Content
   m_TagString: Untagged
@@ -831,31 +831,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
---- !u!114 &3093572256212823807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6975525522594302288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 046708c5710ad5f48ad89b128f8f3930, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planetListContent: {fileID: 1532994944392091478}
-  planetPrefab: {fileID: 4332388958630750679, guid: 81c0531d9e100974dbe82719d2c46a6f, type: 3}
-  planetNames:
-  - Sun
-  - Earth
-  planetSprites:
-  - {fileID: 21300000, guid: 3f2932185327a2f47acd4c53bb44d351, type: 3}
-  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
-  planetModels:
-  - {fileID: 0}
-  - {fileID: 0}
-  cameraAdjustments: 2c01000064000000
-  gameCamera: {fileID: 0}
 --- !u!1 &7400577064352035149
 GameObject:
   m_ObjectHideFlags: 0
@@ -902,6 +877,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7719326879843331342}
   - component: {fileID: 7231061205755359680}
+  - component: {fileID: 929269257475290902}
   m_Layer: 0
   m_Name: PlanetListContainer
   m_TagString: Untagged
@@ -938,6 +914,89 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41b627370e3b7c4aadf99bb5019416c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDistance: 100
+  moveDistance: {x: 0, y: 0, z: 0}
   moveSpeed: 1
   buttonText: {fileID: 8744497797996500904}
+--- !u!114 &929269257475290902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332405122656819923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 046708c5710ad5f48ad89b128f8f3930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sun: {fileID: 0}
+  planetListContent: {fileID: 1532994944392091478}
+  canvas: {fileID: 0}
+  planetObjectPrefab: {fileID: 4332388958630750679, guid: 81c0531d9e100974dbe82719d2c46a6f, type: 3}
+  planetInfoPrefab: {fileID: 4332388958630750679, guid: 90aa117506211da479e3f89305c9a4cd, type: 3}
+  planetNames:
+  - Sun
+  - Mercury
+  - Venus
+  - Earth
+  - Mars
+  - Jupiter
+  - Saturn
+  - Uranus
+  - Neptun
+  planetSprites:
+  - {fileID: 21300000, guid: 3f2932185327a2f47acd4c53bb44d351, type: 3}
+  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+  planetModels:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  cameraControl: {fileID: 0}
+--- !u!1 &8848285810528392978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6342690351533209236}
+  m_Layer: 0
+  m_Name: PlanetInfoContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6342690351533209236
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8848285810528392978}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.0001769537}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8432808031280865210}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -175.00037, y: -0.00032646564}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
