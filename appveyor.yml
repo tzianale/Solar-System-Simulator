@@ -14,11 +14,14 @@ install:
 
 before_build:
   - dotnet tool install --global dotnet-sonarscanner
+  
+  # Set Unity installation path
+  - set UNITY_PATH="C:\Program Files\Unity\Editor\"
+
+  # Add Unity installation path to the system PATH
+  - setx PATH "%UNITY_PATH%;%PATH%"
 
 build_script:
-  # Add Unity installation path to the system PATH
-  - set PATH=%UNITY_PATH%;%PATH%
-
   # Build your Unity project
   - unity -quit -batchmode -projectPath "%APPVEYOR_BUILD_FOLDER%" -executeMethod UnityEditor.TestTools.CommandLineTestRunner.RunAllTests -runTests
 
