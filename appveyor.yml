@@ -14,16 +14,10 @@ install:
 
 before_build:
   - dotnet tool install --global dotnet-sonarscanner
-  
-  # Set Unity installation path
-  - set UNITY_PATH="C:\Program Files\Unity\Editor\"
-
-  # Add Unity installation path to the system PATH
-  - setx PATH "%UNITY_PATH%;%PATH%"
 
 build_script:
   # Build your Unity project
-  - unity -quit -batchmode -projectPath "%APPVEYOR_BUILD_FOLDER%" -executeMethod UnityEditor.TestTools.CommandLineTestRunner.RunAllTests -runTests
+  - "C:\Program Files\Unity\Editor\2022.3.18f1\Editor\Unity.exe" -quit -batchmode -projectPath "%APPVEYOR_BUILD_FOLDER%" -executeMethod UnityEditor.TestTools.CommandLineTestRunner.RunAllTests -runTests
 
   # Run SonarQube analysis
   - sonar-scanner begin /k:"Solar-System-Simulator" /d:sonar.host.url="http://160.85.252.80:9000" /d:sonar.token="sqp_d7e68db7534040b2ecb26c4d2902fda53b63df67"
