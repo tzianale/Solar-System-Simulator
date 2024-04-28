@@ -3,21 +3,17 @@ image: Visual Studio 2019
 
 environment:
   SONARQUBE_SCANNER_MSBUILD_VERSION: 5.2.1
-  UNITY_PATH: 'C:\Program Files\Unity\Editor'  # Adjust the path based on your Unity installation location
-
-cache:
-  - '%UNITY_PATH% => AppData\Local\Unity\Cache'
+  UNITY_PATH: 'C:\Program Files\Unity\Editor\Unity.exe'  # Adjust the path based on your Unity installation location
 
 install:
-  # Check if Unity is already installed to skip installation if it's cached
-  - if not exist "%UNITY_PATH%" (choco install unity --version=2022.3.18 -y)
+  - choco install unity --version=2022.3.18 -y
 
 before_build:
   - dotnet tool install --global dotnet-sonarscanner
 
 build_script:
   # Build your Unity project
-  - "C:\Program Files\Unity\Editor\2022.3.18f1\Editor\Unity.exe" -quit -batchmode -projectPath "%APPVEYOR_BUILD_FOLDER%" -executeMethod UnityEditor.TestTools.CommandLineTestRunner.RunAllTests -runTests
+  - %UNITY_PATH% -quit -batchmode -projectPath "%APPVEYOR_BUILD_FOLDER%" -executeMethod UnityEditor.TestTools.CommandLineTestRunner.RunAllTests -runTests
 
   # Run SonarQube analysis
   - sonar-scanner begin /k:"Solar-System-Simulator" /d:sonar.host.url="http://160.85.252.80:9000" /d:sonar.token="sqp_d7e68db7534040b2ecb26c4d2902fda53b63df67"
