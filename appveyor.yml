@@ -5,18 +5,9 @@ environment:
   SONARQUBE_SCANNER_MSBUILD_VERSION: 5.2.1
 
 install:
-  - java -version
   - choco install unity --version=2022.3.18 -y
 
 before_build:
-  # Download and install Java
-  - $latestJdkUrl = Invoke-RestMethod -Uri "https://api.adoptopenjdk.net/v3/assets/feature_releases/latest/ga?architecture=x64&heap_size=normal&image_type=jdk&jvm_impl=hotspot&os=windows" | Select-Object -ExpandProperty binaries | Select-Object -First 1 -ExpandProperty binary_link
-  - wget $latestJdkUrl -OutFile "java.zip"
-  - Expand-Archive -Path "java.zip" -DestinationPath "C:\Java"
-  - $jdkFolder = Get-ChildItem -Path "C:\Java" | Select-Object -First 1 -ExpandProperty Name
-  - $env:JAVA_HOME = "C:\Java\$jdkFolder"
-  - $env:PATH = "$env:JAVA_HOME\bin;$env:PATH"
-
   - dotnet tool install --global dotnet-sonarscanner
 
 build_script:
@@ -25,6 +16,9 @@ build_script:
 
   # Build your Unity project
   - Unity -serial %UNITY_SERIAL% -username %UNITY_USER_ID% -password %UNITY_USER_PASSWORD% -quit -batchmode -nographics -projectPath C:\projects\solar-system-simulator\ -executeMethod UnityEditor.SyncVS.SyncSolution
+
+  - set JAVA_HOME=C:\Program Files\Java\jdk17
+  - set PATH=%JAVA_HOME%\bin;%PATH%
 
   # Run SonarQube analysis
   - dotnet sonarscanner begin /k:"Solar-System-Simulator" /d:sonar.host.url="http://160.85.252.80:9000"  /d:sonar.token="sqp_d7e68db7534040b2ecb26c4d2902fda53b63df67"
