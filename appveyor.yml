@@ -15,7 +15,7 @@ build_script:
   - set PATH=%PATH%;C:\Program Files\Unity 2022.3.18f1\Editor
 
   # Build your Unity project
-  - Unity -quit -batchmode -nographics -projectPath C:\projects\solar-system-simulator\ -executeMethod UnityEditor.SyncVS.SyncSolution
+  - Unity -quit -batchmode -projectPath C:\projects\solar-system-simulator\
 
   # Run SonarQube analysis
   - dotnet sonarscanner begin /k:"Solar-System-Simulator" /d:sonar.host.url="http://160.85.252.80:9000"  /d:sonar.token="sqp_d7e68db7534040b2ecb26c4d2902fda53b63df67"
