@@ -6,7 +6,13 @@ using UnityEngine.SceneManagement;
 public class EscapeScript : MonoBehaviour
 {
 
-    public GameObject Panel;
+    private GameObject panel;
+
+    public GameObject Panel
+    {
+        get { return panel; }
+        set { panel = value; }
+    }
     public void openPanel()
     {
         if (Panel != null)
@@ -23,7 +29,7 @@ public class EscapeScript : MonoBehaviour
         }
     }
 
-    public void escapeGame()
+    private void escapeGame()
     {
         SceneManager.LoadSceneAsync(0);
     }
