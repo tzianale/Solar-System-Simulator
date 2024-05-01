@@ -21,26 +21,30 @@ public class CelestialBody : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         celestialBodies = FindObjectsOfType<CelestialBody>();
+
+        GenerateOrbitLine();
     }
 
     void FixedUpdate()
-    {
-        if (isGravityOn)
+    {   if (!GameStateController.isPaused)
         {
-            foreach (CelestialBody planet in celestialBodies)
+            if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Sandbox)
             {
-                if (planet != this)
+                foreach (CelestialBody planet in celestialBodies)
                 {
-                    UpdateVelocity(planet);
+                    if (planet != this)
+                    {
+                        UpdateVelocity(planet);
+                    }
                 }
+                UpdatePosition();
             }
-            UpdatePosition();
-        }
-        else
-        {
-            if (celestType != CelestialBodyType.Sun)
+            else
             {
-                UpdatePositionByDate();
+                if (celestType != CelestialBodyType.Sun)
+                {
+                    UpdatePositionByDate();
+                }
             }
         }
     }
@@ -61,13 +65,45 @@ public class CelestialBody : MonoBehaviour
 
     private void UpdatePositionByDate()
     {
-        float x = (float) Math.Cos(2 * Math.PI / (365.256363004 * ratioToEarthYear) * day) * orbitRadius;
-        float z = (float) Math.Sin(2 * Math.PI / (365.256363004 * ratioToEarthYear) * day) * orbitRadius;
+        float x = (float) Math.Cos(2 * Math.PI / (365.256363004 * ratioToEarthYear) * GameStateController.explorerModeDay) * orbitRadius;
+        float z = (float) Math.Sin(2 * Math.PI / (365.256363004 * ratioToEarthYear) * GameStateController.explorerModeDay) * orbitRadius;
         rb.MovePosition(new Vector3(x, 0, z));
     }
+
+    public Vector3[] GetOrbitLinePoints()
+    {
+        int pointsLentgth = 360;
+        Vector3[] points = new Vector3[pointsLentgth];
+
+        for (int i = 0; i < pointsLentgth;  i++)
+        {
+            float x = (float)Math.Cos(2 * Math.PI / pointsLentgth * i) * orbitRadius;
+            float z = (float)Math.Sin(2 * Math.PI / pointsLentgth * i) * orbitRadius;
+            points[i] = new Vector3(x, 0, z);
+        }
+
+        return points;
+    }
+
+    private void GenerateOrbitLine()
+    {
+        GameObject orbitLineGameObject = new GameObject("OrbitLine");
+        orbitLineGameObject.transform.SetParent(transform);
+
+        LineRenderer lineRenderer = orbitLineGameObject.AddComponent<LineRenderer>();
+        lineRenderer.loop = true;
+        lineRenderer.widthMultiplier = 10;
+
+        OrbitLineController orbitLineController = orbitLineGameObject.AddComponent<OrbitLineController>();
+        orbitLineController.CelestialBody = this;
+    }
+
+    public Vector3 getPostion()
+    {
+        return GetComponent<Transform>().position;
+    }
     
-// Getter-Methoden
-    // Getter- und Setter-Methoden
+    // getter- und setter-methods
     public CelestialBodyType GetCelestialBodyType() => celestType;
     public void SetCelestialBodyType(CelestialBodyType type) => celestType = type;
 
