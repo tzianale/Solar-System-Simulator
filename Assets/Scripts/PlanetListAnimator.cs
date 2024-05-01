@@ -4,12 +4,12 @@ using System.Collections;
 
 public class PlanetListContainerScript : MonoBehaviour
 {
-    public Transform _planetListContainerTransform;
-    public bool _listIsOpen;
+    private Transform _planetListContainerTransform;
+    private bool _listIsOpen;
     
-    public float moveDistance = 210f; // The distance to move the panel.
-    public float moveSpeed = 5.0f; // How fast the panel moves.
-    public TextMeshProUGUI buttonText;
+    private float moveDistance = 210f; // The distance to move the panel.
+    private float moveSpeed = 5.0f; // How fast the panel moves.
+    private TextMeshProUGUI buttonText;
 
     // Start is called before the first frame update
     void Start()
@@ -17,8 +17,26 @@ public class PlanetListContainerScript : MonoBehaviour
         _planetListContainerTransform = transform;
     }
 
+    public Transform PlanetListContainerTransform
+    {
+        get => _planetListContainerTransform;
+        set => _planetListContainerTransform = value;
+    }
+
+    public bool ListIsOpen
+    {
+        get => _listIsOpen;
+        private set => _listIsOpen = value;
+    }
+    
+    public TextMeshProUGUI ButtonText
+    {
+        get => buttonText;
+        set => buttonText = value;
+    }
+
     public void OnArrowClick()
-{
+    {
     Debug.Log("OnArrowClick called. Current _listIsOpen: " + _listIsOpen);
 
     if (_listIsOpen)
@@ -35,7 +53,9 @@ public class PlanetListContainerScript : MonoBehaviour
         buttonText.text = "↓";
         Debug.Log("Panel is now opening. New text: " + buttonText.text);
     }
-}
+    }
+
+    
 
 
     private IEnumerator MovePanel(Vector3 target)
