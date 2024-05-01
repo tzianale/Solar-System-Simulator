@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameStateScript : MonoBehaviour
 {
-    public bool isPaused = false;
+    private bool isPaused = false;
     private float lastSpeed = 1f;
 
     public void playPause()
@@ -37,5 +37,6 @@ public class GameStateScript : MonoBehaviour
     {
        if(Time.timeScale != 0) Time.timeScale = 100;
     }
+    public bool isSolarsystemPaused() => isPaused;
 
 }
