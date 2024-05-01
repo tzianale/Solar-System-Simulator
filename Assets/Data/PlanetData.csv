@@ -1,0 +1,13 @@
+﻿Planet Name;Mass;PlanetType;Surface Temperature;Radius;Gravity;Average Orbital Speed;MoonCount;Orbit Length;Orbit Duration;Day Duration
+Mercury;0.330*10^24kg;Rocky Planet; -193° C / 427° C;2440km;0.38g;47.36 km/s;0;;88d;176d
+Venus;4.87*10^24kg;Rocky Planet;464° C;;;;;;;
+Earth;5.97*10^24kg;Rocky Planet; -89.2° C / 56.7° C;;;;;;;
+Earths Moon;0.073*10^24kg;Rocky Moon; -173.15° C / 116.85° C;;;;;;;
+Mars;0.642*10^24kg;Rocky Planet;;;;;;;;
+Phobos;1.06*10^16kg;Rocky Moon;;;;;;;;
+Deimos;0.151*10^16kg;Rocky Moon;;;;;;;;
+Jupiter;1898*10^24kg;Gas Giant;;;;;;;;
+Saturn;568*10^24kg;Gas Giant;;;;;;;;
+Uranus;86.8*10^24kg;Ice Giant;;;;;;;;
+Neptune;102*10^24kg;Ice Giant;;;;;;;;
+Pluto;0.0130*10^24kg;Dwarf Planet;;;;;;;;
