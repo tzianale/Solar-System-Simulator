@@ -38,11 +38,13 @@ public class MainMenuScript : MonoBehaviour
 
     private void loadExplorer()
     {
+        SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Explorer;
         SceneManager.LoadSceneAsync(2);
     }
 
     private void loadSandbox()
     {
+        SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Sandbox;
         SceneManager.LoadSceneAsync(1);
     }
 

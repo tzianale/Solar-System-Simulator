@@ -227,8 +227,6 @@ MonoBehaviour:
   celestType: 0
   velocity: {x: 0, y: 0, z: 0}
   mass: 1.99e+22
-  isGravityOn: 0
-  day: 0
   orbitRadius: 0
   ratioToEarthYear: 1
 --- !u!135 &236659529
@@ -537,8 +535,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 5}
   mass: 1.898e+19
-  isGravityOn: 1
-  day: 10
   orbitRadius: 10400
   ratioToEarthYear: 1
 --- !u!135 &469337564
@@ -690,8 +686,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 3}
   mass: 5.68e+18
-  isGravityOn: 1
-  day: 10
   orbitRadius: 19140
   ratioToEarthYear: 1
 --- !u!135 &532052287
@@ -848,8 +842,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 21.3}
   mass: 8.68e+17
-  isGravityOn: 1
-  day: 10
   orbitRadius: 38340
   ratioToEarthYear: 1
 --- !u!135 &711106383
@@ -997,6 +989,7 @@ GameObject:
   - component: {fileID: 963194226}
   - component: {fileID: 963194230}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194231}
   m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1157,6 +1150,18 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &963194231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dd3075a12ac44d4690b1c09d39020ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &973121218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1314,8 +1319,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 9}
   mass: 6.42e+15
-  isGravityOn: 1
-  day: 10
   orbitRadius: 3040
   ratioToEarthYear: 1
 --- !u!135 &1222205785
@@ -1429,20 +1432,228 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 963194227}
     - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraControl
+      value: 
+      objectReference: {fileID: 791345435}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetNames.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetModels.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetNames.Array.data[1]
+      value: Mercury
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetNames.Array.data[2]
+      value: Venus
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetNames.Array.data[3]
+      value: Earth
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetNames.Array.data[4]
+      value: Mars
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetNames.Array.data[5]
+      value: Jupiter
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetNames.Array.data[6]
+      value: Saturn
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetNames.Array.data[7]
+      value: Uranus
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetNames.Array.data[8]
+      value: Neptun
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetNames.Array.data[9]
+      value: Saturn
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: planetModels.Array.data[0]
       value: 
       objectReference: {fileID: 236659527}
     - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: planetModels.Array.data[1]
       value: 
+      objectReference: {fileID: 1512896388}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetModels.Array.data[2]
+      value: 
+      objectReference: {fileID: 1996431358}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetModels.Array.data[3]
+      value: 
       objectReference: {fileID: 1923049638}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetModels.Array.data[4]
+      value: 
+      objectReference: {fileID: 1222205782}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetModels.Array.data[5]
+      value: 
+      objectReference: {fileID: 469337561}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetModels.Array.data[6]
+      value: 
+      objectReference: {fileID: 532052284}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetModels.Array.data[7]
+      value: 
+      objectReference: {fileID: 711106380}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetModels.Array.data[8]
+      value: 
+      objectReference: {fileID: 1918121188}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.data[6]
+      value: 
+      objectReference: {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.data[7]
+      value: 
+      objectReference: {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.data[8]
+      value: 
+      objectReference: {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[2]
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[3]
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[4]
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[5]
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[6]
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[7]
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[8]
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[9]
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[0].y
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[1].y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[2].y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[3].y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[4].y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[5].y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[6].y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[7].y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093572256212823807, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: cameraAdjustments.Array.data[8].y
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 4484248817493086626, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: m_Name
       value: PlanetListCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5297975359972991035, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: m_Size
+      value: 0.488
+      objectReference: {fileID: 0}
+    - target: {fileID: 6869580773035803672, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 963194227}
+    - target: {fileID: 6869580773035803672, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6869580773035803672, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: m_PixelPerfect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6869580773035803672, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: m_UpdateRectTransformForStandalone
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7231061205755359680, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: moveDistance
       value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231061205755359680, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: moveDistance.y
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7231061205755359680, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: moveDistance.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432808031280865210, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: m_Pivot.x
@@ -1600,8 +1811,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 12}
   mass: 3.3e+15
-  isGravityOn: 1
-  day: 10
   orbitRadius: 774
   ratioToEarthYear: 1
 --- !u!135 &1512896391
@@ -1758,8 +1967,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 23.5}
   mass: 1.02e+18
-  isGravityOn: 1
-  day: 10
   orbitRadius: 60360
   ratioToEarthYear: 1
 --- !u!135 &1918121191
@@ -1884,8 +2091,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 11.2}
   mass: 5.97217e+16
-  isGravityOn: 1
-  day: 10
   orbitRadius: 2000
   ratioToEarthYear: 1
 --- !u!135 &1923049640
@@ -2064,8 +2269,6 @@ MonoBehaviour:
   celestType: 1
   velocity: {x: 0, y: 0, z: 10.4}
   mass: 0.815
-  isGravityOn: 1
-  day: 10
   orbitRadius: 1446
   ratioToEarthYear: 1
 --- !u!135 &1996431361
