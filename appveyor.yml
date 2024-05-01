@@ -30,6 +30,9 @@ build_script:
   - dotnet build C:\projects\solar-system-simulator\Assembly-CSharp.csproj
   - dotnet sonarscanner end /d:sonar.token="sqp_d7e68db7534040b2ecb26c4d2902fda53b63df67"
 
+after_build:
+  - Unity -batchmode -returnlicense
+
 artifacts:
   - path: 'Builds/Windows'
     name: WindowsBuild
