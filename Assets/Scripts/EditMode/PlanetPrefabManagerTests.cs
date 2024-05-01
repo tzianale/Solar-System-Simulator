@@ -10,69 +10,65 @@ public class PlanetPrefabManagerTests
     private GameObject planetSpriteObject;
     private GameObject planetNameObject;
     private Sprite sampleSprite;
-    private Camera sampleCamera;
+    private CameraControl sampleCameraControl;
 
+    // Setup method: initializes all necessary objects and components for the tests.
     [SetUp]
-public void Setup()
-{
-    // Create a larger texture
-    Texture2D largeTexture = new Texture2D(100, 100, TextureFormat.RGBA32, false);
-
-    // Fill the texture with a solid color
-    Color fill = Color.white;
-    Color[] fillPixels = new Color[largeTexture.width * largeTexture.height];
-    for (int i = 0; i < fillPixels.Length; i++)
+    public void Setup()
     {
-        fillPixels[i] = fill;
+        // Create the main game object which will hold the PlanetPrefabManager component.
+        planetObject = new GameObject("PlanetManager");
+        planetManager = planetObject.AddComponent<PlanetPrefabManager>();
+
+        // Create and setup the planet sprite object with an Image component.
+        planetSpriteObject = new GameObject("PlanetSprite");
+        planetSpriteObject.AddComponent<Image>();
+
+        // Create and setup the planet name object with a TextMeshProUGUI component.
+        planetNameObject = new GameObject("PlanetName");
+        planetNameObject.AddComponent<TextMeshProUGUI>();
+
+        // Assign the created objects manually to the private fields in PlanetPrefabManager using reflection
+        // This is necessary because these fields are private and not directly accessible.
+        var fields = planetManager.GetType().GetFields(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.FlattenHierarchy);
+        foreach (var field in fields)
+        {
+            if (field.Name == "planetSprite")
+                field.SetValue(planetManager, planetSpriteObject);
+            else if (field.Name == "planetName")
+                field.SetValue(planetManager, planetNameObject);
+        }
+
+        // Create a sample sprite to be used in tests.
+        sampleSprite = Sprite.Create(new Texture2D(100, 100), new Rect(0, 0, 100, 100), new Vector2(0.5f, 0.5f));
+
+        // Create a sample camera control object to be used in tests.
+        sampleCameraControl = new GameObject("CameraControl").AddComponent<CameraControl>();
     }
-    largeTexture.SetPixels(fillPixels);
-    largeTexture.Apply();
 
-    // Create the planet manager object
-    planetObject = new GameObject();
-    planetManager = planetObject.AddComponent<PlanetPrefabManager>();
-
-    // Create objects and add necessary components
-    planetSpriteObject = new GameObject();
-    planetSpriteObject.AddComponent<Image>();
-    planetNameObject = new GameObject();
-    planetNameObject.AddComponent<TextMeshProUGUI>();
-
-    // Set fields via reflection or by exposing in the script
-    planetManager.GetType().GetField("planetSprite", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(planetManager, planetSpriteObject);
-    planetManager.GetType().GetField("planetName", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(planetManager, planetNameObject);
-
-    // Setup sample data
-    sampleSprite = Sprite.Create(largeTexture, new Rect(0, 0, 100, 100), new Vector2(0.5f, 0.5f));
-    sampleCamera = new GameObject().AddComponent<Camera>();
-}
-
-
+    // Test method to verify if the SetPlanetInfo correctly assigns the provided values.
     [Test]
     public void SetPlanetInfo_SetsExpectedValues()
     {
-        // Arrange
+        // Arrange: Define the input values for the test.
         var inputName = "Earth";
-        var inputModel = new GameObject();
-        var cameraAdjustment = 10;
+        var inputModel = new GameObject("Model");
 
-        // Act
-        planetManager.SetPlanetInfo(sampleSprite, inputName, inputModel, cameraAdjustment, sampleCamera);
+        // Act: Call the method under test with the arranged values.
+        planetManager.SetPlanetInfo(sampleSprite, inputName, inputModel, sampleCameraControl);
 
-        // Assert
-        Assert.AreEqual(inputName, planetNameObject.GetComponent<TextMeshProUGUI>().text);
-        Assert.AreEqual(sampleSprite, planetSpriteObject.GetComponent<Image>().sprite);
-        Assert.AreEqual(inputModel, planetManager.Planet3DObject);
-        Assert.AreEqual(sampleCamera, planetManager.LinkedCamera);
-        Assert.AreEqual(cameraAdjustment, planetManager.CameraAdjustmentOnPlanetClick);
+        // Assert: Verify that the method correctly set the values.
+        Assert.AreEqual(inputName, planetNameObject.GetComponent<TextMeshProUGUI>().text, "The planet name should be set to the expected value.");
+        Assert.AreEqual(sampleSprite, planetSpriteObject.GetComponent<Image>().sprite, "The sprite should be set to the expected value.");
+        Assert.AreEqual(inputModel, planetManager.Planet3DObject, "The planet model should be set to the expected value.");
+        Assert.AreEqual(sampleCameraControl, planetManager.CameraControl, "The camera control should be set to the expected value.");
     }
 
+    // Teardown method: clean up after each test.
     [TearDown]
     public void Teardown()
     {
-        // Clean up
+        // Destroy all created game objects to clean up after tests.
         Object.DestroyImmediate(planetObject);
-        Object.DestroyImmediate(planetSpriteObject);
-        Object.DestroyImmediate(planetNameObject);
     }
 }
