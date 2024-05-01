@@ -8,31 +8,31 @@ public class CelestialBodyPlayTests
     [UnityTest]
     public IEnumerator Gravity_AttractsCelestialBodies()
     {
-        var sun = new GameObject().AddComponent<CelestialBody>();
+        // Create the sun object
+        var sun = new GameObject("Sun").AddComponent<CelestialBody>();
         sun.transform.position = new Vector3(0, 0, 0);
-        sun.mass = 1.99e+22f;
-        sun.celestType = CelestialBody.CelestialBodyType.Sun;
-        sun.isGravityOn = true;
-        sun.orbitRadius = 0;
+        sun.SetMass(1.99e+22f); // Set mass of the sun
+        sun.SetCelestialBodyType(CelestialBody.CelestialBodyType.Sun); // Type of the sun
+        sun.SetGravityEnabled(true); // Enable gravity
         var sunRb = sun.gameObject.AddComponent<Rigidbody>();
-        sunRb.useGravity = false; // Deactivating Unity's own gravity
-        sunRb.isKinematic = true; // Prevents rigid body physics from influencing the position
+        sunRb.useGravity = false; // Deactivate Unity's own gravity
+        sunRb.isKinematic = true; // Prevent Rigidbody physics from affecting the position
 
-        var mercury = new GameObject().AddComponent<CelestialBody>();
-        mercury.transform.position = new Vector3(755, 0, 0); // Start 10 units away
-        mercury.mass = 3.3e+15f;
-        mercury.celestType = CelestialBody.CelestialBodyType.Planet;
-        mercury.isGravityOn = true;
-        mercury.orbitRadius = 775f;
+        // Create Mercury object
+        var mercury = new GameObject("Mercury").AddComponent<CelestialBody>();
+        mercury.transform.position = new Vector3(755, 0, 0); // Start 755 units away
+        mercury.SetMass(3.3e+15f); // Set mass of Mercury
+        mercury.SetCelestialBodyType(CelestialBody.CelestialBodyType.Planet); // Type of the planet
+        mercury.SetGravityEnabled(true); // Enable gravity
         var planetRb = mercury.gameObject.AddComponent<Rigidbody>();
-        planetRb.useGravity = false; // Deactivating Unity's own gravity
-        planetRb.isKinematic = true; // Prevents rigid body physics from influencing the position
-  
+        planetRb.useGravity = false; // Deactivate Unity's own gravity
+        planetRb.isKinematic = true; // Prevent Rigidbody physics from affecting the position
+
         // Allow some time for gravity to act
-        yield return new WaitForSeconds(0.004f);
+        yield return new WaitForSeconds(0.004f); // Short wait for the gravitational effect
 
         // Check if the planet has moved closer to the sun
         float newDistance = Vector3.Distance(sun.transform.position, mercury.transform.position);
-        Assert.Less(newDistance, 755);
+        Assert.Less(newDistance, 755); // Expect the new distance to be less than 755
     }
 }
