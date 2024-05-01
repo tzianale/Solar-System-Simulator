@@ -12,7 +12,7 @@ public class PlanetVariableInfoPrefabController : PlanetInfoPrefabController
 {
     /// <summary>
     /// Overrides the base method in class PlanetInfoPrefabController.
-    /// Generates InputFields with a given property and returns the created GameObject.
+    /// Generates InputFields with a given property and returns the GameObject containing the information.
     /// </summary>
     /// 
     /// <param name="propertyName">The Name of the property to be initialised</param>
