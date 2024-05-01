@@ -120,6 +120,16 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     }
 
     /// <summary>
+    /// Generates a new empty field for an additional Property at runtime
+    /// </summary>
+    public void AddNewEmptyStaticProperty()
+    {
+        var emptyProperty = GeneratePropertyDependingOnSubClass(UnknownPropertyText, UnknownPropertyText);
+            
+        emptyProperty.transform.SetParent(planetStaticPropertiesContainer.transform, false);
+    }
+
+    /// <summary>
     /// Generate a list of GameObjects containing the various variable properties of the planet
     /// depending on the Dictionary given at the application start
     /// </summary>
