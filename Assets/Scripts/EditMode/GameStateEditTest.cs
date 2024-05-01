@@ -14,14 +14,14 @@ public class GameStateScriptTests
 
         // Assert
         Assert.AreEqual(0, Time.timeScale, "Time.timeScale should be set to 0 when paused");
-        Assert.IsTrue(gameState.isPaused, "isPaused should be true when game is paused");
+        Assert.IsTrue(gameState.isSolarsystemPaused(), "isPaused should be true when game is paused");
 
         // Act - Simulate Unpause
         gameState.playPause();
 
         // Assert
         Assert.AreNotEqual(0, Time.timeScale, "Time.timeScale should not be 0 when unpaused");
-        Assert.IsFalse(gameState.isPaused, "isPaused should be false when game is not paused");
+        Assert.IsFalse((gameState.isSolarsystemPaused()), "isPaused should be false when game is not paused");
     }
 
     [Test]
