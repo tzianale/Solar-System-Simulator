@@ -1,6 +1,7 @@
-using System.Collections.Generic;
-using UnityEngine;
 using utils;
+using System;
+using UnityEngine;
+using System.Collections.Generic;
 using Button = UnityEngine.UI.Button;
 
 public class PlanetListManager : MonoBehaviour
@@ -60,20 +61,22 @@ public class PlanetListManager : MonoBehaviour
         var planetInfoPrefabController = planetInfoTab.GetComponent<PlanetInfoPrefabController>();
 
         var planetInfoCloseButton = planetInfoTab.GetComponentInChildren<Button>();
-        
-        var propertyNames = new [] { "Mass", "Radius", "Surface Temperature"};
-        var propertyValues = new [] { "CHONKY", "LONG", "HOT"};
+
+        var staticProperties = new Dictionary<string, string>()
+        {
+            {"Mass", "-Insert Mass Info Here-"},
+            {"Orbit Duration", "One " + planetName + " year"}
+        };
+
+        var variableProperties = new Dictionary<string, Func<string>>()
+        {
+            {"Current Speed", () => planetObject.GetComponent<CelestialBody>().velocity.magnitude.ToString("n2")},
+            {"Distance to Sun", () => (planetObject.transform.position - sun.transform.position).magnitude.ToString("n2")}
+        };
         
         var planetDescription = 
-            "This planet be planeting!" +
-            "This planet be planeting!" + 
-            "This planet be planeting!" +
-            "This planet be planeting!" +
-            "This planet be planeting!" +
-            "This planet be planeting!" +
-            "This planet be planeting!" +
-            "This planet be planeting!" +
-            "This planet be planeting!";
+            "The planet " + planetName + 
+            " is a famous planet located in the Solar System Sol 12384905330, Galaxy Milky Way 49858456204852076205428, Universe 35904";
         
         Debug.Log(cameraControl);
         
@@ -81,7 +84,7 @@ public class PlanetListManager : MonoBehaviour
             cameraControl, planetInfoTab, _activeInfoTab, planetInfoCloseButton);
         
         planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite,
-            propertyNames, propertyValues, planetObject, sun, planetDescription);
+            staticProperties, variableProperties, planetDescription);
         
         planetInfoTab.SetActive(false);
     }

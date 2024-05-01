@@ -2,15 +2,42 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// Extends the basic PlanetInfoPrefabController by implementing method GeneratePropertyDependingOnSubClass.
+/// This specific implementation replaces Text Fields with Input Fields for certain properties, allowing
+/// the user to tweak the description at will.
+/// </summary>
 public class PlanetVariableInfoPrefabController : PlanetInfoPrefabController
 {
+    /// <summary>
+    /// Overrides the base method in class PlanetInfoPrefabController.
+    /// Generates InputFields with a given property and returns the created GameObject.
+    /// </summary>
+    /// 
+    /// <param name="propertyName">The Name of the property to be initialised</param>
+    /// <param name="propertyValue">The Value of the property to be initialised</param>
+    /// 
+    /// <returns>
+    /// A GameObject with InputField functionalities.
+    /// At the start the Object will have a name and a value for each property.
+    /// The user will then be able to modify both and adapt them to their likings.
+    /// </returns>
     private protected override GameObject GeneratePropertyDependingOnSubClass(string propertyName, string propertyValue)
     {
-        var newListElement = GenerateInputField(propertyName, propertyValue);
-
-        return newListElement;
+        return GenerateInputField(propertyName, propertyValue);
     }
 
+    /// <summary>
+    /// Generates an Input Field GameObjet and initialises the text inside of it depending on the provided parameters.
+    /// </summary>
+    /// 
+    /// <param name="propertyName">The Name of the property to be initialised</param>
+    /// <param name="propertyValue">The Value of the property to be initialised</param>
+    /// 
+    /// <returns>
+    /// The generated Input Field GameObject with the corresponding text
+    /// </returns>
     private GameObject GenerateInputField(string propertyName, string propertyValue)
     {
         // You want to know how I managed to get this method to running?

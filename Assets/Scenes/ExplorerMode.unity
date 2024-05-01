@@ -2053,6 +2053,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlanetListCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7231061205755359680, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: moveDistance.y
+      value: -80
+      objectReference: {fileID: 0}
     - target: {fileID: 8432808031280865210, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: m_Pivot.x
       value: 0
