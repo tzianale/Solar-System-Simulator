@@ -6,8 +6,16 @@ using UnityEngine.SceneManagement;
 public class MainMenuScript : MonoBehaviour
 {
 
-    public GameObject Panel;
-    public void callSettings()
+    private GameObject panel;
+
+    // getter and setter for Panel
+    public GameObject Panel
+    {
+        get { return panel; }
+        set { panel = value; }
+    }
+  
+    private void callSettings()
     {
         SceneManager.LoadSceneAsync(1);
     }
@@ -28,17 +36,17 @@ public class MainMenuScript : MonoBehaviour
         }
     }
 
-    public void loadExplorer()
+    private void loadExplorer()
     {
         SceneManager.LoadSceneAsync(2);
     }
 
-    public void loadSandbox()
+    private void loadSandbox()
     {
         SceneManager.LoadSceneAsync(1);
     }
 
-    public void QuitGame()
+    private void QuitGame()
     {
         Application.Quit();
     }
