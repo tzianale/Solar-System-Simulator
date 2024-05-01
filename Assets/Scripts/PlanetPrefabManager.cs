@@ -14,26 +14,22 @@ public class PlanetPrefabManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] 
     private GameObject planet3DObject;
 
-    [SerializeField] 
-    private Camera linkedCamera;
+    [SerializeField]
+    private CameraControl cameraControl;
 
-    [SerializeField] 
-    private int cameraAdjustmentOnPlanetClick;
-    
-    // Getter-methods
     public GameObject Planet3DObject => planet3DObject;
-    public Camera LinkedCamera => linkedCamera;
-    public int CameraAdjustmentOnPlanetClick => cameraAdjustmentOnPlanetClick;
+    public CameraControl CameraControl => cameraControl;
 
-    public void SetPlanetInfo(Sprite inputSprite, string inputName, GameObject planetModel, int cameraAdjustment, Camera gameCamera)
+    public void SetPlanetInfo(Sprite inputSprite, string inputName, GameObject planetModel, CameraControl cameraCtrl)
+
     {
         planetSprite.GetComponent<Image>().sprite = inputSprite;
         planetName.GetComponent<TextMeshProUGUI>().text = inputName;
         
         planet3DObject = planetModel;
-        linkedCamera = gameCamera;
 
-        cameraAdjustmentOnPlanetClick = cameraAdjustment;
+        cameraControl = cameraCtrl;
+
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -45,13 +41,15 @@ public class PlanetPrefabManager : MonoBehaviour, IPointerClickHandler
                 break;
             case 2: 
                 Debug.Log("Planet " + planetName.GetComponent<TextMeshProUGUI>().text + " double clicked");
-            
-                var newCameraPosition = planet3DObject.GetComponent<Transform>().position;
 
-                newCameraPosition.y += cameraAdjustmentOnPlanetClick;
-            
-                linkedCamera.GetComponent<Transform>().position = newCameraPosition;
-                
+                if (cameraControl.getFollowingStatus())
+                {
+                    cameraControl.StopFollowing();
+                }
+                else
+                {
+                    cameraControl.SetToFollowPosition(planet3DObject.transform);
+                }
                 break;
         }
     }
