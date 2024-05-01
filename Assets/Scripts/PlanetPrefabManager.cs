@@ -12,14 +12,19 @@ public class PlanetPrefabManager : MonoBehaviour, IPointerClickHandler
     private GameObject planetName;
 
     [SerializeField] 
-    public GameObject planet3DObject;
+    private GameObject planet3DObject;
 
     [SerializeField] 
-    public Camera linkedCamera;
+    private Camera linkedCamera;
 
     [SerializeField] 
-    public int cameraAdjustmentOnPlanetClick;
+    private int cameraAdjustmentOnPlanetClick;
     
+    // Getter-methods
+    public GameObject Planet3DObject => planet3DObject;
+    public Camera LinkedCamera => linkedCamera;
+    public int CameraAdjustmentOnPlanetClick => cameraAdjustmentOnPlanetClick;
+
     public void SetPlanetInfo(Sprite inputSprite, string inputName, GameObject planetModel, int cameraAdjustment, Camera gameCamera)
     {
         planetSprite.GetComponent<Image>().sprite = inputSprite;
