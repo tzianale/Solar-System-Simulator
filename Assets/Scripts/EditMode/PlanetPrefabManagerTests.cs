@@ -62,9 +62,9 @@ public void Setup()
         // Assert
         Assert.AreEqual(inputName, planetNameObject.GetComponent<TextMeshProUGUI>().text);
         Assert.AreEqual(sampleSprite, planetSpriteObject.GetComponent<Image>().sprite);
-        Assert.AreEqual(inputModel, planetManager.planet3DObject);
-        Assert.AreEqual(sampleCamera, planetManager.linkedCamera);
-        Assert.AreEqual(cameraAdjustment, planetManager.cameraAdjustmentOnPlanetClick);
+        Assert.AreEqual(inputModel, planetManager.Planet3DObject);
+        Assert.AreEqual(sampleCamera, planetManager.LinkedCamera);
+        Assert.AreEqual(cameraAdjustment, planetManager.CameraAdjustmentOnPlanetClick);
     }
 
     [TearDown]
