@@ -1,60 +1,60 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
+
 
 public class CelestialBodyTest
 {
-    
+    private CelestialBody celestialBody;
+    private GameObject celestialBodyObject;
+
+    [SetUp]
+    public void SetUp()
+    {
+        celestialBodyObject = new GameObject();
+        celestialBody = celestialBodyObject.AddComponent<CelestialBody>();
+    }
+
     [Test]
     public void CelestialBody_Initializes_SunCorrectly()
     {
         //Arrange
-        GameObject celestialBodyObject  = new GameObject();
-        var sun = celestialBodyObject.AddComponent<CelestialBody>();
         var sunMass = 1.99e+22f;
-        var sunDays = 0;
-        var sunOrbitRadius = 0;
-        var sunRatioToEarth = 1;
 
         //Act
-        sun.celestType = CelestialBody.CelestialBodyType.Sun;
-        sun.mass = sunMass;
-        sun.isGravityOn = false;
-        sun.day = sunDays;
-        sun.orbitRadius = sunOrbitRadius;
-        sun.ratioToEarthYear = 1;
+        celestialBody.SetCelestialBodyType(CelestialBody.CelestialBodyType.Sun);
+        celestialBody.SetMass(sunMass);
+        celestialBody.SetGravityEnabled(false);
+        celestialBody.SetDayOfYear(0);
+        celestialBody.SetOrbitRadius(0);
+        celestialBody.SetRatioToEarthYear(1);
 
         //Assert
-        //CelestialBodyTyp gets testet
-        Assert.AreEqual(CelestialBody.CelestialBodyType.Sun, sun.celestType);
-        //Does the sun have got the right weight
-        Assert.AreEqual(sunMass, sun.mass);
-        //Is gravity activated
-        Assert.False(sun.isGravityOn);
-        //Is the variable day right
-        Assert.AreEqual(sunDays, sun.day);
-        Assert.AreEqual(sunOrbitRadius, sun.orbitRadius);
-        Assert.AreEqual(sunRatioToEarth, sun.ratioToEarthYear);
-
+        Assert.AreEqual(CelestialBody.CelestialBodyType.Sun, celestialBody.GetCelestialBodyType());
+        Assert.AreEqual(sunMass, celestialBody.GetMass());
+        Assert.IsFalse(celestialBody.IsGravityEnabled());
+        Assert.AreEqual(0, celestialBody.GetDayOfYear());
+        Assert.AreEqual(0, celestialBody.GetOrbitRadius());
+        Assert.AreEqual(1, celestialBody.GetRatioToEarthYear());
     }
 
     [Test]
     public void CelestialBody_Initializes_EarthCorrectly()
     {
         //Arrange
-        
-        var earth = new GameObject().AddComponent<CelestialBody>();
         var earthMass = 5.97217e+16f;
 
         //Act
-        earth.celestType = CelestialBody.CelestialBodyType.Planet;
-        earth.mass = earthMass;
+        celestialBody.SetCelestialBodyType(CelestialBody.CelestialBodyType.Planet);
+        celestialBody.SetMass(earthMass);
 
         //Assert
-        Assert.AreEqual(CelestialBody.CelestialBodyType.Planet, earth.celestType);
-        Assert.AreEqual(earthMass, earth.mass);
+        Assert.AreEqual(CelestialBody.CelestialBodyType.Planet, celestialBody.GetCelestialBodyType());
+        Assert.AreEqual(earthMass, celestialBody.GetMass());
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        GameObject.DestroyImmediate(celestialBodyObject);
     }
 }
