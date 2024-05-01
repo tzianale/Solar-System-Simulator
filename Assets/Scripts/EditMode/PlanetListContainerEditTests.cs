@@ -12,8 +12,8 @@ public void Setup()
 {
     containerGameObject = new GameObject();
     containerScript = containerGameObject.AddComponent<PlanetListContainerScript>();
-    containerScript.ButtonText = new GameObject("TextObject").AddComponent<TextMeshProUGUI>();
-    containerScript.ButtonText.text = ""; // Initialize text to ensure it's not null
+    containerScript.buttonText = new GameObject("TextObject").AddComponent<TextMeshProUGUI>();
+    containerScript.buttonText.text = ""; // Initialize text to ensure it's not null
 
     // Directly use the existing transform rather than assigning a new one
     containerScript.PlanetListContainerTransform = containerGameObject.transform;
@@ -30,7 +30,7 @@ public void Setup()
         // Assert
         //Panel is openeing
         Assert.IsTrue(containerScript.ListIsOpen, "List should be open after first arrow click.");
-        Assert.AreEqual("↓", containerScript.ButtonText.text, "Button text should be '↓' after first arrow click.");
+        Assert.AreEqual("↓", containerScript.buttonText.text, "Button text should be '↓' after first arrow click.");
         
 
         // Act
@@ -39,7 +39,7 @@ public void Setup()
         // Assert
         //Panel is closing
         Assert.IsFalse(containerScript.ListIsOpen, "List should be not open after second arrow click.");
-        Assert.AreEqual("↑", containerScript.ButtonText.text, "Button text should be '↑' after second arrow click.");
+        Assert.AreEqual("↑", containerScript.buttonText.text, "Button text should be '↑' after second arrow click.");
         
     }
 
