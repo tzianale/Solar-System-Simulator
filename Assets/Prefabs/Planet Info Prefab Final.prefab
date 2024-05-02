@@ -667,6 +667,7 @@ MonoBehaviour:
   planetVariablePropertiesContainer: {fileID: 2417789392604347042}
   propertiesTextSize: 15
   planetDescriptionContainer: {fileID: 7270972794486920520}
+  closeTabButton: {fileID: 6710549925772119718}
 --- !u!114 &1721943372574888020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1665,7 +1666,7 @@ GameObject:
   - component: {fileID: 7581815793267957774}
   - component: {fileID: 6710549925772119718}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Close Tab Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
