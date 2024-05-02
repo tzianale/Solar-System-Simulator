@@ -75,7 +75,11 @@ public class PlanetListElementPrefabController : MonoBehaviour, IPointerClickHan
     private void CloseTab(GameObject tabToClose)
     {
         tabToClose.SetActive(false);
-        _currentlyActiveTab.SetValue(null);
+
+        if (_currentlyActiveTab.GetValue() == tabToClose)
+        {
+            _currentlyActiveTab.SetValue(null);
+        }
     }
 
     /// <summary>

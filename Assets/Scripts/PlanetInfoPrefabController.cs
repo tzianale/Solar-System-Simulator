@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Button = UnityEngine.UI.Button;
 
 /// <summary>
 /// Provides useful methods to control, set and handle each Planet Info Tab
@@ -24,6 +25,10 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     [SerializeField] private protected int propertiesTextSize;
     
     [SerializeField] private protected TextMeshProUGUI planetDescriptionContainer;
+
+    [SerializeField] private Button closeTabButton;
+
+    public Button CloseTabButton { get => closeTabButton; }
 
     private readonly List<TextMeshProUGUI> _refreshableTextFields = new();
     
@@ -125,8 +130,10 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     public void AddNewEmptyStaticProperty()
     {
         var emptyProperty = GeneratePropertyDependingOnSubClass(UnknownPropertyText, UnknownPropertyText);
-            
+        
         emptyProperty.transform.SetParent(planetStaticPropertiesContainer.transform, false);
+        
+        planetStaticPropertiesContainer.SetActive(true);
     }
 
     /// <summary>

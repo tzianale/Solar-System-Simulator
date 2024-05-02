@@ -2,7 +2,6 @@ using utils;
 using System;
 using UnityEngine;
 using System.Collections.Generic;
-using Button = UnityEngine.UI.Button;
 
 public class PlanetListManager : MonoBehaviour
 {
@@ -60,8 +59,10 @@ public class PlanetListManager : MonoBehaviour
         var planetListElementPrefabController = planetListElement.GetComponent<PlanetListElementPrefabController>();
         var planetInfoPrefabController = planetInfoTab.GetComponent<PlanetInfoPrefabController>();
 
-        var planetInfoCloseButton = planetInfoTab.GetComponentInChildren<Button>();
+        var planetInfoCloseButton = planetInfoPrefabController.CloseTabButton;
 
+        Debug.Log(planetInfoCloseButton.name);
+        
         var staticProperties = new Dictionary<string, string>()
         {
             {"Mass", "-Insert Mass Info Here-"},
