@@ -26,11 +26,11 @@ build_script:
   - set PATH=%JAVA_HOME%\bin;%PATH%
 
   # Run SonarQube analysis
-  - dotnet sonarscanner begin /k:"Solar-System-Simulator" /d:sonar.host.url="http://160.85.252.80:9000"  /d:sonar.token="sqp_d7e68db7534040b2ecb26c4d2902fda53b63df67"
+  - dotnet sonarscanner begin /k:"Solar-System-Simulator" /d:sonar.host.url="http://160.85.252.39:9000"  /d:sonar.token="sqp_f5bd91144b884f4a4df8d1f5847011041182a615"
   - dotnet build C:\projects\solar-system-simulator\Assembly-CSharp.csproj
-  - dotnet sonarscanner end /d:sonar.token="sqp_d7e68db7534040b2ecb26c4d2902fda53b63df67"
+  - dotnet sonarscanner end /d:sonar.token="sqp_f5bd91144b884f4a4df8d1f5847011041182a615"
 
-after_build:
+on_finish:
   - Unity -batchmode -returnlicense
 
 artifacts:
