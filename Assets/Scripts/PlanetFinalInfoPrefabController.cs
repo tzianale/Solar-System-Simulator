@@ -28,8 +28,6 @@ public class PlanetFinalInfoPrefabController : PlanetInfoPrefabController
 
         contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
         contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-
-        Debug.Log("Why am I here?");
         
         var textElement = newListElement.AddComponent<TextMeshProUGUI>();
         
