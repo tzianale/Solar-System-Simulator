@@ -26,7 +26,7 @@ build_script:
   - set PATH=%JAVA_HOME%\bin;%PATH%
 
   # Run SonarQube analysis specifying the project file
-  - dotnet sonarscanner begin /k:"Solar-System-Simulator" /d:sonar.host.url="http://160.85.252.39:9000" /d:sonar.token="sqp_f5bd91144b884f4a4df8d1f5847011041182a615" /d:sonar.cs.vs.solution.file="C:\projects\solar-system-simulator\Assembly-CSharp.csproj"
+  - dotnet sonarscanner begin /k:"Solar-System-Simulator" /d:sonar.host.url="http://160.85.252.39:9000" /d:sonar.token="sqp_f5bd91144b884f4a4df8d1f5847011041182a615" /d:sonar.cs.vs.solution.file="C:\projects\solar-system-simulator\Assembly-CSharp.csproj" /d:sonar.inclusions="**/Assets/**/*"
   - dotnet build C:\projects\solar-system-simulator\Assembly-CSharp.csproj
   - dotnet sonarscanner end /d:sonar.token="sqp_f5bd91144b884f4a4df8d1f5847011041182a615"
 
