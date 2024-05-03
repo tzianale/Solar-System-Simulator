@@ -21,6 +21,18 @@ public class PlanetListContainerScript : MonoBehaviour
         _planetListContainerTransform = transform;
     }
 
+    public Transform PlanetListContainerTransform
+    {
+        get => _planetListContainerTransform;
+        set => _planetListContainerTransform = value;
+    }
+
+    public bool ListIsOpen
+    {
+        get => _listIsOpen;
+        private set => _listIsOpen = value;
+    }
+
     public void OnArrowClick()
     {
         Debug.Log("Arrow clicked");
