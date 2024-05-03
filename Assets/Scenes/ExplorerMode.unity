@@ -1966,6 +1966,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2016312659}
     - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetInfoPrefab
+      value: 
+      objectReference: {fileID: 4332388958630750679, guid: 90aa117506211da479e3f89305c9a4cd, type: 3}
+    - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: planetModels.Array.data[0]
       value: 
       objectReference: {fileID: 236659527}

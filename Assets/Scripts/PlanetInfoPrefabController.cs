@@ -11,7 +11,7 @@ using Button = UnityEngine.UI.Button;
 /// </summary>
 public abstract class PlanetInfoPrefabController : MonoBehaviour
 {
-    private const string UnknownPropertyText = "Unknown";
+    private protected const string UnknownPropertyText = "Unknown";
     private protected const string NameValueSeparator = " : ";
     
     [SerializeField] private protected TextMeshProUGUI planetNameField;
@@ -122,18 +122,6 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
         }
 
         return resultList;
-    }
-
-    /// <summary>
-    /// Generates a new empty field for an additional Property at runtime
-    /// </summary>
-    public void AddNewEmptyStaticProperty()
-    {
-        var emptyProperty = GeneratePropertyDependingOnSubClass(UnknownPropertyText, UnknownPropertyText);
-        
-        emptyProperty.transform.SetParent(planetStaticPropertiesContainer.transform, false);
-        
-        planetStaticPropertiesContainer.SetActive(true);
     }
 
     /// <summary>

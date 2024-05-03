@@ -229,7 +229,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8543181428008226616}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -933,7 +933,7 @@ MonoBehaviour:
   planetListContent: {fileID: 1532994944392091478}
   canvas: {fileID: 0}
   planetObjectPrefab: {fileID: 4332388958630750679, guid: 81c0531d9e100974dbe82719d2c46a6f, type: 3}
-  planetInfoPrefab: {fileID: 4332388958630750679, guid: 90aa117506211da479e3f89305c9a4cd, type: 3}
+  planetInfoPrefab: {fileID: 0}
   planetNames:
   - Sun
   - Mercury

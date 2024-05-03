@@ -10,6 +10,8 @@ using UnityEngine.UI;
 /// </summary>
 public class PlanetVariableInfoPrefabController : PlanetInfoPrefabController
 {
+    [SerializeField] private GameObject inputFieldPrefab;
+    
     /// <summary>
     /// Overrides the base method in class PlanetInfoPrefabController.
     /// Generates InputFields with a given property and returns the GameObject containing the information.
@@ -25,7 +27,7 @@ public class PlanetVariableInfoPrefabController : PlanetInfoPrefabController
     /// </returns>
     private protected override GameObject GeneratePropertyDependingOnSubClass(string propertyName, string propertyValue)
     {
-        return GenerateInputField(propertyName, propertyValue);
+        return GenerateInputFieldUsingPrefab(propertyName, propertyValue);
     }
 
     /// <summary>
@@ -38,7 +40,7 @@ public class PlanetVariableInfoPrefabController : PlanetInfoPrefabController
     /// <returns>
     /// The generated Input Field GameObject with the corresponding text
     /// </returns>
-    private GameObject GenerateInputField(string propertyName, string propertyValue)
+    private GameObject GenerateInputFieldInCode(string propertyName, string propertyValue)
     {
         // You want to know how I managed to get this method to running?
         // Good question, I don't know either!
@@ -56,5 +58,39 @@ public class PlanetVariableInfoPrefabController : PlanetInfoPrefabController
         inputField.text = propertyName + NameValueSeparator + propertyValue;
         
         return newListElement;
+    }
+
+    /// <summary>
+    /// Generates an Input Field GameObjet and initialises the text inside of it depending on the provided parameters.
+    /// </summary>
+    /// 
+    /// <param name="propertyName">The Name of the property to be initialised</param>
+    /// <param name="propertyValue">The Value of the property to be initialised</param>
+    /// 
+    /// <returns>
+    /// The generated Input Field GameObject with the corresponding text
+    /// </returns>
+    private GameObject GenerateInputFieldUsingPrefab(string propertyName, string propertyValue)
+    {
+        var planetPropertyGameObject = Instantiate(inputFieldPrefab);
+
+        var planetPropertyController = planetPropertyGameObject.GetComponent<PropertyFieldController>();
+        
+        planetPropertyController.SetText(propertyName + NameValueSeparator + propertyValue);
+        
+        return planetPropertyGameObject;
+    }
+    
+    /// <summary>
+    /// Generates a new empty field for an additional Property at runtime
+    /// </summary>
+    public void AddNewEmptyStaticProperty()
+    {
+        var emptyProperty = GeneratePropertyDependingOnSubClass(UnknownPropertyText, UnknownPropertyText);
+        
+        emptyProperty.transform.SetParent(planetStaticPropertiesContainer.transform, false);
+        
+        gameObject.SetActive(false);
+        gameObject.SetActive(true);
     }
 }
