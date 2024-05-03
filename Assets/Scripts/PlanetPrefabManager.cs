@@ -17,6 +17,9 @@ public class PlanetPrefabManager : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private CameraControl cameraControl;
 
+    public GameObject Planet3DObject => planet3DObject;
+    public CameraControl CameraControl => cameraControl;
+
     public void SetPlanetInfo(Sprite inputSprite, string inputName, GameObject planetModel, CameraControl cameraCtrl)
 
     {

@@ -100,4 +100,18 @@ public class CelestialBody : MonoBehaviour
     {
         return GetComponent<Transform>().position;
     }
+
+    //getter and setter methods
+    public CelestialBodyType GetCelestialBodyType() => celestType;
+    public void SetCelestialBodyType(CelestialBodyType type) => celestType = type;
+
+    public float GetMass() => mass;
+    public void SetMass(float value) => mass = value;
+
+    public float GetOrbitRadius() => orbitRadius;
+    public void SetOrbitRadius(float radius) => orbitRadius = radius;
+
+    public float GetRatioToEarthYear() => ratioToEarthYear;
+    public void SetRatioToEarthYear(float ratio) => ratioToEarthYear = ratio;
+
 }
