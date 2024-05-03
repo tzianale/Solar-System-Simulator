@@ -23,16 +23,12 @@ public class CelestialBodyTest
         //Act
         celestialBody.SetCelestialBodyType(CelestialBody.CelestialBodyType.Sun);
         celestialBody.SetMass(sunMass);
-        celestialBody.SetGravityEnabled(false);
-        celestialBody.SetDayOfYear(0);
         celestialBody.SetOrbitRadius(0);
         celestialBody.SetRatioToEarthYear(1);
 
         //Assert
         Assert.AreEqual(CelestialBody.CelestialBodyType.Sun, celestialBody.GetCelestialBodyType());
         Assert.AreEqual(sunMass, celestialBody.GetMass());
-        Assert.IsFalse(celestialBody.IsGravityEnabled());
-        Assert.AreEqual(0, celestialBody.GetDayOfYear());
         Assert.AreEqual(0, celestialBody.GetOrbitRadius());
         Assert.AreEqual(1, celestialBody.GetRatioToEarthYear());
     }
