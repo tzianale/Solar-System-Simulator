@@ -36,3 +36,5 @@ on_finish:
 artifacts:
   - path: 'Builds/Windows'
     name: WindowsBuild
+
+#test
