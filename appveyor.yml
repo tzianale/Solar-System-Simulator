@@ -29,7 +29,7 @@ build_script:
   - dotnet build Solar-System-Simulator.sln
   - Unity -batchmode -testPlatform editmode -runTests -enableCodeCoverage -coverageOptions "assemblyFilters:+Scripts"
   - Unity -batchmode -testPlatform playmode -runTests -enableCodeCoverage -coverageOptions "assemblyFilters:+Scripts"
-  - SonarScanner.MSBuild.exe sonarscanner end /d:sonar.token="sqp_f5bd91144b884f4a4df8d1f5847011041182a615"
+  - SonarScanner.MSBuild.exe end /d:sonar.token="sqp_f5bd91144b884f4a4df8d1f5847011041182a615"
 
 on_finish:
   - Unity -batchmode -returnlicense
