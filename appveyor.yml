@@ -5,6 +5,7 @@ branches:
   only:
     - main
     - dev
+    - appveyor-configuration
 
 environment:
   SONARQUBE_SCANNER_MSBUILD_VERSION: 5.2.1
