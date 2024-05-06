@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class EscapeScript : MonoBehaviour
 {
 
-    private GameObject panel;
+    public GameObject panel;
 
     public GameObject Panel
     {
