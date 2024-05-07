@@ -1,13 +1,13 @@
-﻿Planet Name;Mass;PlanetType;Surface Temperature;Radius;Gravity;Average Orbital Speed;MoonCount;Orbit Length;Orbit Duration;Day Duration
-Mercury;0.330*10^24kg;Rocky Planet; -193° C / 427° C;2440km;0.38g;47.36 km/s;0;;88d;176d
-Venus;4.87*10^24kg;Rocky Planet;464° C;;;;;;;
-Earth;5.97*10^24kg;Rocky Planet; -89.2° C / 56.7° C;;;;;;;
-Earths Moon;0.073*10^24kg;Rocky Moon; -173.15° C / 116.85° C;;;;;;;
-Mars;0.642*10^24kg;Rocky Planet;;;;;;;;
-Phobos;1.06*10^16kg;Rocky Moon;;;;;;;;
-Deimos;0.151*10^16kg;Rocky Moon;;;;;;;;
-Jupiter;1898*10^24kg;Gas Giant;;;;;;;;
-Saturn;568*10^24kg;Gas Giant;;;;;;;;
-Uranus;86.8*10^24kg;Ice Giant;;;;;;;;
-Neptune;102*10^24kg;Ice Giant;;;;;;;;
-Pluto;0.0130*10^24kg;Dwarf Planet;;;;;;;;
+﻿Planet Name;Mass;PlanetType;Surface Temperature;Radius;Gravity;Average Orbital Speed;Satellites;Rings;Periapsis;Apoapsis;Orbit Duration;Day Duration
+Mercury;0.330*10^24kg;Rocky Planet; -193°C /  427°C; 2'440 km;0.38g;47.36 km/s;0;None;  46.0 * 10 ^ 6 km;  69.8 * 10 ^ 6 km;    88.  d;176.00 d
+Venus;4.87*10^24kg;Rocky Planet; average:  464°C; 6'052 km;0.90g;35.02 km/s;0;None; 107.5 * 10 ^ 6 km; 108.8 * 10 ^ 6 km;   224.7 d;116.80 d
+Earth;5.97*10^24kg;Rocky Planet; - 89°C /   57°C; 6'378 km;1g;29.78 km/s;1;None; 147.1 * 10 ^ 6 km; 152.1 * 10 ^ 6 km;   365.2 d;  1.00 d
+Earths Moon;0.073*10^24kg;Rocky Moon; -173°C /  117°C; 1'738 km;0.17g; 1.00 km/s (earths orbit);0;None; 363.0 * 10 ^ 3 km; 406.0 * 10 ^ 3 km;    27.3 d (earths orbit); 29.53 d
+Mars;0.642*10^24kg;Rocky Planet; - 89°C / - 31°C; 3'396 km;0.38g;24.10 km/s;2;None; 206.7 * 10 ^ 6 km; 249.3 * 10 ^ 6 km;   687.0 d;  1.03 d
+Phobos;1.06*10^16kg;Rocky Moon; -112°C / -  4°C ;mean: 11.08 km;581.4 micro g; 2.14 km/s (martian orbit);0;None; 923.4 * 10 ^ 1 km; 951.7 * 10 ^ 1 km;     0.3 d (martian orbit);  0.30 d
+Deimos;0.151*10^16kg;Rocky Moon; -140°C / - 40°C;mean:  6.27 km;306   micro g; 1.35 km/s (martian orbit);0;None;2345.6 * 10 ^ 1 km;2347.1 * 10 ^ 1 km;     1.3 d (martian orbit);  1.30 d
+Jupiter;1898*10^24kg;Gas Giant; at 1 bar -> -108°C;71'492 km;2.53 g;13.19 km/s;95;Present; 740.6 * 10 ^ 6 km; 816.4 * 10 ^ 6 km; 4'331.  d;  0.41 d
+Saturn;568*10^24kg;Gas Giant; at 1 bar -> -139°C;60'268 km;1.07 g; 9.70 km/s;146;Present;1357.6 * 10 ^ 6 km;1506.5 * 10 ^ 6 km;10'747.  d;  0.45 d
+Uranus;86.8*10^24kg;Ice Giant; at 1 bar -> -197°C;25'559 km;0.89 g; 6.80 km/s;28;Present;2732.7 * 10 ^ 6 km;3001.4 * 10 ^ 6 km;30'589.  d;  0.72 d
+Neptune;102*10^24kg;Ice Giant; at 1 bar -> -201°C;24'764 km;1.14 g; 5.40 km/s;16;Present;4471.1 * 10 ^ 6 km;4558.9 * 10 ^ 6 km;59'800.  d;  0.67 d
+Pluto;0.0130*10^24kg;Dwarf Planet; -247°C / -233°C; 1'188 km;0.06 g; 4.70 km/s;5;None;4436.8 * 10 ^ 6 km;7375.9 * 10 ^ 6 km;90'560.  d;  6.39 d
