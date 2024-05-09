@@ -238,7 +238,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetSprite: {fileID: 5880302592671117884}
   planetName: {fileID: 3458068036459272563}
-  planet3DObject: {fileID: 0}
   cameraControl: {fileID: 0}
 --- !u!114 &6933306932060193785
 MonoBehaviour:
