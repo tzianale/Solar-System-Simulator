@@ -28,6 +28,9 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
 
     [SerializeField] private Button closeTabButton;
 
+    /// <summary>
+    /// Getter method for the Button that closes this info tab
+    /// </summary>
     public Button CloseTabButton { get => closeTabButton; }
 
     private readonly List<TextMeshProUGUI> _refreshableTextFields = new();
