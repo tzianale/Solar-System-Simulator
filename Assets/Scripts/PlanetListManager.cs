@@ -3,23 +3,18 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// Handles the Planet List by creating new Planet List Elements as well as Planet Info Tabs
+/// </summary>
 public class PlanetListManager : MonoBehaviour
 {
+    /// <summary>
+    /// Stores the indexes of the Planet Properties that are saved in the Planet Data csv file
+    /// </summary>
     private enum DataProperties
     {
         PlanetName = 0,
-        PlanetMass,
-        PlanetType,
-        PlanetTemp,
-        PlanetRadius,
-        PlanetGrav,
-        PlanetSpeed,
-        PlanetMoonCount,
-        PlanetRingPresence,
-        PlanetPeriapsis,
-        PlanetApoapsis,
-        PlanetYear,
-        PlanetDay
+        PlanetType = 2
     }
     
     [SerializeField]
@@ -58,12 +53,15 @@ public class PlanetListManager : MonoBehaviour
     private readonly List<string> _planetNames = new();
 
     
-    // Start is called before the first frame update
+    /// <summary>
+    /// Called on Script initialization, reads the data stored in the csv file and initialises List Elements and
+    /// Info Tabs accordingly
+    /// </summary>
     private void Start()
     {
         var dataFromCsv = CsvReader.ReadCsv("Assets/Data/PlanetData.csv");
 
-        var planetProperties = LoadCsvDataIntoLocalArrays(dataFromCsv);
+        var planetProperties = LoadCsvDataIntoLocalDictionaries(dataFromCsv);
         
         if (planetSprites.Count != _planetNames.Count)
         {
@@ -73,12 +71,56 @@ public class PlanetListManager : MonoBehaviour
         {
             for (var i = 0; i < _planetNames.Count; i++)
             {
-                CreateNewPlanet(planetSprites[i], _planetNames[i], planetModels[i], planetProperties[i]);
+                var currentPlanetModel = planetModels[i];
+                
+                var variableProperties = new Dictionary<string, Func<string>>()
+                {
+                    {"Current Speed", () => currentPlanetModel.GetComponent<CelestialBody>().velocity.magnitude.ToString("n2")},
+                    {"Distance to Sun", () => (currentPlanetModel.transform.position - sun.transform.position).magnitude.ToString("n2")}
+                };
+        
+                var planetDescription = 
+                    "The planet " + _planetNames[i] + 
+                    " is a famous planet located in the Solar System Sol 1234, Galaxy Milky Way 498, Universe 35, main branch";
+                
+                CreateNewPlanet(planetSprites[i], _planetNames[i], planetModels[i], planetProperties[i], 
+                    variableProperties, planetDescription);
             }
         }
     }
 
-    private void CreateNewPlanet(Sprite planetSprite, string planetName, GameObject planetObject, Dictionary<string, string> staticProperties)
+    /// <summary>
+    /// Adds a new Planet to the Planet List, as well as creating the corresponding info tab
+    /// </summary>
+    /// 
+    /// <param name="planetSprite">
+    /// The Image that will be associated to this planet
+    /// </param>
+    /// 
+    /// <param name="planetName">
+    /// The name of this planet
+    /// </param>
+    /// 
+    /// <param name="planetObject">
+    /// The GameObject that represents the planet in the simulation
+    /// </param>
+    /// 
+    /// <param name="staticProperties">
+    /// The "fixed" properties of a planet, aka the ones that won't have to be changed dynamically.
+    /// Example: Planet Mass
+    /// </param>
+    /// 
+    /// <param name="variableProperties">
+    /// The "variable" properties of a planet, aka the ones that will have to be changed dynamically.
+    /// Example: Planet Speed
+    /// </param>
+    /// 
+    /// <param name="planetDescription">
+    /// A description about this planet
+    /// </param>
+    private void CreateNewPlanet(Sprite planetSprite, string planetName, GameObject planetObject, 
+        Dictionary<string, string> staticProperties, Dictionary<string, Func<string>> variableProperties,
+        string planetDescription)
     {
         var planetListElement = Instantiate(planetObjectPrefab, planetListContent);
         var planetInfoTab = Instantiate(planetInfoPrefab, canvas);
@@ -89,16 +131,6 @@ public class PlanetListManager : MonoBehaviour
         var planetInfoCloseButton = planetInfoPrefabController.CloseTabButton;
 
         Debug.Log(planetInfoCloseButton.name);
-
-        var variableProperties = new Dictionary<string, Func<string>>()
-        {
-            {"Current Speed", () => planetObject.GetComponent<CelestialBody>().velocity.magnitude.ToString("n2")},
-            {"Distance to Sun", () => (planetObject.transform.position - sun.transform.position).magnitude.ToString("n2")}
-        };
-        
-        var planetDescription = 
-            "The planet " + planetName + 
-            " is a famous planet located in the Solar System Sol 12384905330, Galaxy Milky Way 49858456204852076205428, Universe 35904";
         
         Debug.Log(cameraControl);
         
@@ -111,8 +143,19 @@ public class PlanetListManager : MonoBehaviour
         planetInfoTab.SetActive(false);
     }
 
-
-    private List<Dictionary<string, string>> LoadCsvDataIntoLocalArrays(List<List<string>> data)
+    /// <summary>
+    /// Takes the data that has been loaded from the memory and transforms it in a easily readable, planet separated
+    /// list of Dictionaries
+    /// </summary>
+    /// 
+    /// <param name="data">
+    /// The "raw data" that has been loaded from the memory
+    /// </param>
+    /// 
+    /// <returns>
+    /// The refined list of Dictionaries - One dictionary for each body
+    /// </returns>
+    private List<Dictionary<string, string>> LoadCsvDataIntoLocalDictionaries(List<List<string>> data)
     {
         var result = new List<Dictionary<string, string>>();
         var labels = data[0];
@@ -126,7 +169,7 @@ public class PlanetListManager : MonoBehaviour
             {
                 var planetProperties = new Dictionary<string, string>();
                 
-                foreach (int property in Enum.GetValues(typeof(DataProperties)))
+                for(var property = 0; property < data[rowIndex].Count; property++)
                 {
                     if ((DataProperties) property == DataProperties.PlanetName)
                     {
