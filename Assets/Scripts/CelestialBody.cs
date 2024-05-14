@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CelestialBody : MonoBehaviour
@@ -101,6 +102,11 @@ public class CelestialBody : MonoBehaviour
         return GetComponent<Transform>().position;
     }
 
+    public void AppendCelestialBody(CelestialBody celestialBody)
+    {
+        celestialBodies.Append(celestialBody);
+    }
+
     //getter and setter methods
     public CelestialBodyType GetCelestialBodyType() => celestType;
     public void SetCelestialBodyType(CelestialBodyType type) => celestType = type;
@@ -113,5 +119,7 @@ public class CelestialBody : MonoBehaviour
 
     public float GetRatioToEarthYear() => ratioToEarthYear;
     public void SetRatioToEarthYear(float ratio) => ratioToEarthYear = ratio;
+
+    public void SetVelocity(Vector3 velocity) => this.velocity = velocity;
 
 }

@@ -53,4 +53,16 @@ public class GameStateController : MonoBehaviour
     {
         dayText.text = date.ToString("d");
     }
+    public void AddNewBody()
+    {
+        CelestialBody[] bodies =  FindObjectsOfType<CelestialBody>();
+        GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        gameObject.name = "new Body";
+        CelestialBody newBody = gameObject.AddComponent<CelestialBody>();
+
+        foreach (var item in bodies)
+        {
+            item.AppendCelestialBody(newBody);
+        }
+    }
 }
