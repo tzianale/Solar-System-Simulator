@@ -1685,6 +1685,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 963194228}
     m_Modifications:
+    - target: {fileID: 1622058635793934488, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: panel
+      value: 
+      objectReference: {fileID: 1940336261}
     - target: {fileID: 3360335619342833472, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -1801,6 +1805,11 @@ PrefabInstance:
 --- !u!224 &1940336260 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3986101165301364651, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+  m_PrefabInstance: {fileID: 1940336259}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1940336261 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1987124520448296048, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
   m_PrefabInstance: {fileID: 1940336259}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1996431358
