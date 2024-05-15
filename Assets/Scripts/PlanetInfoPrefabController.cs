@@ -23,8 +23,6 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     [SerializeField] private protected GameObject planetVariablePropertiesContainer;
 
     [SerializeField] private protected int propertiesTextSize;
-    
-    [SerializeField] private protected TMP_InputField planetDescriptionContainer;
 
     [SerializeField] private Button closeTabButton;
 
@@ -66,8 +64,10 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
             propertyField.transform.SetParent(planetVariablePropertiesContainer.transform, false);
         }
 
-        planetDescriptionContainer.text = planetDescription;
+        SetDescription(planetDescription);
     }
+
+    protected abstract void SetDescription(string planetDescription);
     
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.

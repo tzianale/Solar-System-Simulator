@@ -666,8 +666,8 @@ MonoBehaviour:
   planetStaticPropertiesContainer: {fileID: 4592229094183822720}
   planetVariablePropertiesContainer: {fileID: 2417789392604347042}
   propertiesTextSize: 15
-  planetDescriptionContainer: {fileID: 7270972794486920520}
   closeTabButton: {fileID: 6710549925772119718}
+  planetDescriptionContainer: {fileID: 7270972794486920520}
 --- !u!114 &1721943372574888020
 MonoBehaviour:
   m_ObjectHideFlags: 0
