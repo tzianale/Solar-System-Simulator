@@ -24,7 +24,7 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
 
     [SerializeField] private protected int propertiesTextSize;
     
-    [SerializeField] private protected TextMeshProUGUI planetDescriptionContainer;
+    [SerializeField] private protected TMP_InputField planetDescriptionContainer;
 
     [SerializeField] private Button closeTabButton;
 
@@ -65,7 +65,7 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
         {
             propertyField.transform.SetParent(planetVariablePropertiesContainer.transform, false);
         }
-        
+
         planetDescriptionContainer.text = planetDescription;
     }
     
