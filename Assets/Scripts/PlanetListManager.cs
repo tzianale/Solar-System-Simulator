@@ -9,13 +9,25 @@ using System.Collections.Generic;
 public class PlanetListManager : MonoBehaviour
 {
     /// <summary>
-    /// Stores the indexes of the Planet Properties that are saved in the Planet Data csv file
+    /// Stores the relevant indexes of the Planet Properties that are saved in the Planet Properties csv file
     /// </summary>
-    private enum DataProperties
+    private enum DataPropertyIndexes
     {
         PlanetName = 0,
         PlanetType = 2
     }
+    
+    /// <summary>
+    /// Stores the relevant indexes of the Planet Descriptions that are saved in the Planet Descriptions csv file
+    /// </summary>
+    private enum DataDescriptionIndexes
+    {
+        PlanetType = 1,
+        PlanetDescription
+    }
+
+    private const string PropertiesPath = "Assets/Data/PlanetProperties.csv";
+    private const string DescriptionsPath = "Assets/Data/PlanetDescriptions.csv";
     
     [SerializeField]
     private GameObject sun;
@@ -59,9 +71,11 @@ public class PlanetListManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        var dataFromCsv = CsvReader.ReadCsv("Assets/Data/PlanetData.csv");
+        var propertiesData = CsvReader.ReadCsv(PropertiesPath);
+        var descriptionsData = CsvReader.ReadCsv(DescriptionsPath);
 
-        var planetProperties = LoadCsvDataIntoLocalDictionaries(dataFromCsv);
+        var planetProperties = LoadCsvPropertiesIntoLocalDictionaries(propertiesData);
+        var planetDescriptions = UnpackPlanetDescriptionsFromCsv(descriptionsData);
         
         if (planetSprites.Count != _planetNames.Count)
         {
@@ -79,12 +93,8 @@ public class PlanetListManager : MonoBehaviour
                     {"Distance to Sun", () => (currentPlanetModel.transform.position - sun.transform.position).magnitude.ToString("n2")}
                 };
         
-                var planetDescription = 
-                    "The planet " + _planetNames[i] + 
-                    " is a famous planet located in the Solar System Sol 1234, Galaxy Milky Way 498, Universe 35, main branch";
-                
-                CreateNewPlanet(planetSprites[i], _planetNames[i], planetModels[i], planetProperties[i], 
-                    variableProperties, planetDescription);
+                CreateNewPlanet(planetSprites[i], _planetNames[i], currentPlanetModel, planetProperties[i], 
+                    variableProperties, planetDescriptions[i]);
             }
         }
     }
@@ -144,7 +154,7 @@ public class PlanetListManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Takes the data that has been loaded from the memory and transforms it in a easily readable, planet separated
+    /// Takes the properties data that has been loaded from the memory and transforms it in a easily readable, planet separated
     /// list of Dictionaries
     /// </summary>
     /// 
@@ -155,7 +165,7 @@ public class PlanetListManager : MonoBehaviour
     /// <returns>
     /// The refined list of Dictionaries - One dictionary for each body
     /// </returns>
-    private List<Dictionary<string, string>> LoadCsvDataIntoLocalDictionaries(List<List<string>> data)
+    private List<Dictionary<string, string>> LoadCsvPropertiesIntoLocalDictionaries(List<List<string>> data)
     {
         var result = new List<Dictionary<string, string>>();
         var labels = data[0];
@@ -164,14 +174,14 @@ public class PlanetListManager : MonoBehaviour
         
         for (var rowIndex = 1; rowIndex < rowCount; rowIndex++)
         {
-            if (data[rowIndex][(int) DataProperties.PlanetType] != MoonDetector && 
-                data[rowIndex][(int) DataProperties.PlanetType] != DwarfDetector)
+            if (data[rowIndex][(int) DataPropertyIndexes.PlanetType] != MoonDetector && 
+                data[rowIndex][(int) DataPropertyIndexes.PlanetType] != DwarfDetector)
             {
                 var planetProperties = new Dictionary<string, string>();
                 
                 for(var property = 0; property < data[rowIndex].Count; property++)
                 {
-                    if ((DataProperties) property == DataProperties.PlanetName)
+                    if ((DataPropertyIndexes) property == DataPropertyIndexes.PlanetName)
                     {
                         _planetNames.Add(data[rowIndex][property]);
                     }
@@ -190,5 +200,26 @@ public class PlanetListManager : MonoBehaviour
         }
 
         return result;
+    }
+
+
+    private List<string> UnpackPlanetDescriptionsFromCsv(List<List<string>> data)
+    {
+        var planetDescriptions = new List<string>();
+        
+        for (int planetIndex = 1; planetIndex < data.Count; planetIndex++)
+        {
+            var planet = data[planetIndex];
+            
+            if (planet[(int)DataDescriptionIndexes.PlanetType] == MoonDetector ||
+                planet[(int)DataDescriptionIndexes.PlanetType] == DwarfDetector)
+            {
+                continue;
+            }
+            
+            planetDescriptions.Add(planet[(int) DataDescriptionIndexes.PlanetDescription]);
+        }
+
+        return planetDescriptions;
     }
 }
