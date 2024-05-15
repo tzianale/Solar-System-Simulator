@@ -1,4 +1,4 @@
-﻿Planet Name;Mass;PlanetType;Surface Temperature;Radius;Gravity;Average Orbital Speed;Satellites;Rings;Periapsis;Apoapsis;Orbit Duration;Day Duration
+﻿Planet Name;Mass;Body Type;Surface Temperature;Radius;Gravity;Average Orbital Speed;Satellites;Rings;Periapsis;Apoapsis;Orbit Duration;Day Duration
 Sun;1.999*10^30kg;Star (Yellow Dwarf); Coronal (Atmospheric) temperature up to 2 million °C; 1'391 * 10 ^ 3 km;27.94g;217.00 km/s (galactic orbit);8 planets and multiple smaller corpses;None;null;null;   230.  million years; 25.00 d (Equator), 36 d (Poles)
 Mercury;0.330*10^24kg;Rocky Planet; -193°C /  427°C; 2'440 km; 0.38g; 47.36 km/s;0;None;  46.0 * 10 ^ 6 km;  69.8 * 10 ^ 6 km;    88.  d;176.00 d
 Venus;4.87*10^24kg;Rocky Planet; average:  464°C; 6'052 km; 0.90g; 35.02 km/s;0;None; 107.5 * 10 ^ 6 km; 108.8 * 10 ^ 6 km;   224.7 d;116.80 d
