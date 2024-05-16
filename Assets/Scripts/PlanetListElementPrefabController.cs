@@ -97,7 +97,7 @@ public class PlanetListElementPrefabController : MonoBehaviour, IPointerClickHan
             case 2: 
                 Debug.Log("Planet " + planetName.GetComponent<TextMeshProUGUI>().text + " double clicked");
 
-                if (cameraControl.getFollowingStatus())
+                if (cameraControl.GetFollowingTarget() != null && cameraControl.GetFollowingTarget().Equals(_planet3DObject.transform))
                 {
                     cameraControl.StopFollowing();
                 }
