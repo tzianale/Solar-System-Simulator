@@ -7,59 +7,64 @@ public class GameStateScriptTests
     public void PlayPause_TogglesTimeScaleCorrectly()
     {
         // Arrange
-        var gameState = new GameObject().AddComponent<GameStateScript>();
+        var gameState = new GameObject().AddComponent<GameStateController>();
 
         // Act - Simulate Pause
         gameState.playPause();
 
         // Assert
-        Assert.AreEqual(0, Time.timeScale, "Time.timeScale should be set to 0 when paused");
-        Assert.IsTrue(gameState.isSolarsystemPaused(), "isPaused should be true when game is paused");
+        Assert.IsTrue(GameStateController.isPaused, "isPaused should be true when game is paused");
 
         // Act - Simulate Unpause
         gameState.playPause();
 
         // Assert
-        Assert.AreNotEqual(0, Time.timeScale, "Time.timeScale should not be 0 when unpaused");
-        Assert.IsFalse((gameState.isSolarsystemPaused()), "isPaused should be false when game is not paused");
+        Assert.IsFalse(GameStateController.isPaused, "isPaused should be false when game is not paused");
     }
 
     [Test]
     public void SetNormalSpeed_SetsTimeScaleToOne()
     {
         // Arrange
-        var gameState = new GameObject().AddComponent<GameStateScript>();
+        var gameState = new GameObject().AddComponent<GameStateController>();
 
         // Act
-        gameState.setNormalSpeed();
+        gameState.setTimeScale(1);
 
         // Assert
         Assert.AreEqual(1, Time.timeScale, "Time.timeScale should be set to 1 for normal speed");
+
+        Time.timeScale = 1;
     }
 
     [Test]
     public void IncreaseSpeedTen_SetsTimeScaleToTen()
     {
         // Arrange
-        var gameState = new GameObject().AddComponent<GameStateScript>();
+        var gameState = new GameObject().AddComponent<GameStateController>();
 
         // Act
-        gameState.increaseSpeedTen();
+        gameState.setTimeScale(10);
 
         // Assert
         Assert.AreEqual(10, Time.timeScale, "Time.timeScale should be set to 10 when increased by ten times");
+
+        Time.timeScale = 1;
     }
 
     [Test]
     public void SimSpeedMaximum_SetsTimeScaleToOneHundred()
     {
         // Arrange
-        var gameState = new GameObject().AddComponent<GameStateScript>();
+        var gameState = new GameObject().AddComponent<GameStateController>();
 
         // Act
-        gameState.simSpeedMaximum();
+        gameState.setTimeScale(100);
 
         // Assert
         Assert.AreEqual(100, Time.timeScale, "Time.timeScale should be set to 100 for maximum simulation speed");
+
+        Time.timeScale = 1;
     }
+
 }

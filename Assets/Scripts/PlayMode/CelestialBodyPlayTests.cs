@@ -9,6 +9,7 @@ public class CelestialBodyPlayTests
     public IEnumerator CelestialBodies_UpdateVelocityAndPositionDueToGravity()
     {
         // Arrange
+        SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Sandbox;
         var sun = new GameObject("Sun").AddComponent<CelestialBody>();
         sun.SetCelestialBodyType(CelestialBody.CelestialBodyType.Sun);
         sun.SetMass(1.99e+22f);
