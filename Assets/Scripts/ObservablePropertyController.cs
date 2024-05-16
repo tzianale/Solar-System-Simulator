@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using SystemObject = System.Object;
 
 /// <summary>
@@ -10,8 +11,24 @@ public class ObservablePropertyController : PropertyFieldController
     [SerializeField] private TMP_InputField planetPropertyDescription;
     [SerializeField] private TMP_InputField planetPropertyValue;
     [SerializeField] private TMP_InputField planetPropertyMeasurementUnit;
-    
-    
+
+    public void AddListenerToPropertyValue(UnityAction<string> listener)
+    {
+        planetPropertyValue.onEndEdit.AddListener(listener);
+    }
+
+    private static void TestListener(string newValue)
+    {
+        Debug.Log(newValue);
+    }
+
+
+    private void Start()
+    {
+        AddListenerToPropertyValue(TestListener);
+    }
+
+
     /// <summary>
     /// Allows external scripts to edit the text inside the InputField by code
     /// </summary>
@@ -24,10 +41,6 @@ public class ObservablePropertyController : PropertyFieldController
     /// </param>
     public override void SetText(SystemObject[] text)
     {
-        Debug.Log(text[0].ToString());
-        Debug.Log(text[1].ToString());
-        Debug.Log(text[2].ToString());
-        
         planetPropertyDescription.text = text[(int) DataIndexes.PropertyDescription].ToString();
         
         SetValue(text[(int) DataIndexes.PropertyValue].ToString());
@@ -46,7 +59,6 @@ public class ObservablePropertyController : PropertyFieldController
     {
         planetPropertyValue.text = value;
     }
-    
     
     
     /// <summary>
