@@ -13,6 +13,8 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
 {
     private protected const string UnknownPropertyText = "Unknown";
     private protected const string NameValueSeparator = " : ";
+    private protected const string ValueUnitSeparatorForProperties = " ";
+    private const string ValueUnitSeparatorForRawData = "_";
     
     [SerializeField] private protected TextMeshProUGUI planetNameField;
 
@@ -29,7 +31,7 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     /// <summary>
     /// Getter method for the Button that closes this info tab
     /// </summary>
-    public Button CloseTabButton { get => closeTabButton; }
+    public Button CloseTabButton => closeTabButton;
 
     private readonly List<TextMeshProUGUI> _refreshableTextFields = new();
     
@@ -67,6 +69,11 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
         SetDescription(planetDescription);
     }
 
+    /// <summary>
+    /// Sets the description of this planet
+    /// </summary>
+    /// 
+    /// <param name="planetDescription">The string that will be used as description</param>
     protected abstract void SetDescription(string planetDescription);
     
     /// <summary>
@@ -120,8 +127,19 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
 
             if (elementIndex < propertiesNamesCount) propertyName = planetPropertiesNames.ElementAt(elementIndex);
             if (elementIndex < propertiesValuesCount) propertyValue = planetPropertiesValues.ElementAt(elementIndex);
+            
+            var propertyUnit = "";
 
-            resultList.Add(GeneratePropertyDependingOnSubClass(propertyName, propertyValue));
+            var valueAndUnitSeparated = propertyValue.Split(ValueUnitSeparatorForRawData);
+            
+            propertyValue = valueAndUnitSeparated[0];
+
+            if (valueAndUnitSeparated.Length > 1)
+            { 
+                propertyUnit = valueAndUnitSeparated[1];
+            }
+
+            resultList.Add(GeneratePropertyDependingOnSubClass(propertyName, propertyValue, propertyUnit));
         }
 
         return resultList;
@@ -210,11 +228,12 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     /// 
     /// <param name="propertyName">The Name of the property to be initialised</param>
     /// <param name="propertyValue">The Value of the property to be initialised</param>
+    /// <param name="measurementUnit">The Unit of the property to be initialised</param>
     /// 
     /// <returns>
     /// A GameObject containing the property information.
     /// </returns>
-    private protected abstract GameObject GeneratePropertyDependingOnSubClass(string propertyName, string propertyValue);
+    private protected abstract GameObject GeneratePropertyDependingOnSubClass(string propertyName, string propertyValue, string measurementUnit);
 
     /// <summary>
     /// Simple utility method to get the maximum value between two integers

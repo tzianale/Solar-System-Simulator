@@ -30,11 +30,12 @@ public class PlanetFinalInfoPrefabController : PlanetInfoPrefabController
     /// 
     /// <param name="propertyName">The Name of the property to be initialised</param>
     /// <param name="propertyValue">The Value of the property to be initialised</param>
+    /// <param name="measurementUnit">The Unit of the property to be initialised</param> 
     /// 
     /// <returns>
     /// A GameObject containing the information.
     /// </returns>
-    private protected override GameObject GeneratePropertyDependingOnSubClass(string propertyName, string propertyValue)
+    private protected override GameObject GeneratePropertyDependingOnSubClass(string propertyName, string propertyValue, string measurementUnit)
     {
         var newListElement = new GameObject(propertyName + " Property");
 
@@ -45,7 +46,7 @@ public class PlanetFinalInfoPrefabController : PlanetInfoPrefabController
         
         var textElement = newListElement.AddComponent<TextMeshProUGUI>();
         
-        textElement.text = propertyName + NameValueSeparator + propertyValue;
+        textElement.text = propertyName + NameValueSeparator + propertyValue + ValueUnitSeparatorForProperties + measurementUnit;
         textElement.fontSize = propertiesTextSize;
 
         return newListElement;

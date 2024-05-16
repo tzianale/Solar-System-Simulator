@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using SystemObject = System.Object;
 
 
 /// <summary>
@@ -32,15 +33,16 @@ public class PlanetVariableInfoPrefabController : PlanetInfoPrefabController
     /// 
     /// <param name="propertyName">The Name of the property to be initialised</param>
     /// <param name="propertyValue">The Value of the property to be initialised</param>
+    /// <param name="measurementUnit">The Unit of the property to be initialised</param>
     /// 
     /// <returns>
     /// A GameObject with InputField functionalities.
     /// At the start the Object will have a name and a value for each property.
     /// The user will then be able to modify both and adapt them to their likings.
     /// </returns>
-    private protected override GameObject GeneratePropertyDependingOnSubClass(string propertyName, string propertyValue)
+    private protected override GameObject GeneratePropertyDependingOnSubClass(string propertyName, string propertyValue, string measurementUnit)
     {
-        return GenerateInputFieldUsingPrefab(propertyName, propertyValue);
+        return GenerateInputFieldUsingPrefab(propertyName, propertyValue, measurementUnit);
     }
 
     /// <summary>
@@ -79,17 +81,20 @@ public class PlanetVariableInfoPrefabController : PlanetInfoPrefabController
     /// 
     /// <param name="propertyName">The Name of the property to be initialised</param>
     /// <param name="propertyValue">The Value of the property to be initialised</param>
+    /// <param name="measurementUnit">The Unit of the property to be initialised</param>
     /// 
     /// <returns>
     /// The generated Input Field GameObject with the corresponding text
     /// </returns>
-    private GameObject GenerateInputFieldUsingPrefab(string propertyName, string propertyValue)
+    private GameObject GenerateInputFieldUsingPrefab(string propertyName, string propertyValue, string measurementUnit)
     {
         var planetPropertyGameObject = Instantiate(inputFieldPrefab);
 
         var planetPropertyController = planetPropertyGameObject.GetComponent<PropertyFieldController>();
+
+        var propertyText = new SystemObject[] { propertyName + NameValueSeparator, propertyValue, ValueUnitSeparatorForProperties + measurementUnit};
         
-        planetPropertyController.SetText(propertyName + NameValueSeparator + propertyValue);
+        planetPropertyController.SetText(propertyText);
         
         return planetPropertyGameObject;
     }
@@ -99,7 +104,7 @@ public class PlanetVariableInfoPrefabController : PlanetInfoPrefabController
     /// </summary>
     public void AddNewEmptyStaticProperty()
     {
-        var emptyProperty = GeneratePropertyDependingOnSubClass(UnknownPropertyText, UnknownPropertyText);
+        var emptyProperty = GeneratePropertyDependingOnSubClass(UnknownPropertyText, UnknownPropertyText, UnknownPropertyText);
         
         emptyProperty.transform.SetParent(planetStaticPropertiesContainer.transform, false);
         

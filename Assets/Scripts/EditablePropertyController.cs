@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using SystemObject = System.Object;
 
 /// <summary>
 /// Controller Script for Prefab "Editable Property Prefab"
@@ -13,11 +14,18 @@ public class EditablePropertyController : PropertyFieldController
     /// </summary>
     /// 
     /// <param name="text">
-    /// The new script that should be stored in the InputField
+    /// The new text that should be stored in the InputField
     /// </param>
-    public override void SetText(string text)
+    public override void SetText(SystemObject[] text)
     {
-        planetPropertyText.text = text;
+        var stringToDisplay = "";
+
+        foreach (var stringPiece in text)
+        {
+            stringToDisplay += stringPiece.ToString();
+        }
+        
+        planetPropertyText.text = stringToDisplay;
     }
 
     /// <summary>

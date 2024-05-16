@@ -1394,7 +1394,7 @@ MonoBehaviour:
   planetVariablePropertiesContainer: {fileID: 2417789392604347042}
   propertiesTextSize: 15
   closeTabButton: {fileID: 6710549925772119718}
-  inputFieldPrefab: {fileID: 4332388958630750679, guid: 1d4e7454993602e438216320cbe65b62, type: 3}
+  inputFieldPrefab: {fileID: 4332388958630750679, guid: be8c1375d0a0c1847b13765d4afc782b, type: 3}
   planetDescriptionContainer: {fileID: 5711588405120947238}
 --- !u!1 &4592229094183822720
 GameObject:
