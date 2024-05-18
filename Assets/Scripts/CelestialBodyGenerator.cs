@@ -17,15 +17,15 @@ public class CelestialBodyGenerator : MonoBehaviour
 
     private static void AddNewCelestialBodyToGameObject(GameObject gameObject, CelestialBody.CelestialBodyType type, Vector3 velocity, float mass)
     {
-        CelestialBody[] bodies = FindObjectsOfType<CelestialBody>();
         CelestialBody newBody = gameObject.AddComponent<CelestialBody>();
         newBody.SetMass(mass);
         newBody.SetVelocity(velocity);
         newBody.SetCelestialBodyType(type);
+        List<CelestialBody> bodies = newBody.GetCelestialBodies();
 
-        foreach (var item in bodies)
+        foreach (CelestialBody body in bodies)
         {
-            item.AppendCelestialBody(newBody);
+            body.SetCelesitalBodies(bodies);
         }
     }
 }

@@ -199,7 +199,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2306204952292658643, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_MaxValue
-      value: 100
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306204952292658643, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_WholeNumbers
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3360335619342833472, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_Name

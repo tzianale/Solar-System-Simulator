@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.016103873, g: 0.014637265, b: 0.013840056, a: 1}
+  m_IndirectSpecularColor: {r: 0.016090982, g: 0.01466979, b: 0.013826404, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -922,10 +922,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 0
+  orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 0}
   mass: 332900
   orbitRadius: 0
   ratioToEarthYear: 1
+  rotaionSpeed: 50
+  perihelion: 0
+  eccentricity: 0
+  orbitalPeriod: 0
+  orbitalSpeed: 0
 --- !u!23 &236659530
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1170,6 +1176,10 @@ PrefabInstance:
       propertyPath: panel
       value: 
       objectReference: {fileID: 341696543}
+    - target: {fileID: 2306204952292658643, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_WholeNumbers
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3360335619342833472, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -1782,10 +1792,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 1
+  orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 0.878}
   mass: 317.8
   orbitRadius: 10400
   ratioToEarthYear: 1
+  rotaionSpeed: 100
+  perihelion: 0
+  eccentricity: 0
+  orbitalPeriod: 0
+  orbitalSpeed: 0
 --- !u!23 &469337565
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1883,10 +1899,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 1
+  orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 0.65}
   mass: 95.2
   orbitRadius: 19140
   ratioToEarthYear: 1
+  rotaionSpeed: 100
+  perihelion: 0
+  eccentricity: 0
+  orbitalPeriod: 0
+  orbitalSpeed: 0
 --- !u!23 &532052288
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2618,10 +2640,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 1
+  orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 0.456}
   mass: 14.5
   orbitRadius: 38340
   ratioToEarthYear: 1
+  rotaionSpeed: 100
+  perihelion: 0
+  eccentricity: 0
+  orbitalPeriod: 0
+  orbitalSpeed: 0
 --- !u!23 &711106384
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5172,10 +5200,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 1
+  orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 1.616}
   mass: 0.107
   orbitRadius: 3040
   ratioToEarthYear: 1
+  rotaionSpeed: 100
+  perihelion: 0
+  eccentricity: 0
+  orbitalPeriod: 0
+  orbitalSpeed: 0
 --- !u!23 &1222205786
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6590,10 +6624,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 1
+  orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 3}
   mass: 0.0553
   orbitRadius: 774
   ratioToEarthYear: 1
+  rotaionSpeed: 100
+  perihelion: 0
+  eccentricity: 0
+  orbitalPeriod: 0
+  orbitalSpeed: 0
 --- !u!23 &1512896392
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8356,10 +8396,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 1
+  orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 0.364}
   mass: 17.1
   orbitRadius: 60360
   ratioToEarthYear: 1
+  rotaionSpeed: 100
+  perihelion: 0
+  eccentricity: 0
+  orbitalPeriod: 0
+  orbitalSpeed: 0
 --- !u!23 &1918121192
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8457,10 +8503,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 1
+  orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 2}
   mass: 1
   orbitRadius: 2000
   ratioToEarthYear: 1
+  rotaionSpeed: 100
+  perihelion: 0
+  eccentricity: 0
+  orbitalPeriod: 0
+  orbitalSpeed: 0
 --- !u!23 &1923049641
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9094,10 +9146,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 1
+  orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 2}
   mass: 0.815
   orbitRadius: 1446
   ratioToEarthYear: 1
+  rotaionSpeed: 100
+  perihelion: 0
+  eccentricity: 0
+  orbitalPeriod: 0
+  orbitalSpeed: 0
 --- !u!23 &1996431362
 MeshRenderer:
   m_ObjectHideFlags: 0

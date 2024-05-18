@@ -21,6 +21,8 @@ public class PlanetListElementPrefabController : MonoBehaviour, IPointerClickHan
     
     private Wrapper<GameObject> _currentlyActiveTab;
 
+    private bool actdel = true;
+
     public void SetPlanetInfo(Sprite inputSprite, string inputName, GameObject planetModel, CameraControl cameraCtrl, GameObject linkedInfoTab, Wrapper<GameObject> referenceToActiveTab, Button linkedCloseButton)
     {
         planetSprite.GetComponent<Image>().sprite = inputSprite;
@@ -60,6 +62,11 @@ public class PlanetListElementPrefabController : MonoBehaviour, IPointerClickHan
                 {
                     cameraControl.SetToFollowPosition(_planet3DObject.transform);
                 }
+                break;
+            case 3:
+                Debug.Log("Planet " + planetName.GetComponent<TextMeshProUGUI>().text + " first clicked");
+                actdel = !actdel;
+                _planet3DObject.SetActive(actdel);
                 break;
         }
     }

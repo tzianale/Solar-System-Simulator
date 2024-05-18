@@ -13,7 +13,8 @@ public class CelestialBody : MonoBehaviour
     public float mass;
     public float orbitRadius;
     public float ratioToEarthYear = 1;
-    private CelestialBody[] celestialBodies;
+    private List<CelestialBody> celestialBodies;
+    public float rotaionSpeed;
 
     // Kepler Parameters
     public float perihelion;
@@ -34,18 +35,23 @@ public class CelestialBody : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        celestialBodies = FindObjectsOfType<CelestialBody>();
+        celestialBodies = new List<CelestialBody>(FindObjectsOfType<CelestialBody>());
 
-        // CONVERSIONS
-        perihelion /= AU;
-        mass /= SM;
-        orbitalSpeed /= AU;
+        if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer)
+        {
+            // CONVERSIONS
+            perihelion /= AU;
+            mass /= SM;
+            orbitalSpeed /= AU;
 
-        // Calculate constants k and L
-        k = gravitationalConstant * (orbitingCenterPlanetMass / SM) * mass;
-        L = mass * perihelion * orbitalSpeed;
-
-        // GenerateOrbitLine();
+            // Calculate constants k and L
+            k = gravitationalConstant * (orbitingCenterPlanetMass / SM) * mass;
+            L = mass * perihelion * orbitalSpeed;
+        } else
+        {
+            GenerateOrbitLine();
+        }
+           
     }
 
     void FixedUpdate()
@@ -70,6 +76,7 @@ public class CelestialBody : MonoBehaviour
                     UpdatePositionByKepler();
                 }
             }
+            transform.Rotate(Vector3.down, rotaionSpeed * Time.deltaTime);
         }
     }
 
@@ -109,7 +116,7 @@ public class CelestialBody : MonoBehaviour
         z *= scaleFactor;
 
         // Update the position
-        rb.MovePosition(new Vector3(x, 0, z));
+        transform.position = new Vector3(x, 0, z);
 
         // Increment time
         currentTime += Time.deltaTime;
@@ -178,7 +185,7 @@ public class CelestialBody : MonoBehaviour
 
     public void AppendCelestialBody(CelestialBody celestialBody)
     {
-        celestialBodies.Append(celestialBody);
+        celestialBodies.Add(celestialBody);
     }
 
     //getter and setter methods
@@ -195,5 +202,8 @@ public class CelestialBody : MonoBehaviour
     public void SetRatioToEarthYear(float ratio) => ratioToEarthYear = ratio;
 
     public void SetVelocity(Vector3 velocity) => this.velocity = velocity;
+
+    public List<CelestialBody> GetCelestialBodies() => celestialBodies;
+    public void SetCelesitalBodies(List<CelestialBody> celestialBodies) => this.celestialBodies = celestialBodies;
 
 }
