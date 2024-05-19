@@ -23,11 +23,12 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     [SerializeField] private protected GameObject planetVariablePropertiesContainer;
 
     [SerializeField] private protected int propertiesTextSize;
-    
-    [SerializeField] private protected TextMeshProUGUI planetDescriptionContainer;
 
     [SerializeField] private Button closeTabButton;
 
+    /// <summary>
+    /// Getter method for the Button that closes this info tab
+    /// </summary>
     public Button CloseTabButton { get => closeTabButton; }
 
     private readonly List<TextMeshProUGUI> _refreshableTextFields = new();
@@ -62,9 +63,11 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
         {
             propertyField.transform.SetParent(planetVariablePropertiesContainer.transform, false);
         }
-        
-        planetDescriptionContainer.text = planetDescription;
+
+        SetDescription(planetDescription);
     }
+
+    protected abstract void SetDescription(string planetDescription);
     
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.

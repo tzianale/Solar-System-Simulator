@@ -11,6 +11,19 @@ using UnityEngine.UI;
 public class PlanetVariableInfoPrefabController : PlanetInfoPrefabController
 {
     [SerializeField] private GameObject inputFieldPrefab;
+    [SerializeField] private TMP_InputField planetDescriptionContainer;
+
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// 
+    /// <param name="planetDescription">
+    /// TODO
+    /// </param>
+    protected override void SetDescription(string planetDescription)
+    {
+        planetDescriptionContainer.text = planetDescription;
+    }
     
     /// <summary>
     /// Overrides the base method in class PlanetInfoPrefabController.

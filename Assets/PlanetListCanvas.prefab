@@ -285,7 +285,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4120303847314640541}
   m_HandleRect: {fileID: 4075950035355463724}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -781,6 +781,7 @@ GameObject:
   - component: {fileID: 7231061205755359680}
   - component: {fileID: 3635272825476465330}
   - component: {fileID: 929269257475290902}
+  - component: {fileID: 2237407381761392371}
   m_Layer: 0
   m_Name: PlanetListContainer
   m_TagString: Untagged
@@ -850,6 +851,56 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!114 &929269257475290902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332405122656819923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 046708c5710ad5f48ad89b128f8f3930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sun: {fileID: 0}
+  planetListContent: {fileID: 3742004050966057127}
+  canvas: {fileID: 0}
+  planetObjectPrefab: {fileID: 4332388958630750679, guid: 81c0531d9e100974dbe82719d2c46a6f, type: 3}
+  planetInfoPrefab: {fileID: 0}
+  planetSprites:
+  - {fileID: 21300000, guid: 3f2932185327a2f47acd4c53bb44d351, type: 3}
+  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
+  planetModels:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  cameraControl: {fileID: 0}
+--- !u!114 &2237407381761392371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8332405122656819923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a2b8f002ff4d18807e8d8146299cc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8393197492367521295
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,7 +910,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3742004050966057127}
-  - component: {fileID: 8352677112638046468}
   - component: {fileID: 258623931403958111}
   - component: {fileID: 7519426824755974249}
   m_Layer: 0
@@ -888,31 +938,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 133}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &8352677112638046468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8393197492367521295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 046708c5710ad5f48ad89b128f8f3930, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planetListContent: {fileID: 3742004050966057127}
-  planetPrefab: {fileID: 4332388958630750679, guid: 81c0531d9e100974dbe82719d2c46a6f,
-    type: 3}
-  planetNames:
-  - Sun
-  - Earth
-  planetSprites:
-  - {fileID: 21300000, guid: 3f2932185327a2f47acd4c53bb44d351, type: 3}
-  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
-  planetModels:
-  - {fileID: 0}
-  - {fileID: 0}
-  cameraControl: {fileID: 0}
 --- !u!114 &258623931403958111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -989,55 +1014,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0.000061035156}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &929269257475290902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8332405122656819923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 046708c5710ad5f48ad89b128f8f3930, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sun: {fileID: 0}
-  planetListContent: {fileID: 1532994944392091478}
-  canvas: {fileID: 0}
-  planetObjectPrefab: {fileID: 4332388958630750679, guid: 81c0531d9e100974dbe82719d2c46a6f,
-    type: 3}
-  planetInfoPrefab: {fileID: 0}
-  planetNames:
-  - Sun
-  - Mercury
-  - Venus
-  - Earth
-  - Mars
-  - Jupiter
-  - Saturn
-  - Uranus
-  - Neptun
-  planetSprites:
-  - {fileID: 21300000, guid: 3f2932185327a2f47acd4c53bb44d351, type: 3}
-  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
-  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
-  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
-  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
-  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
-  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
-  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
-  - {fileID: 21300000, guid: 6c258de4d17447b46869579bc1e8ece0, type: 3}
-  planetModels:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  cameraControl: {fileID: 0}
 --- !u!1 &8848285810528392978
 GameObject:
   m_ObjectHideFlags: 0
