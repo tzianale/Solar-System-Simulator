@@ -1,30 +1,62 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CelestialBody : MonoBehaviour
 {
     public enum CelestialBodyType { Sun, Planet, Moon };
-    Rigidbody rb;
     public CelestialBodyType celestType;
+    public float orbitingCenterPlanetMass;
     public Vector3 velocity;
     public float mass;
     public float orbitRadius;
     public float ratioToEarthYear = 1;
-    private CelestialBody[] celestialBodies;
+    private List<CelestialBody> celestialBodies;
+    public float rotaionSpeed;
+
+    // Kepler Parameters
+    public float perihelion;
+    public float eccentricity;
+    public float orbitalPeriod;
+    public float orbitalSpeed;
+    private float currentTime = 0;
+    private float gravitationalConstant = 1.1904e-19f;
+    private float k;
+    private float L;
+
+    // Constants
+    private const float AU = 1.496e8f; // kilometers
+    private const float SM = 1.989e30f;
+    private const float YEAR_S = 365.25f * 24f * 3600f;  // seconds
+    private const float scaleFactor = 5e-9f; // Unity units per AU
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        celestialBodies = FindObjectsOfType<CelestialBody>();
+        celestialBodies = new List<CelestialBody>(FindObjectsOfType<CelestialBody>());
 
-        GenerateOrbitLine();
+        if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer)
+        {
+            // CONVERSIONS
+            perihelion /= AU;
+            mass /= SM;
+            orbitalSpeed /= AU;
+
+            // Calculate constants k and L
+            k = gravitationalConstant * (orbitingCenterPlanetMass / SM) * mass;
+            L = mass * perihelion * orbitalSpeed;
+        } else
+        {
+            GenerateOrbitLine();
+        }
+           
     }
 
     void FixedUpdate()
-    {   if (!GameStateController.isPaused)
+    {
+        if (!GameStateController.isPaused)
         {
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Sandbox)
             {
@@ -41,31 +73,81 @@ public class CelestialBody : MonoBehaviour
             {
                 if (celestType != CelestialBodyType.Sun)
                 {
-                    UpdatePositionByDate();
+                    UpdatePositionByKepler();
                 }
             }
+            transform.Rotate(Vector3.down, rotaionSpeed * Time.deltaTime);
         }
     }
 
     private void UpdateVelocity(CelestialBody planet)
     {
-        float gravitationalConstant = 6.67f * (float) Math.Pow(10, -6);
-        float rSqr = (planet.rb.position - rb.position).sqrMagnitude;
-        Vector3 forceDir = (planet.rb.position - rb.position).normalized;
-        Vector3 force = forceDir * gravitationalConstant * mass * planet.mass / rSqr;
+        float gravitationalConstant = 10000000000f;
+        float rSqr = (planet.transform.position - transform.position).sqrMagnitude;
+        Vector3 forceDir = (planet.transform.position - transform.position).normalized;
+        Vector3 force =  gravitationalConstant * mass * planet.mass * forceDir / rSqr;
         velocity += force * (float)Math.Pow(10, -12) / mass;
     }
 
     private void UpdatePosition()
     {
-        rb.position += velocity;
+        transform.position += velocity;
     }
 
-    private void UpdatePositionByDate()
+    private void UpdatePositionByKepler()
     {
-        float x = (float) Math.Cos(2 * Math.PI / (365.256363004 * ratioToEarthYear) * GameStateController.explorerModeDay) * orbitRadius;
-        float z = (float) Math.Sin(2 * Math.PI / (365.256363004 * ratioToEarthYear) * GameStateController.explorerModeDay) * orbitRadius;
-        rb.MovePosition(new Vector3(x, 0, z));
+        // Calculate the mean anomaly
+        float M = mean_anomaly(currentTime, orbitalPeriod);
+
+        // Calculate the eccentric anomaly
+        float E = eccentric_anomaly(M, eccentricity);
+
+        // Calculate the true anomaly
+        float theta = true_anomaly(E, eccentricity);
+
+        // Calculate the radial distance
+        float r = radius_of_orbit(L, k, mass, eccentricity, theta);
+
+        // Calculate the position in the orbital plane
+        float x = r * Mathf.Cos(theta);
+        float z = r * Mathf.Sin(theta);
+
+        x *= scaleFactor;
+        z *= scaleFactor;
+
+        // Update the position
+        transform.position = new Vector3(x, 0, z);
+
+        // Increment time
+        currentTime += Time.deltaTime;
+    }
+
+    private float mean_anomaly(float t, float T)
+    {
+        return 2 * Mathf.PI * (t % T) / T;
+    }
+
+    private float eccentric_anomaly(float M, float e)
+    {
+        float E = M; // Initial guess: E ≈ M
+        for (int i = 0; i < 10; i++) // Newton-Raphson iteration
+        {
+            float deltaE = (M - (E - e * Mathf.Sin(E))) / (1 - e * Mathf.Cos(E));
+            E += deltaE;
+            if (Mathf.Abs(deltaE) < 1e-6)
+                break;
+        }
+        return E;
+    }
+
+    private float true_anomaly(float E, float e)
+    {
+        return 2 * Mathf.Atan2(Mathf.Sqrt(1 + e) * Mathf.Sin(E / 2), Mathf.Sqrt(1 - e) * Mathf.Cos(E / 2));
+    }
+
+    private float radius_of_orbit(float L, float k, float m, float epsilon, float theta)
+    {
+        return (L * L / (k * m)) / (1 + epsilon * Mathf.Cos(theta));
     }
 
     public Vector3[] GetOrbitLinePoints()
@@ -73,7 +155,7 @@ public class CelestialBody : MonoBehaviour
         int pointsLentgth = 360;
         Vector3[] points = new Vector3[pointsLentgth];
 
-        for (int i = 0; i < pointsLentgth;  i++)
+        for (int i = 0; i < pointsLentgth; i++)
         {
             float x = (float)Math.Cos(2 * Math.PI / pointsLentgth * i) * orbitRadius;
             float z = (float)Math.Sin(2 * Math.PI / pointsLentgth * i) * orbitRadius;
@@ -98,7 +180,7 @@ public class CelestialBody : MonoBehaviour
 
     public Vector3 getPostion()
     {
-        return GetComponent<Transform>().position;
+        return transform.position;
     }
 
     //getter and setter methods
@@ -113,5 +195,10 @@ public class CelestialBody : MonoBehaviour
 
     public float GetRatioToEarthYear() => ratioToEarthYear;
     public void SetRatioToEarthYear(float ratio) => ratioToEarthYear = ratio;
+
+    public void SetVelocity(Vector3 velocity) => this.velocity = velocity;
+
+    public List<CelestialBody> GetCelestialBodies() => celestialBodies;
+    public void SetCelesitalBodies(List<CelestialBody> celestialBodies) => this.celestialBodies = celestialBodies;
 
 }
