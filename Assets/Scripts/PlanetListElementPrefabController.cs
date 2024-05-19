@@ -24,6 +24,7 @@ public class PlanetListElementPrefabController : MonoBehaviour, IPointerClickHan
     
     private Wrapper<GameObject> _currentlyActiveTab;
 
+    private bool actdel = true;
 
     /// <summary>
     /// Constructor-like method, sets all the relevant information and references, as well as linking the Closing Button
