@@ -1,9 +1,12 @@
 using TMPro;
+using utils;
 using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using System.Collections.Generic;
+using SystemObject = System.Object;
 using Button = UnityEngine.UI.Button;
 
 /// <summary>
@@ -16,17 +19,23 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     private protected const string ValueUnitSeparatorForProperties = " ";
     private const string ValueUnitSeparatorForRawData = "_";
     
+    [SerializeField] private protected GameObject variablePropertiesPrefab;
+    
+    
     [SerializeField] private protected TextMeshProUGUI planetNameField;
 
     [SerializeField] private protected GameObject planetSpriteField;
 
+    [SerializeField] private protected GameObject planetVariablePropertiesContainer;
+
     [SerializeField] private protected GameObject planetStaticPropertiesContainer;
 
-    [SerializeField] private protected GameObject planetVariablePropertiesContainer;
+    [SerializeField] private protected GameObject planetLiveStatsContainer;
 
     [SerializeField] private protected int propertiesTextSize;
 
     [SerializeField] private Button closeTabButton;
+    
 
     /// <summary>
     /// Getter method for the Button that closes this info tab
@@ -35,7 +44,9 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
 
     private readonly List<TextMeshProUGUI> _refreshableTextFields = new();
     
-    private Dictionary<string, Func<string>> _variableProperties;
+    private Dictionary<string, TwoObjectContainer<string, UnityAction<string>>> _variableProperties;
+    
+    private Dictionary<string, Func<string>> _liveStats;
     
     /// <summary>
     /// Constructor-like method for initialising the fields of a Planet info tab
@@ -43,30 +54,80 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     /// 
     /// <param name="planetName">The name of the planet</param>
     /// <param name="planetSprite">The picture that will be used as icon for the planet</param>
+    /// <param name="variableProperties">The Dictionary of properties that will update the simulation when changed by the user</param>
     /// <param name="planetStaticProperties">The Dictionary of properties that won't need to be updated and their values</param>
-    /// <param name="planetVariableProperties">The Dictionary of properties that will be updated and the methods to retrieve the updated data</param>
+    /// <param name="planetLiveStats">The Dictionary of properties that will be updated and the methods to retrieve the updated data</param>
     /// <param name="planetDescription">The description of the planet</param>
-    public void SetPlanetInfo(string planetName, Sprite planetSprite, 
+    public void SetPlanetInfo(string planetName, Sprite planetSprite,
+        Dictionary<string, TwoObjectContainer<string, UnityAction<string>>> variableProperties,
         Dictionary<string, string> planetStaticProperties, 
-        Dictionary<string, Func<string>> planetVariableProperties,
+        Dictionary<string, Func<string>> planetLiveStats,
         string planetDescription)
     {
         planetNameField.text = planetName;
         planetSpriteField.GetComponent<Image>().sprite = planetSprite;
+
+        _variableProperties = variableProperties;
+        _liveStats = planetLiveStats;
         
-        _variableProperties = planetVariableProperties;
+        
+        foreach (var propertyField in GenerateVariablePropertiesList())
+        {
+            propertyField.transform.SetParent(planetVariablePropertiesContainer.transform, false);
+        }
 
         foreach (var propertyField in GenerateStaticPropertiesList(planetStaticProperties))
         {
             propertyField.transform.SetParent(planetStaticPropertiesContainer.transform, false);
         }
 
-        foreach (var propertyField in GenerateVariablePropertiesList(_variableProperties))
+        foreach (var propertyField in GenerateLiveStatsList(_liveStats))
         {
-            propertyField.transform.SetParent(planetVariablePropertiesContainer.transform, false);
+            propertyField.transform.SetParent(planetLiveStatsContainer.transform, false);
         }
 
         SetDescription(planetDescription);
+    }
+
+    
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <returns>
+    /// TODO
+    /// </returns>
+    private List<GameObject> GenerateVariablePropertiesList()
+    {
+        var resultList = new List<GameObject>();
+        
+        if (_variableProperties.Count == 0)
+        {
+            planetVariablePropertiesContainer.SetActive(false);
+        }
+        else
+        {
+            foreach (var variableProperty in _variableProperties)
+            {
+                var variablePropertyGameObject = Instantiate(variablePropertiesPrefab);
+
+                var variablePropertyController = variablePropertyGameObject.GetComponent<ObservablePropertyController>();
+
+                var propertyName = variableProperty.Key;
+                var propertyValueAndUnit = SeparateValueAndUnit(variableProperty.Value.FirstObject);
+                
+                var propertyValue = propertyValueAndUnit.FirstObject;
+                var propertyUnit = propertyValueAndUnit.SecondObject;
+                
+                var propertyText = new SystemObject[] { propertyName + NameValueSeparator, propertyValue, ValueUnitSeparatorForProperties + propertyUnit};
+                
+                variablePropertyController.SetText(propertyText);
+                variablePropertyController.AddListenerToPropertyValue(variableProperty.Value.SecondObject);
+
+                resultList.Add(variablePropertyGameObject);
+            }
+        }
+
+        return resultList;
     }
 
     /// <summary>
@@ -81,19 +142,19 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        RefreshVariableInfo();
+        RefreshLiveInfo();
     }
 
     /// <summary>
-    /// Calls each of the methods provided by the planetVariableProperties Dictionary, actualising the stored data
+    /// Calls each of the methods provided by the planetLiveStats Dictionary, actualising the stored data
     /// </summary>
-    private void RefreshVariableInfo()
+    private void RefreshLiveInfo()
     {
-        var newVariablePropertiesList = GenerateVariablePropertiesValues();
+        var newLiveStatsList = GenerateLiveStatsValues();
 
         for (var propertyIndex = 0; propertyIndex < _refreshableTextFields.Count; propertyIndex++)
         {
-            _refreshableTextFields[propertyIndex].text = newVariablePropertiesList[propertyIndex];
+            _refreshableTextFields[propertyIndex].text = newLiveStatsList[propertyIndex];
         }
     }
 
@@ -123,27 +184,44 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
         for (var elementIndex = 0; elementIndex < elementCount; elementIndex++)
         {
             var propertyName = UnknownPropertyText;
-            var propertyValue = UnknownPropertyText;
+            var propertyValueAndUnit = UnknownPropertyText;
 
             if (elementIndex < propertiesNamesCount) propertyName = planetPropertiesNames.ElementAt(elementIndex);
-            if (elementIndex < propertiesValuesCount) propertyValue = planetPropertiesValues.ElementAt(elementIndex);
-            
-            var propertyUnit = "";
+            if (elementIndex < propertiesValuesCount) propertyValueAndUnit = planetPropertiesValues.ElementAt(elementIndex);
 
-            var valueAndUnitSeparated = propertyValue.Split(ValueUnitSeparatorForRawData);
-            
-            propertyValue = valueAndUnitSeparated[0];
+            var propertyValueAndUnitSeparated = SeparateValueAndUnit(propertyValueAndUnit);
 
-            if (valueAndUnitSeparated.Length > 1)
-            { 
-                propertyUnit = valueAndUnitSeparated[1];
-            }
+            var propertyValue = propertyValueAndUnitSeparated.FirstObject;
+            var propertyUnit = propertyValueAndUnitSeparated.SecondObject;
 
             resultList.Add(GeneratePropertyDependingOnSubClass(propertyName, propertyValue, propertyUnit));
         }
 
         return resultList;
     }
+
+
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// <param name="inputString"></param>
+    /// <returns></returns>
+    private static TwoObjectContainer<string, string> SeparateValueAndUnit(string inputString)
+    {
+        var propertyUnit = "";
+
+        var valueAndUnitSeparated = inputString.Split(ValueUnitSeparatorForRawData);
+            
+        var propertyValue = valueAndUnitSeparated[0];
+
+        if (valueAndUnitSeparated.Length > 1)
+        { 
+            propertyUnit = valueAndUnitSeparated[1];
+        }
+
+        return new TwoObjectContainer<string, string>(propertyValue, propertyUnit);
+    }
+    
 
     /// <summary>
     /// Generate a list of GameObjects containing the various variable properties of the planet
@@ -156,7 +234,7 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     /// Returns a list of GameObjects to append as children of the Variable Properties Container.
     /// Properties will be automatically updated at each Update() method call
     /// </returns>
-    private List<GameObject> GenerateVariablePropertiesList(Dictionary<string, Func<string>> planetProperties)
+    private List<GameObject> GenerateLiveStatsList(Dictionary<string, Func<string>> planetProperties)
     {
         var resultList = new List<GameObject>();
 
@@ -176,11 +254,11 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     /// <returns>
     /// A list of strings to replace the outdated variable properties values
     /// </returns>
-    private List<string> GenerateVariablePropertiesValues()
+    private List<string> GenerateLiveStatsValues()
     {
         var properties = new List<string>();
 
-        foreach (var property in _variableProperties)
+        foreach (var property in _liveStats)
         {
             var propertyName = property.Key;
             var propertyValue = property.Value();

@@ -11,7 +11,7 @@ using SystemObject = System.Object;
 /// </summary>
 public class PlanetVariableInfoPrefabController : PlanetInfoPrefabController
 {
-    [SerializeField] private GameObject inputFieldPrefab;
+    [SerializeField] private GameObject editablePropertiesFieldPrefab;
     [SerializeField] private TMP_InputField planetDescriptionContainer;
 
     /// <summary>
@@ -88,7 +88,7 @@ public class PlanetVariableInfoPrefabController : PlanetInfoPrefabController
     /// </returns>
     private GameObject GenerateInputFieldUsingPrefab(string propertyName, string propertyValue, string measurementUnit)
     {
-        var planetPropertyGameObject = Instantiate(inputFieldPrefab);
+        var planetPropertyGameObject = Instantiate(editablePropertiesFieldPrefab);
 
         var planetPropertyController = planetPropertyGameObject.GetComponent<PropertyFieldController>();
 

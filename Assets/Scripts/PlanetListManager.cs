@@ -1,6 +1,7 @@
 using utils;
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using System.Collections.Generic;
 
 /// <summary>
@@ -87,14 +88,22 @@ public class PlanetListManager : MonoBehaviour
             {
                 var currentPlanetModel = planetModels[i];
                 
-                var variableProperties = new Dictionary<string, Func<string>>()
+                var variableProperties = new Dictionary<string, TwoObjectContainer<string, UnityAction<string>>>()
+                {
+                    {"Planet Mass", new TwoObjectContainer<string, UnityAction<string>>("100_kg", updatedData => Debug.Log("HI"))}
+                };
+                
+                var liveStats = new Dictionary<string, Func<string>>()
                 {
                     {"Current Speed", () => currentPlanetModel.GetComponent<CelestialBody>().velocity.magnitude.ToString("n2")},
                     {"Distance to Sun", () => (currentPlanetModel.transform.position - sun.transform.position).magnitude.ToString("n2")}
                 };
-        
-                CreateNewPlanet(planetSprites[i], _planetNames[i], currentPlanetModel, planetProperties[i], 
-                    variableProperties, planetDescriptions[i]);
+
+                CreateNewPlanet(planetSprites[i], _planetNames[i], currentPlanetModel,
+                    variableProperties,
+                    planetProperties[i], 
+                    liveStats, 
+                    planetDescriptions[i]);
             }
         }
     }
@@ -115,21 +124,27 @@ public class PlanetListManager : MonoBehaviour
     /// The GameObject that represents the planet in the simulation
     /// </param>
     /// 
-    /// <param name="staticProperties">
-    /// The "fixed" properties of a planet, aka the ones that won't have to be changed dynamically.
-    /// Example: Planet Mass
+    /// <param name="variableProperties">
+    /// The properties of a planet which will impact the simulation when (and if) changed
     /// </param>
     /// 
-    /// <param name="variableProperties">
-    /// The "variable" properties of a planet, aka the ones that will have to be changed dynamically.
-    /// Example: Planet Speed
+    /// <param name="staticProperties">
+    /// The "fixed" properties of a planet, aka the ones that won't have to be changed dynamically.
+    /// Example: Planet Surface Temperature
+    /// </param>
+    /// 
+    /// <param name="liveStats">
+    /// The "live" properties of a planet, aka the ones that will have to be changed dynamically.
+    /// Example: Current Planet Speed
     /// </param>
     /// 
     /// <param name="planetDescription">
     /// A description about this planet
     /// </param>
     private void CreateNewPlanet(Sprite planetSprite, string planetName, GameObject planetObject, 
-        Dictionary<string, string> staticProperties, Dictionary<string, Func<string>> variableProperties,
+        Dictionary<string, TwoObjectContainer<string, UnityAction<string>>> variableProperties,
+        Dictionary<string, string> staticProperties, 
+        Dictionary<string, Func<string>> liveStats,
         string planetDescription)
     {
         var planetListElement = Instantiate(planetObjectPrefab, planetListContent);
@@ -148,7 +163,10 @@ public class PlanetListManager : MonoBehaviour
             cameraControl, planetInfoTab, _activeInfoTab, planetInfoCloseButton);
         
         planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite,
-            staticProperties, variableProperties, planetDescription);
+            variableProperties,
+            staticProperties, 
+            liveStats, 
+            planetDescription);
         
         planetInfoTab.SetActive(false);
     }

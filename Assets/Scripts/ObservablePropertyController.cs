@@ -17,17 +17,6 @@ public class ObservablePropertyController : PropertyFieldController
         planetPropertyValue.onEndEdit.AddListener(listener);
     }
 
-    private static void TestListener(string newValue)
-    {
-        Debug.Log(newValue);
-    }
-
-
-    private void Start()
-    {
-        AddListenerToPropertyValue(TestListener);
-    }
-
 
     /// <summary>
     /// Allows external scripts to edit the text inside the InputField by code
@@ -73,13 +62,5 @@ public class ObservablePropertyController : PropertyFieldController
         text ??= "";
         
         planetPropertyMeasurementUnit.text = text;
-    }
-
-    /// <summary>
-    /// Destroys this instance of the Prefab
-    /// </summary>
-    public void DestroyProperty()
-    {
-        Destroy(gameObject);
     }
 }
