@@ -12,7 +12,7 @@ public class CelestialBodyPlayTests
         SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Sandbox;
         var sun = new GameObject("Sun").AddComponent<CelestialBody>();
         sun.SetCelestialBodyType(CelestialBody.CelestialBodyType.Sun);
-        sun.SetMass(1.99e+22f);
+        sun.SetMass(332900);
         var sunRb = sun.gameObject.AddComponent<Rigidbody>();
         sunRb.useGravity = false;
         sunRb.isKinematic = true;
@@ -20,7 +20,7 @@ public class CelestialBodyPlayTests
         var planet = new GameObject("Planet").AddComponent<CelestialBody>();
         planet.transform.position = new Vector3(755, 0, 0);
         planet.SetCelestialBodyType(CelestialBody.CelestialBodyType.Planet);
-        planet.SetMass(3.3e+15f);
+        planet.SetMass(1);
         var planetRb = planet.gameObject.AddComponent<Rigidbody>();
         planetRb.useGravity = false;
         planetRb.isKinematic = false;
