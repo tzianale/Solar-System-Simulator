@@ -1,4 +1,3 @@
-/*
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
@@ -73,4 +72,3 @@ public class PlanetPrefabManagerTests
         Object.DestroyImmediate(planetObject);
     }
 }
-*/

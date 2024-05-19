@@ -666,8 +666,8 @@ MonoBehaviour:
   planetStaticPropertiesContainer: {fileID: 4592229094183822720}
   planetVariablePropertiesContainer: {fileID: 2417789392604347042}
   propertiesTextSize: 15
-  closeTabButton: {fileID: 6710549925772119718}
   planetDescriptionContainer: {fileID: 7270972794486920520}
+  closeTabButton: {fileID: 6710549925772119718}
 --- !u!114 &1721943372574888020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,7 +709,6 @@ GameObject:
   - component: {fileID: 2177743415798350144}
   - component: {fileID: 6830031319363386736}
   - component: {fileID: 2725654336912866444}
-  - component: {fileID: 3409058594653679454}
   m_Layer: 5
   m_Name: PlanetStaticPropertiesContainer
   m_TagString: Untagged
@@ -733,7 +732,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 141.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6830031319363386736
@@ -770,20 +769,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
---- !u!114 &3409058594653679454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4592229094183822720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 0
-  m_VerticalFit: 2
 --- !u!1 &5427483629691590830
 GameObject:
   m_ObjectHideFlags: 0

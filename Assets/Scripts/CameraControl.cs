@@ -170,8 +170,8 @@ public class CameraControl : MonoBehaviour
         pivotPoint = parentModel.transform.position;  // Reset pivot
     }
 
-    public Transform GetFollowingTarget()
+    public bool getFollowingStatus()
     {
-        return followTarget;
+        return isFollowing;
     }
 }
