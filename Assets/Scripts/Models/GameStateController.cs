@@ -1,56 +1,56 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameStateController : MonoBehaviour
+namespace Models
 {
-    public static bool isPaused = false;
-    private float lastSpeed = 1f;
-    public static double explorerModeDay;
-    public TextMeshProUGUI dayText;
-    public TextMeshProUGUI simulationSpeedText;
-    public Slider simulationSpeedSlider;
-
-    private void Start()
+    public class GameStateController : MonoBehaviour
     {
-        explorerModeDay = 0;
-    }
+        public static bool isPaused = false;
+        private float lastSpeed = 1f;
+        public static double explorerModeDay;
+        public TextMeshProUGUI dayText;
+        public TextMeshProUGUI simulationSpeedText;
+        public Slider simulationSpeedSlider;
 
-    private void Update()
-    {
-        simulationSpeedText.text = simulationSpeedSlider.value.ToString("0") + "x";
-    }
-
-    private void FixedUpdate()
-    {
-        if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer && !isPaused)
+        private void Start()
         {
-            DisplayDate(ComputeDateByCurrentDate(explorerModeDay));
-            explorerModeDay += Time.deltaTime;
+            explorerModeDay = 0;
         }
-    }
 
-    public void playPause()
-    {
-        isPaused = !isPaused;
-    }
+        private void Update()
+        {
+            simulationSpeedText.text = simulationSpeedSlider.value.ToString("0") + "x";
+        }
 
-    public void setTimeScale(float timeScale)
-    {
-        if (Time.timeScale != 0) Time.timeScale = timeScale;
-    }
+        private void FixedUpdate()
+        {
+            if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer && !isPaused)
+            {
+                DisplayDate(ComputeDateByCurrentDate(explorerModeDay));
+                explorerModeDay += Time.deltaTime;
+            }
+        }
 
-    private DateTime ComputeDateByCurrentDate(double daysPassed)
-    {
-        return DateTime.Now.AddDays(daysPassed);
-    }
+        public void playPause()
+        {
+            isPaused = !isPaused;
+        }
 
-    private void DisplayDate(DateTime date)
-    {
-        dayText.text = date.ToString("d");
+        public void setTimeScale(float timeScale)
+        {
+            if (Time.timeScale != 0) Time.timeScale = timeScale;
+        }
+
+        private DateTime ComputeDateByCurrentDate(double daysPassed)
+        {
+            return DateTime.Now.AddDays(daysPassed);
+        }
+
+        private void DisplayDate(DateTime date)
+        {
+            dayText.text = date.ToString("d");
+        }
     }
 }

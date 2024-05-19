@@ -1,6 +1,9 @@
-public static class SimulationModeState
+namespace Models
 {
-    public enum SimulationMode { Explorer, Sandbox }
-    public static SimulationMode currentSimulationMode;
+    public static class SimulationModeState
+    {
+        public enum SimulationMode { Explorer, Sandbox }
+        public static SimulationMode currentSimulationMode;
    
+    }
 }

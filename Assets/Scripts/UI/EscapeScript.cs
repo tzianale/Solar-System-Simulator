@@ -1,36 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class EscapeScript : MonoBehaviour
+namespace UI
 {
-
-    public GameObject panel;
-
-    public GameObject Panel
+    public class EscapeScript : MonoBehaviour
     {
-        get { return panel; }
-        set { panel = value; }
-    }
-    public void openPanel()
-    {
-        if (Panel != null)
+
+        public GameObject panel;
+
+        public GameObject Panel
         {
-            Panel.SetActive(true);
+            get { return panel; }
+            set { panel = value; }
         }
-    }
-
-    public void closePanel()
-    {
-        if (Panel != null)
+        public void openPanel()
         {
-            Panel.SetActive(false);
+            if (Panel != null)
+            {
+                Panel.SetActive(true);
+            }
         }
-    }
 
-    private void escapeGame()
-    {
-        SceneManager.LoadSceneAsync(0);
+        public void closePanel()
+        {
+            if (Panel != null)
+            {
+                Panel.SetActive(false);
+            }
+        }
+
+        private void escapeGame()
+        {
+            SceneManager.LoadSceneAsync(0);
+        }
     }
 }

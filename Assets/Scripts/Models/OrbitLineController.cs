@@ -1,53 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class OrbitLineController : MonoBehaviour
+namespace Models
 {
-    private LineRenderer lineRenderer;
-    [SerializeField] private CelestialBody celestialBody;
-    private Vector3[] last100Points = new Vector3[100];
-
-    public CelestialBody CelestialBody
+    public class OrbitLineController : MonoBehaviour
     {
-        set { celestialBody = value; }
-    }
+        private LineRenderer lineRenderer;
+        [SerializeField] private CelestialBody celestialBody;
+        private Vector3[] last100Points = new Vector3[100];
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        lineRenderer = GetComponent<LineRenderer>();
-        if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer)
+        public CelestialBody CelestialBody
         {
-            Vector3[] orbitPoints = celestialBody.GetOrbitLinePoints();
-            lineRenderer.positionCount = orbitPoints.Length;
-            lineRenderer.SetPositions(orbitPoints);
-        } else
-        {
-            last100Points = new Vector3[100];
-            Vector3 celestialBodyIntialPostion = celestialBody.getPostion();
-            for (int i = 0; i < last100Points.Length; i++)
-            {
-                last100Points[i] = celestialBodyIntialPostion;
-            }
-            lineRenderer.loop = false;
+            set { celestialBody = value; }
         }
 
-    }
-
-    void FixedUpdate()
-    {
-        if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Sandbox)
+        // Start is called before the first frame update
+        void Start()
         {
-            for (int i = last100Points.Length - 1; i > 0; i--)
+            lineRenderer = GetComponent<LineRenderer>();
+            if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer)
             {
-                last100Points[i] = last100Points[i - 1];
+                Vector3[] orbitPoints = celestialBody.GetOrbitLinePoints();
+                lineRenderer.positionCount = orbitPoints.Length;
+                lineRenderer.SetPositions(orbitPoints);
+            } else
+            {
+                last100Points = new Vector3[100];
+                Vector3 celestialBodyIntialPostion = celestialBody.getPostion();
+                for (int i = 0; i < last100Points.Length; i++)
+                {
+                    last100Points[i] = celestialBodyIntialPostion;
+                }
+                lineRenderer.loop = false;
             }
-            last100Points[0] = celestialBody.getPostion();
 
-            lineRenderer.positionCount = last100Points.Length;
-            lineRenderer.SetPositions(last100Points);
+        }
+
+        void FixedUpdate()
+        {
+            if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Sandbox)
+            {
+                for (int i = last100Points.Length - 1; i > 0; i--)
+                {
+                    last100Points[i] = last100Points[i - 1];
+                }
+                last100Points[0] = celestialBody.getPostion();
+
+                lineRenderer.positionCount = last100Points.Length;
+                lineRenderer.SetPositions(last100Points);
+            }
         }
     }
 }

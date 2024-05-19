@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SettingScript : MonoBehaviour
+namespace Models
 {
-    
-    public void loadScene()
+    public class SettingScript : MonoBehaviour
     {
-        SceneManager.LoadSceneAsync(0);
+    
+        public void loadScene()
+        {
+            SceneManager.LoadSceneAsync(0);
+        }
     }
 }

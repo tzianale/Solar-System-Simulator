@@ -1,39 +1,43 @@
 using NUnit.Framework;
+using UI;
 using UnityEngine;
 
-public class MainMenuScriptEditTests
+namespace Tests.EditMode
 {
-    [Test]
-    public void OpenPanel_ActivatesPanel()
+    public class MainMenuScriptEditTests
     {
-        // Arrange
-        var menuObject = new GameObject();
-        var menuScript = menuObject.AddComponent<MainMenuScript>();
-        var panelObject = new GameObject();
-        panelObject.SetActive(false); // Panel starts inactive
-        menuScript.Panel = panelObject;
+        [Test]
+        public void OpenPanel_ActivatesPanel()
+        {
+            // Arrange
+            var menuObject = new GameObject();
+            var menuScript = menuObject.AddComponent<MainMenuScript>();
+            var panelObject = new GameObject();
+            panelObject.SetActive(false); // Panel starts inactive
+            menuScript.Panel = panelObject;
 
-        // Act
-        menuScript.openPanel();
+            // Act
+            menuScript.openPanel();
 
-        // Assert
-        Assert.IsTrue(panelObject.activeSelf, "Panel should be active after openPanel is called");
-    }
+            // Assert
+            Assert.IsTrue(panelObject.activeSelf, "Panel should be active after openPanel is called");
+        }
 
-    [Test]
-    public void ClosePanel_DeactivatesPanel()
-    {
-        // Arrange
-        var menuObject = new GameObject();
-        var menuScript = menuObject.AddComponent<MainMenuScript>();
-        var panelObject = new GameObject();
-        panelObject.SetActive(true); // Panel starts active
-        menuScript.Panel = panelObject;
+        [Test]
+        public void ClosePanel_DeactivatesPanel()
+        {
+            // Arrange
+            var menuObject = new GameObject();
+            var menuScript = menuObject.AddComponent<MainMenuScript>();
+            var panelObject = new GameObject();
+            panelObject.SetActive(true); // Panel starts active
+            menuScript.Panel = panelObject;
 
-        // Act
-        menuScript.closePanel();
+            // Act
+            menuScript.closePanel();
 
-        // Assert
-        Assert.IsFalse(panelObject.activeSelf, "Panel should be inactive after closePanel is called");
+            // Assert
+            Assert.IsFalse(panelObject.activeSelf, "Panel should be inactive after closePanel is called");
+        }
     }
 }

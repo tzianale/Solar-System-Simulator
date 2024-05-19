@@ -1,55 +1,57 @@
-using System.Collections;
-using System.Collections.Generic;
+using Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuScript : MonoBehaviour
+namespace UI
 {
-
-    private GameObject panel;
-
-    // getter and setter for Panel
-    public GameObject Panel
+    public class MainMenuScript : MonoBehaviour
     {
-        get { return panel; }
-        set { panel = value; }
-    }
+
+        private GameObject panel;
+
+        // getter and setter for Panel
+        public GameObject Panel
+        {
+            get { return panel; }
+            set { panel = value; }
+        }
   
-    private void callSettings()
-    {
-        SceneManager.LoadSceneAsync(1);
-    }
-
-    public void openPanel()
-    {
-        if (Panel != null)
+        private void callSettings()
         {
-            Panel.SetActive(true);
+            SceneManager.LoadSceneAsync(1);
         }
-    }
 
-    public void closePanel()
-    {
-        if(Panel != null)
+        public void openPanel()
         {
-            Panel.SetActive(false);
+            if (Panel != null)
+            {
+                Panel.SetActive(true);
+            }
         }
-    }
 
-    private void loadExplorer()
-    {
-        SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Explorer;
-        SceneManager.LoadSceneAsync(2);
-    }
+        public void closePanel()
+        {
+            if(Panel != null)
+            {
+                Panel.SetActive(false);
+            }
+        }
 
-    private void loadSandbox()
-    {
-        SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Sandbox;
-        SceneManager.LoadSceneAsync(1);
-    }
+        private void loadExplorer()
+        {
+            SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Explorer;
+            SceneManager.LoadSceneAsync(2);
+        }
 
-    private void QuitGame()
-    {
-        Application.Quit();
+        private void loadSandbox()
+        {
+            SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Sandbox;
+            SceneManager.LoadSceneAsync(1);
+        }
+
+        private void QuitGame()
+        {
+            Application.Quit();
+        }
     }
 }

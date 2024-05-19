@@ -1,50 +1,54 @@
 using NUnit.Framework;
+using UI;
 using UnityEngine;
 
-public class EscapeScriptTests
+namespace Tests.EditMode
 {
-    private GameObject panelObject;
-    private EscapeScript escapeScript;
-
-    [SetUp]
-    public void Setup()
+    public class EscapeScriptTests
     {
-        var menuObject = new GameObject();
-        escapeScript = menuObject.AddComponent<EscapeScript>();
-        panelObject = new GameObject();
-        escapeScript.Panel = panelObject;
-    }
+        private GameObject panelObject;
+        private EscapeScript escapeScript;
 
-    [Test]
-    public void OpenPanel_ActivatesPanel()
-    {
-        // Arrange
-        panelObject.SetActive(false); // Panel starts inactive
+        [SetUp]
+        public void Setup()
+        {
+            var menuObject = new GameObject();
+            escapeScript = menuObject.AddComponent<EscapeScript>();
+            panelObject = new GameObject();
+            escapeScript.Panel = panelObject;
+        }
 
-        // Act
-        escapeScript.openPanel();
+        [Test]
+        public void OpenPanel_ActivatesPanel()
+        {
+            // Arrange
+            panelObject.SetActive(false); // Panel starts inactive
 
-        // Assert
-        Assert.IsTrue(panelObject.activeSelf, "Panel should be active after openPanel is called");
-    }
+            // Act
+            escapeScript.openPanel();
 
-    [Test]
-    public void ClosePanel_DeactivatesPanel()
-    {
-        // Arrange
-        panelObject.SetActive(true); // Panel starts active
+            // Assert
+            Assert.IsTrue(panelObject.activeSelf, "Panel should be active after openPanel is called");
+        }
 
-        // Act
-        escapeScript.closePanel();
+        [Test]
+        public void ClosePanel_DeactivatesPanel()
+        {
+            // Arrange
+            panelObject.SetActive(true); // Panel starts active
 
-        // Assert
-        Assert.IsFalse(panelObject.activeSelf, "Panel should be inactive after closePanel is called");
-    }
+            // Act
+            escapeScript.closePanel();
 
-    [TearDown]
-    public void Teardown()
-    {
-        Object.DestroyImmediate(panelObject);
-        Object.DestroyImmediate(escapeScript.gameObject);
+            // Assert
+            Assert.IsFalse(panelObject.activeSelf, "Panel should be inactive after closePanel is called");
+        }
+
+        [TearDown]
+        public void Teardown()
+        {
+            Object.DestroyImmediate(panelObject);
+            Object.DestroyImmediate(escapeScript.gameObject);
+        }
     }
 }

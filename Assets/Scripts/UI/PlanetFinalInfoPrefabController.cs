@@ -2,52 +2,55 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Extends the basic PlanetInfoPrefabController by implementing method GeneratePropertyDependingOnSubClass.
-/// This specific implementation uses Text Fields for the planet Properties, therefore giving the user reliable,
-/// unmodifiable information.
-/// </summary>
-public class PlanetFinalInfoPrefabController : PlanetInfoPrefabController
+namespace UI
 {
-    [SerializeField] private protected TextMeshProUGUI planetDescriptionContainer;
-
     /// <summary>
-    /// TODO
+    /// Extends the basic PlanetInfoPrefabController by implementing method GeneratePropertyDependingOnSubClass.
+    /// This specific implementation uses Text Fields for the planet Properties, therefore giving the user reliable,
+    /// unmodifiable information.
     /// </summary>
-    /// 
-    /// <param name="planetDescription">
-    /// TODO
-    /// </param>
-    protected override void SetDescription(string planetDescription)
+    public class PlanetFinalInfoPrefabController : PlanetInfoPrefabController
     {
-        planetDescriptionContainer.SetText(planetDescription);
-    }
+        [SerializeField] private protected TextMeshProUGUI planetDescriptionContainer;
 
-    /// <summary>
-    /// Overrides the base method in class PlanetInfoPrefabController.
-    /// Generates Text Fields with a given property and returns the GameObject containing the information.
-    /// </summary>
-    /// 
-    /// <param name="propertyName">The Name of the property to be initialised</param>
-    /// <param name="propertyValue">The Value of the property to be initialised</param>
-    /// 
-    /// <returns>
-    /// A GameObject containing the information.
-    /// </returns>
-    private protected override GameObject GeneratePropertyDependingOnSubClass(string propertyName, string propertyValue)
-    {
-        var newListElement = new GameObject(propertyName + " Property");
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// 
+        /// <param name="planetDescription">
+        /// TODO
+        /// </param>
+        protected override void SetDescription(string planetDescription)
+        {
+            planetDescriptionContainer.SetText(planetDescription);
+        }
 
-        var contentSizeFitter = newListElement.AddComponent<ContentSizeFitter>();
+        /// <summary>
+        /// Overrides the base method in class PlanetInfoPrefabController.
+        /// Generates Text Fields with a given property and returns the GameObject containing the information.
+        /// </summary>
+        /// 
+        /// <param name="propertyName">The Name of the property to be initialised</param>
+        /// <param name="propertyValue">The Value of the property to be initialised</param>
+        /// 
+        /// <returns>
+        /// A GameObject containing the information.
+        /// </returns>
+        private protected override GameObject GeneratePropertyDependingOnSubClass(string propertyName, string propertyValue)
+        {
+            var newListElement = new GameObject(propertyName + " Property");
 
-        contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
-        contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            var contentSizeFitter = newListElement.AddComponent<ContentSizeFitter>();
+
+            contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+            contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
         
-        var textElement = newListElement.AddComponent<TextMeshProUGUI>();
+            var textElement = newListElement.AddComponent<TextMeshProUGUI>();
         
-        textElement.text = propertyName + NameValueSeparator + propertyValue;
-        textElement.fontSize = propertiesTextSize;
+            textElement.text = propertyName + NameValueSeparator + propertyValue;
+            textElement.fontSize = propertiesTextSize;
 
-        return newListElement;
+            return newListElement;
+        }
     }
 }
