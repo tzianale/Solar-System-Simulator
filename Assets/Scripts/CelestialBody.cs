@@ -85,7 +85,7 @@ public class CelestialBody : MonoBehaviour
         float gravitationalConstant = 10000000000f;
         float rSqr = (planet.transform.position - transform.position).sqrMagnitude;
         Vector3 forceDir = (planet.transform.position - transform.position).normalized;
-        Vector3 force = forceDir * gravitationalConstant * mass * planet.mass / rSqr;
+        Vector3 force =  gravitationalConstant * mass * planet.mass * forceDir / rSqr;
         velocity += force * (float)Math.Pow(10, -12) / mass;
     }
 
@@ -180,12 +180,7 @@ public class CelestialBody : MonoBehaviour
 
     public Vector3 getPostion()
     {
-        return GetComponent<Transform>().position;
-    }
-
-    public void AppendCelestialBody(CelestialBody celestialBody)
-    {
-        celestialBodies.Add(celestialBody);
+        return transform.position;
     }
 
     //getter and setter methods
