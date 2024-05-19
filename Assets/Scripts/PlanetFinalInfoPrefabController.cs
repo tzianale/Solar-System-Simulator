@@ -9,6 +9,20 @@ using UnityEngine.UI;
 /// </summary>
 public class PlanetFinalInfoPrefabController : PlanetInfoPrefabController
 {
+    [SerializeField] private protected TextMeshProUGUI planetDescriptionContainer;
+
+    /// <summary>
+    /// TODO
+    /// </summary>
+    /// 
+    /// <param name="planetDescription">
+    /// TODO
+    /// </param>
+    protected override void SetDescription(string planetDescription)
+    {
+        planetDescriptionContainer.SetText(planetDescription);
+    }
+
     /// <summary>
     /// Overrides the base method in class PlanetInfoPrefabController.
     /// Generates Text Fields with a given property and returns the GameObject containing the information.
@@ -26,7 +40,7 @@ public class PlanetFinalInfoPrefabController : PlanetInfoPrefabController
 
         var contentSizeFitter = newListElement.AddComponent<ContentSizeFitter>();
 
-        contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+        contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
         contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
         
         var textElement = newListElement.AddComponent<TextMeshProUGUI>();

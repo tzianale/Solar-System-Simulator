@@ -2,21 +2,21 @@ using NUnit.Framework;
 using UnityEngine;
 using TMPro;
 
-public class PlanetListContainerScriptTests
+public class PlanetListAnimatorTests
 {
     private GameObject containerGameObject;
-    private PlanetListContainerScript containerScript;
+    private PlanetListAnimator _animator;
 
     [SetUp]
 public void Setup()
 {
     containerGameObject = new GameObject();
-    containerScript = containerGameObject.AddComponent<PlanetListContainerScript>();
-    containerScript.buttonText = new GameObject("TextObject").AddComponent<TextMeshProUGUI>();
-    containerScript.buttonText.text = ""; // Initialize text to ensure it's not null
+    _animator = containerGameObject.AddComponent<PlanetListAnimator>();
+    _animator.buttonText = new GameObject("TextObject").AddComponent<TextMeshProUGUI>();
+    _animator.buttonText.text = ""; // Initialize text to ensure it's not null
 
     // Directly use the existing transform rather than assigning a new one
-    containerScript.PlanetListContainerTransform = containerGameObject.transform;
+    _animator.PlanetListContainerTransform = containerGameObject.transform;
 }
 
 
@@ -25,21 +25,21 @@ public void Setup()
     public void OnArrowClick_TogglesListAndChangesButtonText()
     {
         // Act
-        containerScript.OnArrowClick();
+        _animator.OnArrowClick();
 
         // Assert
         //Panel is openeing
-        Assert.IsTrue(containerScript.ListIsOpen, "List should be open after first arrow click.");
-        Assert.AreEqual("↓", containerScript.buttonText.text, "Button text should be '↓' after first arrow click.");
+        Assert.IsTrue(_animator.ListIsOpen, "List should be open after first arrow click.");
+        Assert.AreEqual("↓", _animator.buttonText.text, "Button text should be '↓' after first arrow click.");
         
 
         // Act
-        containerScript.OnArrowClick();
+        _animator.OnArrowClick();
 
         // Assert
         //Panel is closing
-        Assert.IsFalse(containerScript.ListIsOpen, "List should be not open after second arrow click.");
-        Assert.AreEqual("↑", containerScript.buttonText.text, "Button text should be '↑' after second arrow click.");
+        Assert.IsFalse(_animator.ListIsOpen, "List should be not open after second arrow click.");
+        Assert.AreEqual("↑", _animator.buttonText.text, "Button text should be '↑' after second arrow click.");
         
     }
 
