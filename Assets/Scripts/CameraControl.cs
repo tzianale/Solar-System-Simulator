@@ -47,6 +47,11 @@ public class CameraControl : MonoBehaviour
             HandleManualControls();
         }
 
+        if (Input.GetMouseButton(1)) // Right-click to rotate
+        {
+            CamOrbit();
+        }
+
         Zoom(Input.GetAxis("Mouse ScrollWheel"));
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -57,11 +62,6 @@ public class CameraControl : MonoBehaviour
 
     private void HandleManualControls()
     {
-        if (Input.GetMouseButton(1)) // Right-click to rotate
-        {
-            CamOrbit();
-        }
-
         if (Input.GetMouseButton(0)) // Left-click to pan
         {
             Pan();
@@ -88,8 +88,8 @@ public class CameraControl : MonoBehaviour
 
     void CamOrbit()
     {
-        float horizontalInput = Input.GetAxis("Mouse X") * rotationSpeed * Mathf.Max(Time.deltaTime, 0.01f);
-        float verticalInput = Input.GetAxis("Mouse Y") * rotationSpeed * Mathf.Max(Time.deltaTime, 0.01f);
+        float horizontalInput = Input.GetAxis("Mouse X") * rotationSpeed * 0.02f;
+        float verticalInput = Input.GetAxis("Mouse Y") * rotationSpeed * 0.02f;
 
         verticalAngle = Mathf.Clamp(verticalAngle - verticalInput, -90f, 90f);
 

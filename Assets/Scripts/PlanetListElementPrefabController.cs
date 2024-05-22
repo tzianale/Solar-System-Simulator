@@ -24,6 +24,8 @@ public class PlanetListElementPrefabController : MonoBehaviour, IPointerClickHan
     
     private Wrapper<GameObject> _currentlyActiveTab;
 
+    private bool actdel = true;
+
     /// <summary>
     /// Constructor-like method, sets all the relevant information and references, as well as linking the Closing Button
     /// to the Close Tab method, allowing the script to work correctly
@@ -105,6 +107,11 @@ public class PlanetListElementPrefabController : MonoBehaviour, IPointerClickHan
                 {
                     cameraControl.SetToFollowPosition(_planet3DObject.transform);
                 }
+                break;
+            case 3:
+                Debug.Log("Planet " + planetName.GetComponent<TextMeshProUGUI>().text + " first clicked");
+                actdel = !actdel;
+                _planet3DObject.SetActive(actdel);
                 break;
         }
     }
