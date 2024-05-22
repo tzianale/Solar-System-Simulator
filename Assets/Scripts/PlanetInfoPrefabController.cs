@@ -26,6 +26,7 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
 
     [SerializeField] private protected GameObject planetSpriteField;
 
+    [SerializeField] private protected GameObject planetVariablePropertiesTag;
     [SerializeField] private protected GameObject planetVariablePropertiesContainer;
 
     [SerializeField] private protected GameObject planetStaticPropertiesContainer;
@@ -91,10 +92,12 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
 
     
     /// <summary>
-    /// TODO
+    /// Generates the list of properties that, when changed, will influence the simulation (variable Properties)
+    /// The method also assigns the observers and initialises the data
     /// </summary>
+    /// 
     /// <returns>
-    /// TODO
+    /// A list of GameObjects, which contain the various Properties Fields, ready to be added under the variable properties tab
     /// </returns>
     private List<GameObject> GenerateVariablePropertiesList()
     {
@@ -102,6 +105,7 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
         
         if (_variableProperties.Count == 0)
         {
+            planetVariablePropertiesTag.SetActive(false);
             planetVariablePropertiesContainer.SetActive(false);
         }
         else
@@ -202,10 +206,17 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
 
 
     /// <summary>
-    /// TODO
+    /// Takes a String input from the csv Planet Properties file and separates values and their (eventual) measurement units
     /// </summary>
-    /// <param name="inputString"></param>
-    /// <returns></returns>
+    /// 
+    /// <param name="inputString">
+    /// The string with the data to separate. As separator a constant is used,
+    /// which is defined in this script as "ValueUnitSeparatorForRawData"
+    /// </param>
+    /// 
+    /// <returns>
+    /// A TwoObjectContainer, with the "value" as first object and the measurement unit as second
+    /// </returns>
     private static TwoObjectContainer<string, string> SeparateValueAndUnit(string inputString)
     {
         var propertyUnit = "";

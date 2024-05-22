@@ -54,11 +54,16 @@ public class PlanetListManager : MonoBehaviour
     [SerializeField]
     private CameraControl cameraControl;
 
+    [SerializeField]
+    private bool allowPropertyEditing;
+
     
     private readonly Wrapper<GameObject> _activeInfoTab = new (null);
 
     private const string MoonDetector = "Rocky Moon";
     private const string DwarfDetector = "Dwarf Planet";
+    
+    private const string MassIdentifier = "Mass";
     
     private const string NullData = "null";
     private const string UnknownData = "good question!";
@@ -87,11 +92,27 @@ public class PlanetListManager : MonoBehaviour
             for (var i = 0; i < _planetNames.Count; i++)
             {
                 var currentPlanetModel = planetModels[i];
-                
-                var variableProperties = new Dictionary<string, TwoObjectContainer<string, UnityAction<string>>>()
+
+                var variableProperties = new Dictionary<string, TwoObjectContainer<string, UnityAction<string>>>();
+
+                if (allowPropertyEditing)
                 {
-                    {"Planet Mass", new TwoObjectContainer<string, UnityAction<string>>("100_kg", updatedData => Debug.Log("HI"))}
-                };
+                    variableProperties.Add(
+                        "Planet Mass", 
+                        new TwoObjectContainer<string, UnityAction<string>>(
+                            planetProperties[i][MassIdentifier],
+                            updatedData =>
+                            { 
+                                var updatedMass = float.Parse(updatedData);
+
+                                if (updatedMass != 0) 
+                                { 
+                                    currentPlanetModel.GetComponent<CelestialBody>().mass = updatedMass;
+                            
+                                    Debug.Log("Changed mass to " + updatedMass);
+                                }
+                            }));
+                }
                 
                 var liveStats = new Dictionary<string, Func<string>>()
                 {

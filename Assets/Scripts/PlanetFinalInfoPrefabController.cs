@@ -12,11 +12,11 @@ public class PlanetFinalInfoPrefabController : PlanetInfoPrefabController
     [SerializeField] private protected TextMeshProUGUI planetDescriptionContainer;
 
     /// <summary>
-    /// TODO
+    /// Sets a description string to the Info Prefab
     /// </summary>
     /// 
     /// <param name="planetDescription">
-    /// TODO
+    /// The string to set as Planet Description
     /// </param>
     protected override void SetDescription(string planetDescription)
     {

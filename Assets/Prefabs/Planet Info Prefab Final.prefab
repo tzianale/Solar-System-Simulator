@@ -666,6 +666,7 @@ MonoBehaviour:
   variablePropertiesPrefab: {fileID: 4332388958630750679, guid: be8c1375d0a0c1847b13765d4afc782b, type: 3}
   planetNameField: {fileID: 1289712215965291366}
   planetSpriteField: {fileID: 5880302592671117884}
+  planetVariablePropertiesTag: {fileID: 5559802030048966609}
   planetVariablePropertiesContainer: {fileID: 5053244436119411630}
   planetStaticPropertiesContainer: {fileID: 4592229094183822720}
   planetLiveStatsContainer: {fileID: 2417789392604347042}
