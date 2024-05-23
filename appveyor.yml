@@ -14,7 +14,7 @@ cache:
   - C:\Program Files\Unity 2022.3.18f1
 
 install:
-  - if exits C:\Program Files\Unity 2022.3.18f1\ () else (choco install unity --version=2022.3.18 -y)
+  - if exits "C:\Program Files\Unity 2022.3.18f1\" () else (choco install unity --version=2022.3.18 -y)
   - choco install sonarscanner-net-framework
 
 build_script:
