@@ -25,11 +25,11 @@ build_script:
   - set PATH=%JAVA_HOME%\bin;%PATH%
 
   # Run SonarQube analysis specifying the project file
-  - SonarScanner.MSBuild.exe begin /k:"Solar-System-Simulator" /d:sonar.host.url="http://160.85.252.39:9000" /d:sonar.token="sqp_f5bd91144b884f4a4df8d1f5847011041182a615" /d:sonar.cs.vs.solution.file="C:\projects\solar-system-simulator\Assembly-CSharp.csproj" /d:sonar.inclusions="**/Assets/Scripts/**/*" /d:sonar.cs.opencover.reportsPaths="C:/projects/solar-system-simulator/codecoverage/solar-system-simulator-opencov/**/*"
+  - SonarScanner.MSBuild.exe begin /k:"Solar-System-Simulator" /d:sonar.host.url="http://160.85.252.39:9000" /d:sonar.token="sqp_397b85cf974b2da969f260187fe4351beb9ae098" /d:sonar.cs.vs.solution.file="C:\projects\solar-system-simulator\Assembly-CSharp.csproj" /d:sonar.inclusions="**/Assets/Scripts/**/*" /d:sonar.cs.opencover.reportsPaths="C:/projects/solar-system-simulator/codecoverage/solar-system-simulator-opencov/**/*"
   - dotnet build Solar-System-Simulator.sln
   - Unity -batchmode -testPlatform editmode -runTests -enableCodeCoverage -coverageOptions "assemblyFilters:+Scripts"
   - Unity -batchmode -testPlatform playmode -runTests -enableCodeCoverage -coverageOptions "assemblyFilters:+Scripts"
-  - SonarScanner.MSBuild.exe end /d:sonar.token="sqp_f5bd91144b884f4a4df8d1f5847011041182a615"
+  - SonarScanner.MSBuild.exe end /d:sonar.token="sqp_397b85cf974b2da969f260187fe4351beb9ae098"
 
 test: off
 
