@@ -921,13 +921,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9a5a089e93c34a4093053459a09a15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  celestType: 0
+  celestialType: 0
   orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 0}
   mass: 332900
   orbitRadius: 0
   ratioToEarthYear: 1
-  rotaionSpeed: 50
+  rotationSpeed: 50
   perihelion: 0
   eccentricity: 0
   orbitalPeriod: 0
@@ -1791,13 +1791,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9a5a089e93c34a4093053459a09a15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  celestType: 1
+  celestialType: 0
   orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 0.878}
   mass: 317.8
   orbitRadius: 10400
   ratioToEarthYear: 1
-  rotaionSpeed: 100
+  rotationSpeed: 100
   perihelion: 0
   eccentricity: 0
   orbitalPeriod: 0
@@ -1898,13 +1898,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9a5a089e93c34a4093053459a09a15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  celestType: 1
+  celestialType: 0
   orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 0.65}
   mass: 95.2
   orbitRadius: 19140
   ratioToEarthYear: 1
-  rotaionSpeed: 100
+  rotationSpeed: 100
   perihelion: 0
   eccentricity: 0
   orbitalPeriod: 0
@@ -2639,13 +2639,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9a5a089e93c34a4093053459a09a15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  celestType: 1
+  celestialType: 0
   orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 0.456}
   mass: 14.5
   orbitRadius: 38340
   ratioToEarthYear: 1
-  rotaionSpeed: 100
+  rotationSpeed: 100
   perihelion: 0
   eccentricity: 0
   orbitalPeriod: 0
@@ -5199,13 +5199,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9a5a089e93c34a4093053459a09a15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  celestType: 1
+  celestialType: 0
   orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 1.616}
   mass: 0.107
   orbitRadius: 3040
   ratioToEarthYear: 1
-  rotaionSpeed: 100
+  rotationSpeed: 100
   perihelion: 0
   eccentricity: 0
   orbitalPeriod: 0
@@ -6623,13 +6623,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9a5a089e93c34a4093053459a09a15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  celestType: 1
+  celestialType: 0
   orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 3}
   mass: 0.0553
   orbitRadius: 774
   ratioToEarthYear: 1
-  rotaionSpeed: 100
+  rotationSpeed: 100
   perihelion: 0
   eccentricity: 0
   orbitalPeriod: 0
@@ -8395,13 +8395,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9a5a089e93c34a4093053459a09a15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  celestType: 1
+  celestialType: 0
   orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 0.364}
   mass: 17.1
   orbitRadius: 60360
   ratioToEarthYear: 1
-  rotaionSpeed: 100
+  rotationSpeed: 100
   perihelion: 0
   eccentricity: 0
   orbitalPeriod: 0
@@ -8502,13 +8502,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9a5a089e93c34a4093053459a09a15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  celestType: 1
+  celestialType: 0
   orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 2}
   mass: 1
   orbitRadius: 2000
   ratioToEarthYear: 1
-  rotaionSpeed: 100
+  rotationSpeed: 100
   perihelion: 0
   eccentricity: 0
   orbitalPeriod: 0
@@ -9145,13 +9145,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9a5a089e93c34a4093053459a09a15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  celestType: 1
+  celestialType: 0
   orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 2}
   mass: 0.815
   orbitRadius: 1446
   ratioToEarthYear: 1
-  rotaionSpeed: 100
+  rotationSpeed: 100
   perihelion: 0
   eccentricity: 0
   orbitalPeriod: 0
