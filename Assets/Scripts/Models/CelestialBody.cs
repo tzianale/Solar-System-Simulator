@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Models
 {
     public class CelestialBody : MonoBehaviour
     {
         public enum CelestialBodyType { Sun, Planet, Moon };
-        public CelestialBodyType celestType;
+        public CelestialBodyType celestialType;
         public float orbitingCenterPlanetMass;
         public Vector3 velocity;
         public float mass;
         public float orbitRadius;
         public float ratioToEarthYear = 1;
-        private List<CelestialBody> celestialBodies;
-        public float rotaionSpeed;
+        private List<CelestialBody> _celestialBodies;
+        public float rotationSpeed;
 
         // Kepler Parameters
         public float perihelion;
@@ -35,7 +36,7 @@ namespace Models
         // Start is called before the first frame update
         void Start()
         {
-            celestialBodies = new List<CelestialBody>(FindObjectsOfType<CelestialBody>());
+            _celestialBodies = new List<CelestialBody>(FindObjectsOfType<CelestialBody>());
 
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer)
             {
@@ -60,7 +61,7 @@ namespace Models
             {
                 if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Sandbox)
                 {
-                    foreach (CelestialBody planet in celestialBodies)
+                    foreach (CelestialBody planet in _celestialBodies)
                     {
                         if (planet != this)
                         {
@@ -71,12 +72,12 @@ namespace Models
                 }
                 else
                 {
-                    if (celestType != CelestialBodyType.Sun)
+                    if (celestialType != CelestialBodyType.Sun)
                     {
                         UpdatePositionByKepler();
                     }
                 }
-                transform.Rotate(Vector3.down, rotaionSpeed * Time.deltaTime);
+                transform.Rotate(Vector3.down, rotationSpeed * Time.deltaTime);
             }
         }
 
@@ -178,14 +179,14 @@ namespace Models
             orbitLineController.CelestialBody = this;
         }
 
-        public Vector3 getPostion()
+        public Vector3 GetPostion()
         {
             return transform.position;
         }
 
         //getter and setter methods
-        public CelestialBodyType GetCelestialBodyType() => celestType;
-        public void SetCelestialBodyType(CelestialBodyType type) => celestType = type;
+        public CelestialBodyType GetCelestialBodyType() => celestialType;
+        public void SetCelestialBodyType(CelestialBodyType type) => celestialType = type;
 
         public float GetMass() => mass;
         public void SetMass(float value) => mass = value;
@@ -198,8 +199,8 @@ namespace Models
 
         public void SetVelocity(Vector3 velocity) => this.velocity = velocity;
 
-        public List<CelestialBody> GetCelestialBodies() => celestialBodies;
-        public void SetCelesitalBodies(List<CelestialBody> celestialBodies) => this.celestialBodies = celestialBodies;
+        public List<CelestialBody> GetCelestialBodies() => _celestialBodies;
+        public void SetCelesitalBodies(List<CelestialBody> celestialBodies) => this._celestialBodies = celestialBodies;
 
     }
 }
