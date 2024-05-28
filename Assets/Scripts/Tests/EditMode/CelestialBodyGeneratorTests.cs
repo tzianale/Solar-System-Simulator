@@ -2,6 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections;
 using System;
+using Models;
 
 [TestFixture]
 public class CelestialBodyGeneratorTests
