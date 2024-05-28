@@ -74,9 +74,8 @@ public class PlanetListElementPrefabController : MonoBehaviour, IPointerClickHan
     }
 
     /// <summary>
-    /// Handles the events that should happen when the Planet List Element is clicked.
-    /// One click should open the info tab
-    /// Two clicks should tell the camera to focus on the 3D object corresponding to this specific planet
+    /// Registers clicks to the Planet List Element.
+    /// The number of clicks is then given to the HandleClickEvent function
     /// </summary>
     /// 
     /// <param name="eventData">
@@ -84,10 +83,25 @@ public class PlanetListElementPrefabController : MonoBehaviour, IPointerClickHan
     /// </param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        switch (eventData.clickCount)
+        HandleClickEvent(eventData.clickCount);
+    }
+
+    /// <summary>
+    /// Handles the events following a click on a planet:
+    /// One click should open the info tab,
+    /// Two clicks should tell the camera to focus on the 3D object corresponding to this specific planet,
+    /// Three clicks should hide / delete the planet (TODO change commentary)
+    /// </summary>
+    /// 
+    /// <param name="clickCount">
+    /// How many times the button was clicked
+    /// </param>
+    public void HandleClickEvent(int clickCount)
+    {
+        switch (clickCount)
         {
             case 1:
-                Debug.Log("Planet " + planetName.GetComponent<TextMeshProUGUI>().text + " clicked");
+                Debug.Log("Planet " + planetName.GetComponent<TextMeshProUGUI>().text + " single clicked");
 
                 if(CloseCurrentlyOpenTab()) break;
                 

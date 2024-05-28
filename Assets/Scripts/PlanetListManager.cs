@@ -112,6 +112,57 @@ public class PlanetListManager : MonoBehaviour
                                     Debug.Log("Changed mass to " + updatedMass);
                                 }
                             }));
+                    variableProperties.Add(
+                        "Planet X-Position", 
+                        new TwoObjectContainer<string, UnityAction<string>>(
+                            currentPlanetModel.transform.position.x.ToString(),
+                            updatedData =>
+                            { 
+                                var updatedX = float.Parse(updatedData);
+
+                                var currentPlanetPosition = currentPlanetModel.transform.position;
+                                var currentPlanetRotation = currentPlanetModel.transform.rotation;
+
+                                currentPlanetPosition.x = updatedX;
+
+                                currentPlanetModel.transform.SetPositionAndRotation(currentPlanetPosition, currentPlanetRotation);
+                            
+                                Debug.Log("Changed x-coordinate to " + updatedX);
+                            }));
+                    variableProperties.Add(
+                        "Planet Y-Position", 
+                        new TwoObjectContainer<string, UnityAction<string>>(
+                            currentPlanetModel.transform.position.y.ToString(),
+                            updatedData =>
+                            { 
+                                var updatedY = float.Parse(updatedData);
+
+                                var currentPlanetPosition = currentPlanetModel.transform.position;
+                                var currentPlanetRotation = currentPlanetModel.transform.rotation;
+
+                                currentPlanetPosition.y = updatedY;
+
+                                currentPlanetModel.transform.SetPositionAndRotation(currentPlanetPosition, currentPlanetRotation);
+                            
+                                Debug.Log("Changed y-coordinate to " + updatedY);
+                            }));
+                    variableProperties.Add(
+                        "Planet Z-Position", 
+                        new TwoObjectContainer<string, UnityAction<string>>(
+                            currentPlanetModel.transform.position.z.ToString(),
+                            updatedData =>
+                            { 
+                                var updatedZ = float.Parse(updatedData);
+
+                                var currentPlanetPosition = currentPlanetModel.transform.position;
+                                var currentPlanetRotation = currentPlanetModel.transform.rotation;
+
+                                currentPlanetPosition.z = updatedZ;
+
+                                currentPlanetModel.transform.SetPositionAndRotation(currentPlanetPosition, currentPlanetRotation);
+                            
+                                Debug.Log("Changed z-coordinate to " + updatedZ);
+                            }));
                 }
                 
                 var liveStats = new Dictionary<string, Func<string>>()
@@ -182,6 +233,13 @@ public class PlanetListManager : MonoBehaviour
         
         planetListElementPrefabController.SetPlanetInfo(planetSprite, planetName, planetObject, 
             cameraControl, planetInfoTab, _activeInfoTab, planetInfoCloseButton);
+        
+        var onClick = planetObject.AddComponent<OnClick>();
+        
+        onClick.SetActions(new List<Action<int>>
+        {
+            clickCount => planetListElementPrefabController.HandleClickEvent(clickCount)
+        });
         
         planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite,
             variableProperties,
