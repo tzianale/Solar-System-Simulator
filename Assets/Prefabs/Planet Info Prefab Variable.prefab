@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 61040814778498865}
   - component: {fileID: 8699436725415205853}
   m_Layer: 5
-  m_Name: Hide Planet Button
+  m_Name: HidePlanetButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1247,9 +1247,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3947558400533425857}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 140, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 140, y: -23.965}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2382303085784146779
@@ -2589,7 +2589,7 @@ GameObject:
   - component: {fileID: 2997401592804663988}
   - component: {fileID: 7943701369534389146}
   m_Layer: 5
-  m_Name: Hide Planet Button Container
+  m_Name: HidePlanetButtonContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
