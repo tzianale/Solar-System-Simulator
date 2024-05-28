@@ -3,8 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using SystemObject = System.Object;
+using Models;
 
-namespace Models.Tests
+namespace Tests.EditMode
 {
     public class EditablePropertyControllerTests
     {
