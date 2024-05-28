@@ -105,50 +105,117 @@ namespace Models
 
         private void UpdatePositionByKepler()
         {
-            // Calculate the mean anomaly
-            float M = mean_anomaly(currentTime, orbitalPeriod);
+            try
+            {
+                // Calculate the mean anomaly
+                float M = mean_anomaly(currentTime, orbitalPeriod);
 
-            // Calculate the eccentric anomaly
-            float E = eccentric_anomaly(M, eccentricity);
+                // Calculate the eccentric anomaly
+                float E = eccentric_anomaly(M, eccentricity);
 
-            // Calculate the true anomaly
-            float theta = true_anomaly(E, eccentricity);
+                if (float.IsNaN(E))
+                {
+                    throw new InvalidOperationException("Eccentric Anomaly calculation resulted in NaN");
+                }
 
-            // Calculate the radial distance
-            float r = radius_of_orbit(L, k, mass, eccentricity, theta);
+                // Calculate the true anomaly
+                float theta = true_anomaly(E, eccentricity);
+                if (float.IsNaN(theta))
+                {
+                    throw new InvalidOperationException("True Anomaly calculation resulted in NaN");
+                }
 
-            // Calculate the position in the orbital plane
-            float x = r * Mathf.Cos(theta);
-            float z = r * Mathf.Sin(theta);
+                // Calculate the radial distance
+                float r = radius_of_orbit(L, k, mass, eccentricity, theta);
+                if (float.IsNaN(r))
+                {
+                    throw new InvalidOperationException("Radius of Orbit calculation resulted in NaN");
+                }
 
-            x *= scaleFactor;
-            z *= scaleFactor;
+                // Calculate the position in the orbital plane
+                float x = r * Mathf.Cos(theta);
+                float z = r * Mathf.Sin(theta);
 
-            // Update the position
-            transform.position = new Vector3(x, 0, z);
+                x *= scaleFactor;
+                z *= scaleFactor;
 
-            // Increment time
-            currentTime += Time.deltaTime;
+                Vector3 newPosition = new Vector3(x, 0, z);
+
+                if (float.IsNaN(newPosition.x) || float.IsNaN(newPosition.z))
+                {
+                    throw new InvalidOperationException($"Computed position is NaN: {newPosition}");
+                }
+
+                // Update the position
+                transform.position = newPosition;
+
+                // Increment time
+                currentTime += Time.deltaTime;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error in UpdatePositionByKepler: {ex.Message}");
+                // Optionally rethrow the exception if it should be escalated
+                throw;
+            }
         }
 
         private float mean_anomaly(float t, float T)
         {
+            if (float.IsNaN(t) || float.IsNaN(T) || T == 0)
+            {
+                Debug.LogError($"Invalid inputs for mean anomaly calculation: t={t}, T={T}");
+                return float.NaN; // Return NaN to indicate an error
+            }
+
             return 2 * Mathf.PI * (t % T) / T;
         }
 
         private float eccentric_anomaly(float M, float e)
         {
-            float E = M; // Initial guess: E ≈ M
-            for (int i = 0; i < 10; i++) // Newton-Raphson iteration
+            Debug.Log($"Starting eccentric anomaly calculation with M={M}, e={e}");
+
+            if (float.IsNaN(M) || float.IsNaN(e))
             {
-                float deltaE = (M - (E - e * Mathf.Sin(E))) / (1 - e * Mathf.Cos(E));
-                E += deltaE;
-                if (Mathf.Abs(deltaE) < 1e-6)
-                    break;
+                throw new ArgumentException("Input values cannot be NaN.");
             }
 
-            return E;
+
+            if (e < 0 || e >= 1)
+            {
+                throw new ArgumentException("Eccentricity must be between 0 and 1 for elliptical orbits.");
+            }
+
+            float E = M; // Initial guess: E ≈ M
+            int maxIterations = 10;
+            float tolerance = 1e-6f;
+
+            for (int i = 0; i < maxIterations; i++) // Newton-Raphson iteration
+            {
+                float f = M - (E - e * Mathf.Sin(E));
+                float fPrime = 1 - e * Mathf.Cos(E);
+                if (Mathf.Abs(fPrime) < Mathf.Epsilon)  // Check to avoid division by zero
+                {
+                    Debug.LogError("Denominator in Newton-Raphson method is too small.");
+                    throw new InvalidOperationException("Denominator in Newton-Raphson method became too small, preventing convergence.");
+                }
+
+                float deltaE = f / fPrime;
+                E += deltaE;
+
+                Debug.Log($"Iteration {i}: E={E}, f={f}, fPrime={fPrime}, deltaE={deltaE}");
+
+                if (Mathf.Abs(deltaE) < tolerance)
+                {
+                    Debug.Log("Convergence reached in eccentric anomaly calculation.");
+                    return E;
+                }
+            }
+
+            Debug.LogError("Eccentric anomaly calculation failed to converge.");
+            throw new InvalidOperationException("Eccentric anomaly calculation failed to converge.");
         }
+
 
         private float true_anomaly(float E, float e)
         {
@@ -207,6 +274,7 @@ namespace Models
         public void SetRatioToEarthYear(float ratio) => ratioToEarthYear = ratio;
 
         public void SetVelocity(Vector3 velocity) => this.velocity = velocity;
+        public Vector3 GetVelocity() => velocity;
 
         public List<CelestialBody> GetCelestialBodies() => celestialBodies;
         public void SetCelesitalBodies(List<CelestialBody> celestialBodies) => this.celestialBodies = celestialBodies;
