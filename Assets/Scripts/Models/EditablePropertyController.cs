@@ -35,7 +35,14 @@ namespace Models
         /// </summary>
         public void DestroyProperty()
         {
+        #if UNITY_EDITOR
+            // Use DestroyImmediate when in the Editor
+            UnityEngine.Object.DestroyImmediate(gameObject);
+        #else
+            // Use Destroy when at runtime
             Destroy(gameObject);
+        #endif
         }
+
     }
 }
