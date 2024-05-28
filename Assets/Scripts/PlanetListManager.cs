@@ -234,12 +234,13 @@ public class PlanetListManager : MonoBehaviour
         planetListElementPrefabController.SetPlanetInfo(planetSprite, planetName, planetObject, 
             cameraControl, planetInfoTab, _activeInfoTab, planetInfoCloseButton);
         
-        var onClick = planetObject.AddComponent<OnClick>();
+        var onClick = planetObject.AddComponent<OnGameObjectClick>();
         
-        onClick.SetActions(new List<Action<int>>
-        {
-            clickCount => planetListElementPrefabController.HandleClickEvent(clickCount)
-        });
+        onClick.SetActions(
+            new List<Action<int>> 
+            {
+                clickCount => planetListElementPrefabController.HandleClickEvent(clickCount)
+            });
         
         planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite,
             variableProperties,
