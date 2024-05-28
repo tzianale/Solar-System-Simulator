@@ -673,7 +673,7 @@ GameObject:
   - component: {fileID: 5062973911727132250}
   - component: {fileID: 5357708184975716658}
   - component: {fileID: 2262357972446993173}
-  - component: {fileID: 3871223812728817634}
+  - component: {fileID: 5811783356196838480}
   m_Layer: 5
   m_Name: Observable Property Prefab
   m_TagString: Untagged
@@ -751,7 +751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!114 &3871223812728817634
+--- !u!114 &5811783356196838480
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -760,7 +760,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4332388958630750679}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56909572e12c46f1989c032ceecd400d, type: 3}
+  m_Script: {fileID: 11500000, guid: 17375defbe904c91aa3b674fcea3a996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   planetPropertyDescription: {fileID: 8024925049898057611}
