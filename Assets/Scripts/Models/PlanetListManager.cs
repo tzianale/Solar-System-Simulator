@@ -248,7 +248,7 @@ namespace Models
                     clickCount => planetListElementPrefabController.HandleClickEvent(clickCount)
                 });
             
-            planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite,
+            planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite, planetObject,
                 variableProperties,
                 staticProperties, 
                 liveStats, 

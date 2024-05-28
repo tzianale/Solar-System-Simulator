@@ -21,6 +21,7 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     private protected const string UnknownPropertyText = "Unknown";
     private protected const string NameValueSeparator = " : ";
     private protected const string ValueUnitSeparatorForProperties = " ";
+    
     private const string ValueUnitSeparatorForRawData = "_";
     
     [SerializeField] private protected GameObject variablePropertiesPrefab;
@@ -55,6 +56,8 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     private Dictionary<string, TwoObjectContainer<Func<string>, UnityAction<string>>> _variableProperties;
     
     private Dictionary<string, Func<string>> _liveStats;
+
+    private bool _planetActive = true;
     
     /// <summary>
     /// Constructor-like method for initialising the fields of a Planet info tab
@@ -62,11 +65,12 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     /// 
     /// <param name="planetName">The name of the planet</param>
     /// <param name="planetSprite">The picture that will be used as icon for the planet</param>
+    /// <param name="planetObject">The GameObject associated with the planet</param> 
     /// <param name="variableProperties">The Dictionary of properties that will update the simulation when changed by the user</param>
     /// <param name="planetStaticProperties">The Dictionary of properties that won't need to be updated and their values</param>
     /// <param name="planetLiveStats">The Dictionary of properties that will be updated and the methods to retrieve the updated data</param>
     /// <param name="planetDescription">The description of the planet</param>
-    public void SetPlanetInfo(string planetName, Sprite planetSprite,
+    public void SetPlanetInfo(string planetName, Sprite planetSprite, GameObject planetObject,
         Dictionary<string, TwoObjectContainer<Func<string>, UnityAction<string>>> variableProperties,
         Dictionary<string, string> planetStaticProperties, 
         Dictionary<string, Func<string>> planetLiveStats,
@@ -78,6 +82,11 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
         _variableProperties = variableProperties;
         _liveStats = planetLiveStats;
         
+        hidePlanetButton.onClick.AddListener(() =>
+        {
+            _planetActive = !_planetActive;
+            planetObject.SetActive(_planetActive);
+        });
         
         foreach (var propertyField in GenerateVariablePropertiesList())
         {

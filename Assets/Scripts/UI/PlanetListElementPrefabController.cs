@@ -27,8 +27,6 @@ namespace UI
         
         private Wrapper<GameObject> _currentlyActiveTab;
 
-        private bool actdel = true;
-
         /// <summary>
         /// Constructor-like method, sets all the relevant information and references, as well as linking the Closing Button
         /// to the Close Tab method, allowing the script to work correctly
