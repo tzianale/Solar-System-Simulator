@@ -15,7 +15,7 @@ namespace Tests.PlayMode
             SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Sandbox;
             var sun = new GameObject("Sun").AddComponent<CelestialBody>();
             sun.SetCelestialBodyType(CelestialBody.CelestialBodyType.Sun);
-            sun.SetMass(332900);
+            sun.SetMass(1.99e+22f);
             var sunRb = sun.gameObject.AddComponent<Rigidbody>();
             sunRb.useGravity = false;
             sunRb.isKinematic = true;
@@ -23,7 +23,7 @@ namespace Tests.PlayMode
             var planet = new GameObject("Planet").AddComponent<CelestialBody>();
             planet.transform.position = new Vector3(755, 0, 0);
             planet.SetCelestialBodyType(CelestialBody.CelestialBodyType.Planet);
-            planet.SetMass(1);
+            planet.SetMass(3.3e+15f);
             var planetRb = planet.gameObject.AddComponent<Rigidbody>();
             planetRb.useGravity = false;
             planetRb.isKinematic = false;
@@ -36,7 +36,8 @@ namespace Tests.PlayMode
 
             // Assert
             float newDistance = Vector3.Distance(sun.transform.position, planet.transform.position);
-            Assert.Less(newDistance, initialDistance, "Planet should move closer to the sun due to gravitational attraction.");
+            Assert.Less(newDistance, initialDistance,
+                "Planet should move closer to the sun due to gravitational attraction.");
 
             // Cleanup
             Object.DestroyImmediate(sun.gameObject);

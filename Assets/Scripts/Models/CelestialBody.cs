@@ -7,15 +7,21 @@ namespace Models
 {
     public class CelestialBody : MonoBehaviour
     {
-        public enum CelestialBodyType { Sun, Planet, Moon };
-        public CelestialBodyType celestialType;
+        public enum CelestialBodyType
+        {
+            Sun,
+            Planet,
+            Moon
+        };
+
+        public CelestialBodyType celestType;
         public float orbitingCenterPlanetMass;
         public Vector3 velocity;
         public float mass;
         public float orbitRadius;
         public float ratioToEarthYear = 1;
-        private List<CelestialBody> _celestialBodies;
-        public float rotationSpeed;
+        private List<CelestialBody> celestialBodies;
+        public float rotaionSpeed;
 
         // Kepler Parameters
         public float perihelion;
@@ -30,13 +36,13 @@ namespace Models
         // Constants
         private const float AU = 1.496e8f; // kilometers
         private const float SM = 1.989e30f;
-        private const float YEAR_S = 365.25f * 24f * 3600f;  // seconds
+        private const float YEAR_S = 365.25f * 24f * 3600f; // seconds
         private const float scaleFactor = 5e-9f; // Unity units per AU
 
         // Start is called before the first frame update
         void Start()
         {
-            _celestialBodies = new List<CelestialBody>(FindObjectsOfType<CelestialBody>());
+            celestialBodies = new List<CelestialBody>(FindObjectsOfType<CelestialBody>());
 
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer)
             {
@@ -48,11 +54,11 @@ namespace Models
                 // Calculate constants k and L
                 k = gravitationalConstant * (orbitingCenterPlanetMass / SM) * mass;
                 L = mass * perihelion * orbitalSpeed;
-            } else
+            }
+            else
             {
                 GenerateOrbitLine();
             }
-           
         }
 
         void FixedUpdate()
@@ -61,23 +67,25 @@ namespace Models
             {
                 if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Sandbox)
                 {
-                    foreach (CelestialBody planet in _celestialBodies)
+                    foreach (CelestialBody planet in celestialBodies)
                     {
                         if (planet != this)
                         {
                             UpdateVelocity(planet);
                         }
                     }
+
                     UpdatePosition();
                 }
                 else
                 {
-                    if (celestialType != CelestialBodyType.Sun)
+                    if (celestType != CelestialBodyType.Sun)
                     {
                         UpdatePositionByKepler();
                     }
                 }
-                transform.Rotate(Vector3.down, rotationSpeed * Time.deltaTime);
+
+                transform.Rotate(Vector3.down, rotaionSpeed * Time.deltaTime);
             }
         }
 
@@ -86,7 +94,7 @@ namespace Models
             float gravitationalConstant = 10000000000f;
             float rSqr = (planet.transform.position - transform.position).sqrMagnitude;
             Vector3 forceDir = (planet.transform.position - transform.position).normalized;
-            Vector3 force =  gravitationalConstant * mass * planet.mass * forceDir / rSqr;
+            Vector3 force = gravitationalConstant * mass * planet.mass * forceDir / rSqr;
             velocity += force * (float)Math.Pow(10, -12) / mass;
         }
 
@@ -138,6 +146,7 @@ namespace Models
                 if (Mathf.Abs(deltaE) < 1e-6)
                     break;
             }
+
             return E;
         }
 
@@ -179,14 +188,14 @@ namespace Models
             orbitLineController.CelestialBody = this;
         }
 
-        public Vector3 GetPostion()
+        public Vector3 getPostion()
         {
             return transform.position;
         }
 
         //getter and setter methods
-        public CelestialBodyType GetCelestialBodyType() => celestialType;
-        public void SetCelestialBodyType(CelestialBodyType type) => celestialType = type;
+        public CelestialBodyType GetCelestialBodyType() => celestType;
+        public void SetCelestialBodyType(CelestialBodyType type) => celestType = type;
 
         public float GetMass() => mass;
         public void SetMass(float value) => mass = value;
@@ -199,8 +208,7 @@ namespace Models
 
         public void SetVelocity(Vector3 velocity) => this.velocity = velocity;
 
-        public List<CelestialBody> GetCelestialBodies() => _celestialBodies;
-        public void SetCelesitalBodies(List<CelestialBody> celestialBodies) => this._celestialBodies = celestialBodies;
-
+        public List<CelestialBody> GetCelestialBodies() => celestialBodies;
+        public void SetCelesitalBodies(List<CelestialBody> celestialBodies) => this.celestialBodies = celestialBodies;
     }
 }

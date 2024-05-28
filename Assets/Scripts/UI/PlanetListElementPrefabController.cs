@@ -12,19 +12,16 @@ namespace UI
     /// </summary>
     public class PlanetListElementPrefabController : MonoBehaviour, IPointerClickHandler
     {
-        [SerializeField]
-        private GameObject planetSprite;
+        [SerializeField] private GameObject planetSprite;
 
-        [SerializeField]
-        private GameObject planetName;
+        [SerializeField] private GameObject planetName;
 
-        [SerializeField]
-        private CameraControl cameraControl;
-    
+        [SerializeField] private CameraControl cameraControl;
+
 
         private GameObject _planetInfoTab;
         private GameObject _planet3DObject;
-    
+
         private Wrapper<GameObject> _currentlyActiveTab;
 
         private bool actdel = true;
@@ -61,7 +58,8 @@ namespace UI
         /// <param name="linkedCloseButton">
         /// Reference to the button that, when pressed, should close the info tab
         /// </param>
-        public void SetPlanetInfo(Sprite inputSprite, string inputName, GameObject planetModel, CameraControl cameraCtrl, 
+        public void SetPlanetInfo(Sprite inputSprite, string inputName, GameObject planetModel,
+            CameraControl cameraCtrl,
             GameObject linkedInfoTab, Wrapper<GameObject> referenceToActiveTab, Button linkedCloseButton)
         {
             planetSprite.GetComponent<Image>().sprite = inputSprite;
@@ -92,17 +90,18 @@ namespace UI
                 case 1:
                     Debug.Log("Planet " + planetName.GetComponent<TextMeshProUGUI>().text + " clicked");
 
-                    if(CloseCurrentlyOpenTab()) break;
-                
+                    if (CloseCurrentlyOpenTab()) break;
+
                     _planetInfoTab.SetActive(true);
-                
+
                     _currentlyActiveTab.SetValue(_planetInfoTab);
-                
+
                     break;
-                case 2: 
+                case 2:
                     Debug.Log("Planet " + planetName.GetComponent<TextMeshProUGUI>().text + " double clicked");
 
-                    if (cameraControl.GetFollowingTarget() != null && cameraControl.GetFollowingTarget().Equals(_planet3DObject.transform))
+                    if (cameraControl.GetFollowingTarget() != null &&
+                        cameraControl.GetFollowingTarget().Equals(_planet3DObject.transform))
                     {
                         cameraControl.StopFollowing();
                     }
@@ -110,6 +109,7 @@ namespace UI
                     {
                         cameraControl.SetToFollowPosition(_planet3DObject.transform);
                     }
+
                     break;
                 case 3:
                     Debug.Log("Planet " + planetName.GetComponent<TextMeshProUGUI>().text + " first clicked");
@@ -128,7 +128,7 @@ namespace UI
             if (_currentlyActiveTab.GetValue() == _planetInfoTab)
             {
                 CloseTab(_planetInfoTab);
-            } 
+            }
         }
 
         /// <summary>
@@ -162,8 +162,8 @@ namespace UI
             {
                 CloseTab(_planetInfoTab);
                 return true;
-            } 
-        
+            }
+
             if (_currentlyActiveTab.GetValue() != null)
             {
                 CloseTab(_currentlyActiveTab.GetValue());

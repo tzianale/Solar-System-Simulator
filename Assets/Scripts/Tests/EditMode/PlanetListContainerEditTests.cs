@@ -23,7 +23,6 @@ namespace Tests.EditMode
         }
 
 
-
         [Test]
         public void OnArrowClick_TogglesListAndChangesButtonText()
         {
@@ -34,7 +33,7 @@ namespace Tests.EditMode
             //Panel is openeing
             Assert.IsTrue(_animator.ListIsOpen, "List should be open after first arrow click.");
             Assert.AreEqual("↓", _animator.buttonText.text, "Button text should be '↓' after first arrow click.");
-        
+
 
             // Act
             _animator.OnArrowClick();
@@ -43,7 +42,6 @@ namespace Tests.EditMode
             //Panel is closing
             Assert.IsFalse(_animator.ListIsOpen, "List should be not open after second arrow click.");
             Assert.AreEqual("↑", _animator.buttonText.text, "Button text should be '↑' after second arrow click.");
-        
         }
 
         [TearDown]

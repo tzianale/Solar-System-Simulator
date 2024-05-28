@@ -42,7 +42,6 @@ namespace Models
             if (isFollowing && followTarget)
             {
                 pivotPoint = followTarget.position;
-            
             }
             else
             {
@@ -78,10 +77,12 @@ namespace Models
             {
                 SetFixedView(Vector3.up);
             }
+
             if (Input.GetKeyDown(KeyCode.Keypad3))
             {
                 SetFixedView(new Vector3(-1, 0, 0));
             }
+
             if (Input.GetKeyDown(KeyCode.Keypad7))
             {
                 SetFixedView(Vector3.right);
@@ -121,8 +122,6 @@ namespace Models
             pivotPoint += move;
             transform.position += move;
         }
-
-
 
 
         void Zoom(float zoomDiff)
@@ -169,7 +168,7 @@ namespace Models
             isFollowing = false;
             transform.position = defaultPosition;
             transform.rotation = defaultRotation;
-            pivotPoint = parentModel.transform.position;  // Reset pivot
+            pivotPoint = parentModel.transform.position; // Reset pivot
         }
 
         public Transform GetFollowingTarget()

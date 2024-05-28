@@ -11,14 +11,12 @@ namespace Models
     {
         private Transform _planetListContainerTransform;
         private bool _listIsOpen;
-    
-        [SerializeField]
-        private Vector3 moveDistance;
-    
-        [SerializeField]
-        private float moveSpeed = 1.0f;
-    
-    
+
+        [SerializeField] private Vector3 moveDistance;
+
+        [SerializeField] private float moveSpeed = 1.0f;
+
+
         public TextMeshProUGUI buttonText;
 
         /// <summary>
@@ -50,7 +48,9 @@ namespace Models
                 StartCoroutine(MovePanel(moveDistance));
                 ListIsOpen = false;
                 buttonText.text = "↑";
-            } else {
+            }
+            else
+            {
                 StartCoroutine(MovePanel(-moveDistance));
                 ListIsOpen = true;
                 buttonText.text = "↓";
