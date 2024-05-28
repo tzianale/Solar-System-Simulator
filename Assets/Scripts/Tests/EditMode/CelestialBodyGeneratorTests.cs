@@ -64,9 +64,4 @@ private GameObject createdObject;
             "Expected ArgumentException for negative diameter not thrown."
         );
     }
-
-    
-
-
-
 }
