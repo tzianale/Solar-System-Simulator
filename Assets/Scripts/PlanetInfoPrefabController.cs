@@ -26,6 +26,8 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
 
     [SerializeField] private protected GameObject planetSpriteField;
 
+    [SerializeField] private Button hidePlanetButton;
+
     [SerializeField] private protected GameObject planetVariablePropertiesTag;
     [SerializeField] private protected GameObject planetVariablePropertiesContainer;
 
@@ -43,9 +45,10 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     /// </summary>
     public Button CloseTabButton => closeTabButton;
 
-    private readonly List<TextMeshProUGUI> _refreshableTextFields = new();
+    private readonly List<ObservablePropertyController> _refreshableVariableTextFields = new();
+    private readonly List<TextMeshProUGUI> _refreshableLiveTextFields = new();
     
-    private Dictionary<string, TwoObjectContainer<string, UnityAction<string>>> _variableProperties;
+    private Dictionary<string, TwoObjectContainer<Func<string>, UnityAction<string>>> _variableProperties;
     
     private Dictionary<string, Func<string>> _liveStats;
     
@@ -60,7 +63,7 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     /// <param name="planetLiveStats">The Dictionary of properties that will be updated and the methods to retrieve the updated data</param>
     /// <param name="planetDescription">The description of the planet</param>
     public void SetPlanetInfo(string planetName, Sprite planetSprite,
-        Dictionary<string, TwoObjectContainer<string, UnityAction<string>>> variableProperties,
+        Dictionary<string, TwoObjectContainer<Func<string>, UnityAction<string>>> variableProperties,
         Dictionary<string, string> planetStaticProperties, 
         Dictionary<string, Func<string>> planetLiveStats,
         string planetDescription)
@@ -117,21 +120,28 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
                 var variablePropertyController = variablePropertyGameObject.GetComponent<ObservablePropertyController>();
 
                 var propertyName = variableProperty.Key;
-                var propertyValueAndUnit = SeparateValueAndUnit(variableProperty.Value.FirstObject);
+                var propertyValueAndUnit = SeparateValueAndUnit(variableProperty.Value.FirstObject.Invoke());
                 
                 var propertyValue = propertyValueAndUnit.FirstObject;
                 var propertyUnit = propertyValueAndUnit.SecondObject;
                 
-                var propertyText = new SystemObject[] { propertyName + NameValueSeparator, propertyValue, ValueUnitSeparatorForProperties + propertyUnit};
+                var propertyText = GenerateObservablePropertyText(propertyName, propertyValue, propertyUnit);
                 
                 variablePropertyController.SetText(propertyText);
                 variablePropertyController.AddListenerToPropertyValue(variableProperty.Value.SecondObject);
 
                 resultList.Add(variablePropertyGameObject);
+                _refreshableVariableTextFields.Add(variablePropertyController);
             }
         }
 
         return resultList;
+    }
+
+
+    private static SystemObject[] GenerateObservablePropertyText(string propertyName, string propertyValue, string propertyUnit)
+    {
+        return new SystemObject[] { propertyName + NameValueSeparator, propertyValue, ValueUnitSeparatorForProperties + propertyUnit};
     }
 
     /// <summary>
@@ -147,6 +157,7 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     private void Update()
     {
         RefreshLiveInfo();
+        RefreshVariableInfo();
     }
 
     /// <summary>
@@ -156,9 +167,27 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     {
         var newLiveStatsList = GenerateLiveStatsValues();
 
-        for (var propertyIndex = 0; propertyIndex < _refreshableTextFields.Count; propertyIndex++)
+        for (var propertyIndex = 0; propertyIndex < _refreshableLiveTextFields.Count; propertyIndex++)
         {
-            _refreshableTextFields[propertyIndex].text = newLiveStatsList[propertyIndex];
+            _refreshableLiveTextFields[propertyIndex].text = newLiveStatsList[propertyIndex];
+        }
+    }
+
+    /// <summary>
+    /// Calls each of the methods provided by the planetLiveStats Dictionary, actualising the stored data
+    /// </summary>
+    private void RefreshVariableInfo()
+    {
+        var newLiveStatsList = GenerateVariableStatsValues();
+
+        for (var propertyIndex = 0; propertyIndex < _refreshableVariableTextFields.Count; propertyIndex++)
+        {
+            var currentController = _refreshableVariableTextFields[propertyIndex];
+
+            if (!currentController.IsBeingEdited)
+            {
+                currentController.SetText(newLiveStatsList[propertyIndex]);
+            }
         }
     }
 
@@ -281,6 +310,34 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
     }
     
     /// <summary>
+    /// In order to avoid regenerating GameObjects for the Observable Properties List,
+    /// the following method will generate a list of strings to update the values.
+    /// </summary>
+    /// 
+    /// <returns>
+    /// A list of strings to replace the outdated observable properties values
+    /// </returns>
+    private List<SystemObject[]> GenerateVariableStatsValues()
+    {
+        var properties = new List<SystemObject[]>();
+
+        foreach (var property in _variableProperties)
+        {
+            var propertyName = property.Key;
+            var propertyRawValue = property.Value.FirstObject.Invoke();
+
+            var propertyValueAndUnit = SeparateValueAndUnit(propertyRawValue);
+
+            var propertyValue = propertyValueAndUnit.FirstObject;
+            var propertyUnit = propertyValueAndUnit.SecondObject;
+            
+            properties.Add(GenerateObservablePropertyText(propertyName, propertyValue, propertyUnit));
+        }
+
+        return properties;
+    }
+    
+    /// <summary>
     /// Generates a Property Game Object no matter what the subclass is.
     /// The game object contains the text provided in the parameters and is sized correctly vertically and horizontally
     /// </summary>
@@ -305,7 +362,7 @@ public abstract class PlanetInfoPrefabController : MonoBehaviour
         textElement.text = propertyName + NameValueSeparator + propertyValue;
         textElement.fontSize = propertiesTextSize;
 
-        _refreshableTextFields.Add(textElement);
+        _refreshableLiveTextFields.Add(textElement);
         
         return newListElement;
     }

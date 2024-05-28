@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,9 +13,16 @@ public class ObservablePropertyController : PropertyFieldController
     [SerializeField] private TMP_InputField planetPropertyValue;
     [SerializeField] private TMP_InputField planetPropertyMeasurementUnit;
 
+    public bool IsBeingEdited { get; private set; }
+
     public void AddListenerToPropertyValue(UnityAction<string> listener)
     {
         planetPropertyValue.onEndEdit.AddListener(listener);
+    }
+
+    private void Update()
+    {
+        IsBeingEdited = planetPropertyValue.isFocused;
     }
 
 

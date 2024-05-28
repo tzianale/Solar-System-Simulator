@@ -64,8 +64,6 @@ public class PlanetListManager : MonoBehaviour
     private const string MoonDetector = "Rocky Moon";
     private const string DwarfDetector = "Dwarf Planet";
     
-    private const string MassIdentifier = "Mass";
-    
     private const string NullData = "null";
     private const string UnknownData = "good question!";
     
@@ -94,14 +92,15 @@ public class PlanetListManager : MonoBehaviour
             {
                 var currentPlanetModel = planetModels[i];
 
-                var variableProperties = new Dictionary<string, TwoObjectContainer<string, UnityAction<string>>>();
+                var variableProperties = new Dictionary<string, TwoObjectContainer<Func<string>, UnityAction<string>>>();
 
                 if (allowPropertyEditing)
                 {
                     variableProperties.Add(
-                        "Planet Mass", 
-                        new TwoObjectContainer<string, UnityAction<string>>(
-                            planetProperties[i][MassIdentifier],
+                        "Planet Mass",
+                        new TwoObjectContainer<Func<string>, UnityAction<string>>(
+                            () => currentPlanetModel.GetComponent<CelestialBody>().mass
+                                .ToString(DecimalPlacesForPlanetCoordinates) + "_Earth masses",
                             updatedData =>
                             { 
                                 var updatedMass = float.Parse(updatedData);
@@ -115,8 +114,9 @@ public class PlanetListManager : MonoBehaviour
                             }));
                     variableProperties.Add(
                         "Planet X-Position", 
-                        new TwoObjectContainer<string, UnityAction<string>>(
-                            currentPlanetModel.transform.position.x.ToString(DecimalPlacesForPlanetCoordinates),
+                        new TwoObjectContainer<Func<string>, UnityAction<string>>(
+                            () => currentPlanetModel.transform.position.x
+                                .ToString(DecimalPlacesForPlanetCoordinates),
                             updatedData =>
                             { 
                                 var updatedX = float.Parse(updatedData);
@@ -132,8 +132,9 @@ public class PlanetListManager : MonoBehaviour
                             }));
                     variableProperties.Add(
                         "Planet Y-Position", 
-                        new TwoObjectContainer<string, UnityAction<string>>(
-                            currentPlanetModel.transform.position.y.ToString(DecimalPlacesForPlanetCoordinates),
+                        new TwoObjectContainer<Func<string>, UnityAction<string>>(
+                            () => currentPlanetModel.transform.position.y
+                                .ToString(DecimalPlacesForPlanetCoordinates),
                             updatedData =>
                             { 
                                 var updatedY = float.Parse(updatedData);
@@ -149,8 +150,9 @@ public class PlanetListManager : MonoBehaviour
                             }));
                     variableProperties.Add(
                         "Planet Z-Position", 
-                        new TwoObjectContainer<string, UnityAction<string>>(
-                            currentPlanetModel.transform.position.z.ToString(DecimalPlacesForPlanetCoordinates),
+                        new TwoObjectContainer<Func<string>, UnityAction<string>>(
+                            () => currentPlanetModel.transform.position.z
+                                .ToString(DecimalPlacesForPlanetCoordinates),
                             updatedData =>
                             { 
                                 var updatedZ = float.Parse(updatedData);
@@ -215,7 +217,7 @@ public class PlanetListManager : MonoBehaviour
     /// A description about this planet
     /// </param>
     private void CreateNewPlanet(Sprite planetSprite, string planetName, GameObject planetObject, 
-        Dictionary<string, TwoObjectContainer<string, UnityAction<string>>> variableProperties,
+        Dictionary<string, TwoObjectContainer<Func<string>, UnityAction<string>>> variableProperties,
         Dictionary<string, string> staticProperties, 
         Dictionary<string, Func<string>> liveStats,
         string planetDescription)
