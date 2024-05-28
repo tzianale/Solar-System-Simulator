@@ -1,31 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CelestialBodyGenerator : MonoBehaviour
 {
 
-    public static void CreateNewCelestialBodyGameObject(string name, CelestialBody.CelestialBodyType type, Vector3 position, float mass, float diameter, Vector3 velocity)
+    public static GameObject CreateNewCelestialBodyGameObject(string name, CelestialBody.CelestialBodyType type, Vector3 position, float mass, float diameter, Vector3 velocity)
     {
+        // Validate name
+    if (string.IsNullOrEmpty(name))
+        throw new ArgumentException("Name cannot be null or empty.", nameof(name));
+    
+    // Validate mass
+    if (mass <= 0)
+        throw new ArgumentException("Mass must be greater than zero.", nameof(mass));
+    
+    // Validate diameter
+    if (diameter <= 0)
+        throw new ArgumentException("Diameter must be greater than zero.", nameof(diameter));
+
         GameObject gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         gameObject.transform.localScale = new Vector3(diameter, diameter, diameter);
         gameObject.transform.position = position;
         gameObject.name = name;
 
         AddNewCelestialBodyToGameObject(gameObject, type, velocity, mass);
+
+        return gameObject;
     }
 
-    private static void AddNewCelestialBodyToGameObject(GameObject gameObject, CelestialBody.CelestialBodyType type, Vector3 velocity, float mass)
+    private static CelestialBody AddNewCelestialBodyToGameObject(GameObject gameObject, CelestialBody.CelestialBodyType type, Vector3 velocity, float mass)
     {
+        // Validate gameObject not null
+        if (gameObject == null)
+            throw new ArgumentNullException(nameof(gameObject), "GameObject cannot be null.");
+
         CelestialBody newBody = gameObject.AddComponent<CelestialBody>();
+
+        if (newBody == null)
+            throw new InvalidOperationException("CelestialBody component is not attached to the GameObject.");
+
         newBody.SetMass(mass);
         newBody.SetVelocity(velocity);
         newBody.SetCelestialBodyType(type);
-        List<CelestialBody> bodies = newBody.GetCelestialBodies();
+        List<CelestialBody> bodies = newBody.GetCelestialBodies() ?? new List<CelestialBody>();
 
         foreach (CelestialBody body in bodies)
         {
             body.SetCelesitalBodies(bodies);
         }
+        return newBody;
     }
 }
