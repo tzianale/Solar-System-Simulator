@@ -29,6 +29,7 @@ public class PlanetListManager : MonoBehaviour
 
     private const string PropertiesPath = "Assets/Data/PlanetProperties.csv";
     private const string DescriptionsPath = "Assets/Data/PlanetDescriptions.csv";
+    private const string DecimalPlacesForPlanetCoordinates = "N2";
     
     [SerializeField]
     private GameObject sun;
@@ -115,7 +116,7 @@ public class PlanetListManager : MonoBehaviour
                     variableProperties.Add(
                         "Planet X-Position", 
                         new TwoObjectContainer<string, UnityAction<string>>(
-                            currentPlanetModel.transform.position.x.ToString(),
+                            currentPlanetModel.transform.position.x.ToString(DecimalPlacesForPlanetCoordinates),
                             updatedData =>
                             { 
                                 var updatedX = float.Parse(updatedData);
@@ -132,7 +133,7 @@ public class PlanetListManager : MonoBehaviour
                     variableProperties.Add(
                         "Planet Y-Position", 
                         new TwoObjectContainer<string, UnityAction<string>>(
-                            currentPlanetModel.transform.position.y.ToString(),
+                            currentPlanetModel.transform.position.y.ToString(DecimalPlacesForPlanetCoordinates),
                             updatedData =>
                             { 
                                 var updatedY = float.Parse(updatedData);
@@ -149,7 +150,7 @@ public class PlanetListManager : MonoBehaviour
                     variableProperties.Add(
                         "Planet Z-Position", 
                         new TwoObjectContainer<string, UnityAction<string>>(
-                            currentPlanetModel.transform.position.z.ToString(),
+                            currentPlanetModel.transform.position.z.ToString(DecimalPlacesForPlanetCoordinates),
                             updatedData =>
                             { 
                                 var updatedZ = float.Parse(updatedData);
