@@ -8,15 +8,12 @@ public class CelestialBodyGenerator : MonoBehaviour
 
     public static GameObject CreateNewCelestialBodyGameObject(string name, CelestialBody.CelestialBodyType type, Vector3 position, float mass, float diameter, Vector3 velocity)
     {
-        // Validate name
     if (string.IsNullOrEmpty(name))
         throw new ArgumentException("Name cannot be null or empty.", nameof(name));
     
-    // Validate mass
     if (mass <= 0)
         throw new ArgumentException("Mass must be greater than zero.", nameof(mass));
     
-    // Validate diameter
     if (diameter <= 0)
         throw new ArgumentException("Diameter must be greater than zero.", nameof(diameter));
 
