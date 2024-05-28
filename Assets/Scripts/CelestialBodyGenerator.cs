@@ -32,14 +32,7 @@ public class CelestialBodyGenerator : MonoBehaviour
 
     private static CelestialBody AddNewCelestialBodyToGameObject(GameObject gameObject, CelestialBody.CelestialBodyType type, Vector3 velocity, float mass)
     {
-        // Validate gameObject not null
-        if (gameObject == null)
-            throw new ArgumentNullException(nameof(gameObject), "GameObject cannot be null.");
-
         CelestialBody newBody = gameObject.AddComponent<CelestialBody>();
-
-        if (newBody == null)
-            throw new InvalidOperationException("CelestialBody component is not attached to the GameObject.");
 
         newBody.SetMass(mass);
         newBody.SetVelocity(velocity);
