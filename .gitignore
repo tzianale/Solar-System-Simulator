@@ -73,5 +73,5 @@ crashlytics-build.properties
 
 # CodeCoverage Report
 /CodeCoverage/
-ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json
+/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json/
 /ProjectSettings/Packages/com.unity.testtools.codecoverage/
