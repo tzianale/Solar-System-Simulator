@@ -285,7 +285,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4120303847314640541}
   m_HandleRect: {fileID: 4075950035355463724}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -781,7 +781,6 @@ GameObject:
   - component: {fileID: 7231061205755359680}
   - component: {fileID: 3635272825476465330}
   - component: {fileID: 929269257475290902}
-  - component: {fileID: 2237407381761392371}
   m_Layer: 0
   m_Name: PlanetListContainer
   m_TagString: Untagged
@@ -822,7 +821,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41b627370e3b7c4aadf99bb5019416c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDistance: {x: 0, y: -130, z: 0}
+  planetListContainerTransform: {fileID: 7719326879843331342}
+  planetListScrollViewTransform: {fileID: 2560645577619474580}
+  moveOffset: {x: 0, y: 20, z: 0}
   moveSpeed: 1
   buttonText: {fileID: 8744497797996500904}
 --- !u!114 &3635272825476465330
@@ -889,18 +890,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   cameraControl: {fileID: 0}
---- !u!114 &2237407381761392371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8332405122656819923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5a2b8f002ff4d18807e8d8146299cc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  allowPropertyEditing: 0
 --- !u!1 &8393197492367521295
 GameObject:
   m_ObjectHideFlags: 0

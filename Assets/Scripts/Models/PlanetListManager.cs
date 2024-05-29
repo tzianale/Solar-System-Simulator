@@ -20,7 +20,7 @@ namespace Models
             PlanetName = 0,
             PlanetType = 2
         }
-
+        
         /// <summary>
         /// Stores the relevant indexes of the Planet Descriptions that are saved in the Planet Descriptions csv file
         /// </summary>
@@ -32,39 +32,47 @@ namespace Models
 
         private const string PropertiesPath = "Assets/Data/PlanetProperties.csv";
         private const string DescriptionsPath = "Assets/Data/PlanetDescriptions.csv";
+        private const string DecimalPlacesForPlanetCoordinates = "N2";
+        
+        [SerializeField]
+        private GameObject sun;
+        
+        [SerializeField]
+        private Transform planetListContent;
+        
+        [SerializeField]
+        private Transform canvas;
 
-        [SerializeField] private GameObject sun;
+        [SerializeField]
+        private GameObject planetObjectPrefab;
+        
+        [SerializeField]
+        private GameObject planetInfoPrefab;
 
-        [SerializeField] private Transform planetListContent;
+        [SerializeField]
+        private List<Sprite> planetSprites;
 
-        [SerializeField] private Transform canvas;
+        [SerializeField]
+        private List<GameObject> planetModels;
 
-        [SerializeField] private GameObject planetObjectPrefab;
+        [SerializeField]
+        private CameraControl cameraControl;
 
-        [SerializeField] private GameObject planetInfoPrefab;
+        [SerializeField]
+        private bool allowPropertyEditing;
 
-        [SerializeField] private List<Sprite> planetSprites;
-
-        [SerializeField] private List<GameObject> planetModels;
-
-        [SerializeField] private CameraControl cameraControl;
-
-        [SerializeField] private bool allowPropertyEditing;
-
-
-        private readonly Wrapper<GameObject> _activeInfoTab = new(null);
+        
+        private readonly Wrapper<GameObject> _activeInfoTab = new (null);
 
         private const string MoonDetector = "Rocky Moon";
         private const string DwarfDetector = "Dwarf Planet";
-
-        private const string MassIdentifier = "Mass";
-
+        
         private const string NullData = "null";
         private const string UnknownData = "good question!";
-
+        
         private readonly List<string> _planetNames = new();
 
-
+        
         /// <summary>
         /// Called on Script initialization, reads the data stored in the csv file and initialises List Elements and
         /// Info Tabs accordingly
@@ -76,9 +84,10 @@ namespace Models
 
             var planetProperties = LoadCsvPropertiesIntoLocalDictionaries(propertiesData);
             var planetDescriptions = UnpackPlanetDescriptionsFromCsv(descriptionsData);
-
+            
             if (planetSprites.Count != _planetNames.Count)
             {
+                
             }
             else
             {
@@ -86,43 +95,92 @@ namespace Models
                 {
                     var currentPlanetModel = planetModels[i];
 
-                    var variableProperties = new Dictionary<string, TwoObjectContainer<string, UnityAction<string>>>();
+                    var variableProperties = new Dictionary<string, TwoObjectContainer<Func<string>, UnityAction<string>>>();
 
                     if (allowPropertyEditing)
                     {
                         variableProperties.Add(
                             "Planet Mass",
-                            new TwoObjectContainer<string, UnityAction<string>>(
-                                planetProperties[i][MassIdentifier],
+                            new TwoObjectContainer<Func<string>, UnityAction<string>>(
+                                () => currentPlanetModel.GetComponent<CelestialBody>().mass
+                                    .ToString(DecimalPlacesForPlanetCoordinates) + "_Earth masses",
                                 updatedData =>
-                                {
+                                { 
                                     var updatedMass = float.Parse(updatedData);
-                                    if (updatedMass != 0)
-                                    {
-                                        currentPlanetModel.GetComponent<CelestialBody>().mass = updatedMass;
 
+                                    if (updatedMass != 0) 
+                                    { 
+                                        currentPlanetModel.GetComponent<CelestialBody>().mass = updatedMass;
+                                
                                         Debug.Log("Changed mass to " + updatedMass);
                                     }
                                 }));
-                    }
+                        variableProperties.Add(
+                            "Planet X-Position", 
+                            new TwoObjectContainer<Func<string>, UnityAction<string>>(
+                                () => currentPlanetModel.transform.position.x
+                                    .ToString(DecimalPlacesForPlanetCoordinates),
+                                updatedData =>
+                                { 
+                                    var updatedX = float.Parse(updatedData);
 
+                                    var currentPlanetPosition = currentPlanetModel.transform.position;
+                                    var currentPlanetRotation = currentPlanetModel.transform.rotation;
+
+                                    currentPlanetPosition.x = updatedX;
+
+                                    currentPlanetModel.transform.SetPositionAndRotation(currentPlanetPosition, currentPlanetRotation);
+                                
+                                    Debug.Log("Changed x-coordinate to " + updatedX);
+                                }));
+                        variableProperties.Add(
+                            "Planet Y-Position", 
+                            new TwoObjectContainer<Func<string>, UnityAction<string>>(
+                                () => currentPlanetModel.transform.position.y
+                                    .ToString(DecimalPlacesForPlanetCoordinates),
+                                updatedData =>
+                                { 
+                                    var updatedY = float.Parse(updatedData);
+
+                                    var currentPlanetPosition = currentPlanetModel.transform.position;
+                                    var currentPlanetRotation = currentPlanetModel.transform.rotation;
+
+                                    currentPlanetPosition.y = updatedY;
+
+                                    currentPlanetModel.transform.SetPositionAndRotation(currentPlanetPosition, currentPlanetRotation);
+                                
+                                    Debug.Log("Changed y-coordinate to " + updatedY);
+                                }));
+                        variableProperties.Add(
+                            "Planet Z-Position", 
+                            new TwoObjectContainer<Func<string>, UnityAction<string>>(
+                                () => currentPlanetModel.transform.position.z
+                                    .ToString(DecimalPlacesForPlanetCoordinates),
+                                updatedData =>
+                                { 
+                                    var updatedZ = float.Parse(updatedData);
+
+                                    var currentPlanetPosition = currentPlanetModel.transform.position;
+                                    var currentPlanetRotation = currentPlanetModel.transform.rotation;
+
+                                    currentPlanetPosition.z = updatedZ;
+
+                                    currentPlanetModel.transform.SetPositionAndRotation(currentPlanetPosition, currentPlanetRotation);
+                                
+                                    Debug.Log("Changed z-coordinate to " + updatedZ);
+                                }));
+                    }
+                    
                     var liveStats = new Dictionary<string, Func<string>>()
                     {
-                        {
-                            "Current Speed",
-                            () => currentPlanetModel.GetComponent<CelestialBody>().velocity.magnitude.ToString("n2")
-                        },
-                        {
-                            "Distance to Sun",
-                            () => (currentPlanetModel.transform.position - sun.transform.position).magnitude
-                                .ToString("n2")
-                        }
+                        {"Current Speed", () => currentPlanetModel.GetComponent<CelestialBody>().velocity.magnitude.ToString("n2")},
+                        {"Distance to Sun", () => (currentPlanetModel.transform.position - sun.transform.position).magnitude.ToString("n2")}
                     };
 
                     CreateNewPlanet(planetSprites[i], _planetNames[i], currentPlanetModel,
                         variableProperties,
-                        planetProperties[i],
-                        liveStats,
+                        planetProperties[i], 
+                        liveStats, 
                         planetDescriptions[i]);
                 }
             }
@@ -161,39 +219,43 @@ namespace Models
         /// <param name="planetDescription">
         /// A description about this planet
         /// </param>
-        private void CreateNewPlanet(Sprite planetSprite, string planetName, GameObject planetObject,
-            Dictionary<string, TwoObjectContainer<string, UnityAction<string>>> variableProperties,
-            Dictionary<string, string> staticProperties,
+        private void CreateNewPlanet(Sprite planetSprite, string planetName, GameObject planetObject, 
+            Dictionary<string, TwoObjectContainer<Func<string>, UnityAction<string>>> variableProperties,
+            Dictionary<string, string> staticProperties, 
             Dictionary<string, Func<string>> liveStats,
             string planetDescription)
         {
             var planetListElement = Instantiate(planetObjectPrefab, planetListContent);
             var planetInfoTab = Instantiate(planetInfoPrefab, canvas);
-
+            
             var planetListElementPrefabController = planetListElement.GetComponent<PlanetListElementPrefabController>();
             var planetInfoPrefabController = planetInfoTab.GetComponent<PlanetInfoPrefabController>();
 
             var planetInfoCloseButton = planetInfoPrefabController.CloseTabButton;
-
-            Debug.Log(planetInfoCloseButton.name);
-
-            Debug.Log(cameraControl);
-
-            planetListElementPrefabController.SetPlanetInfo(planetSprite, planetName, planetObject,
+            
+            planetListElementPrefabController.SetPlanetInfo(planetSprite, planetName, planetObject, 
                 cameraControl, planetInfoTab, _activeInfoTab, planetInfoCloseButton);
-
-            planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite,
+            
+            var onClick = planetObject.AddComponent<OnGameObjectClick>();
+            
+            onClick.SetActions(
+                new List<Action<int>> 
+                {
+                    clickCount => planetListElementPrefabController.HandleClickEvent(clickCount)
+                });
+            
+            planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite, planetObject,
                 variableProperties,
-                staticProperties,
-                liveStats,
+                staticProperties, 
+                liveStats, 
                 planetDescription);
-
+            
             planetInfoTab.SetActive(false);
         }
 
         /// <summary>
-        /// Takes the properties data that has been loaded from the memory and transforms it in a easily readable, planet separated
-        /// list of Dictionaries
+        /// Takes the properties data that has been loaded from the memory and transforms it in an easily readable,
+        /// planet separated list of Dictionaries
         /// </summary>
         /// 
         /// <param name="data">
@@ -207,23 +269,23 @@ namespace Models
         {
             var result = new List<Dictionary<string, string>>();
             var labels = data[0];
-
+            
             var rowCount = data.Count;
-
+            
             for (var rowIndex = 1; rowIndex < rowCount; rowIndex++)
             {
-                if (data[rowIndex][(int)DataPropertyIndexes.PlanetType] != MoonDetector &&
-                    data[rowIndex][(int)DataPropertyIndexes.PlanetType] != DwarfDetector)
+                if (data[rowIndex][(int) DataPropertyIndexes.PlanetType] != MoonDetector && 
+                    data[rowIndex][(int) DataPropertyIndexes.PlanetType] != DwarfDetector)
                 {
                     var planetProperties = new Dictionary<string, string>();
-
-                    for (var property = 0; property < data[rowIndex].Count; property++)
+                    
+                    for(var property = 0; property < data[rowIndex].Count; property++)
                     {
-                        if ((DataPropertyIndexes)property == DataPropertyIndexes.PlanetName)
+                        if ((DataPropertyIndexes) property == DataPropertyIndexes.PlanetName)
                         {
                             _planetNames.Add(data[rowIndex][property]);
                         }
-                        else if (data[rowIndex][property] == NullData)
+                        else if (data[rowIndex][property] == NullData) 
                         {
                             planetProperties.Add(labels[property], UnknownData);
                         }
@@ -232,7 +294,7 @@ namespace Models
                             planetProperties.Add(labels[property], data[rowIndex][property]);
                         }
                     }
-
+                    
                     result.Add(planetProperties);
                 }
             }
@@ -244,18 +306,18 @@ namespace Models
         private List<string> UnpackPlanetDescriptionsFromCsv(List<List<string>> data)
         {
             var planetDescriptions = new List<string>();
-
+            
             for (int planetIndex = 1; planetIndex < data.Count; planetIndex++)
             {
                 var planet = data[planetIndex];
-
+                
                 if (planet[(int)DataDescriptionIndexes.PlanetType] == MoonDetector ||
                     planet[(int)DataDescriptionIndexes.PlanetType] == DwarfDetector)
                 {
                     continue;
                 }
-
-                planetDescriptions.Add(planet[(int)DataDescriptionIndexes.PlanetDescription]);
+                
+                planetDescriptions.Add(planet[(int) DataDescriptionIndexes.PlanetDescription]);
             }
 
             return planetDescriptions;

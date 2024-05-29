@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
+using System.Collections;
 
 namespace Models
 {
@@ -9,32 +9,68 @@ namespace Models
     /// </summary>
     public class PlanetListAnimator : MonoBehaviour
     {
-        private Transform _planetListContainerTransform;
-        private bool _listIsOpen;
-
-        [SerializeField] private Vector3 moveDistance;
-
+        [SerializeField] private RectTransform planetListContainerTransform;
+        [SerializeField] private RectTransform planetListScrollViewTransform;
+        
+        [SerializeField] private Vector3 moveOffset;
         [SerializeField] private float moveSpeed = 1.0f;
-
-
+        
+        private bool _listIsOpen;
+        private bool _initialised;
+        
         public TextMeshProUGUI buttonText;
+        private Vector3 _moveDistanceImproved;
 
         /// <summary>
         /// Getter / Setter methods for the Transform that will contain the Planet List Items
         /// </summary>
-        public Transform PlanetListContainerTransform { private get; set; }
+        public RectTransform PlanetListContainerTransform { private get; set; }
+
+        /// <summary>
+        /// Getter / Setter methods for the Transform that will contain the Planet List Items
+        /// </summary>
+        public Vector3 MoveOffset { get; private set; }
+
+        /// <summary>
+        /// Getter / Setter methods for the Transform that will contain the Planet List Items
+        /// </summary>
+        public float MoveSpeed { get; private set; }
 
         /// <summary>
         /// Getter / Setter methods to read the List Is Open boolean outside of this Class
         /// </summary>
         public bool ListIsOpen { get; private set; }
 
+        
         /// <summary>
         /// Called on Object Instantiation, sets the PlanetListContainerTransform to the Transform of the current Object
         /// </summary>
         private void Start()
         {
-            PlanetListContainerTransform = transform;
+            PlanetListContainerTransform = planetListContainerTransform;
+            MoveOffset = moveOffset;
+            MoveSpeed = moveSpeed;
+            ListIsOpen = _listIsOpen;
+        }
+
+        
+        /// <summary>
+        /// Called every frame, sets the PlanetListContainerTransform and the transform height variables, as soon as
+        /// the transform is not null anymore
+        /// </summary>
+        private void Update()
+        {
+            if (_initialised)
+            {
+                
+            }
+            else if (PlanetListContainerTransform)
+            {
+                _moveDistanceImproved = MoveOffset;
+                _moveDistanceImproved.y += planetListScrollViewTransform.rect.height;
+
+                _initialised = true;
+            }
         }
 
         /// <summary>
@@ -45,13 +81,13 @@ namespace Models
             Debug.Log("Arrow clicked");
             if (ListIsOpen)
             {
-                StartCoroutine(MovePanel(moveDistance));
+                StartCoroutine(MovePanel(-_moveDistanceImproved));
                 ListIsOpen = false;
                 buttonText.text = "↑";
             }
             else
             {
-                StartCoroutine(MovePanel(-moveDistance));
+                StartCoroutine(MovePanel(_moveDistanceImproved));
                 ListIsOpen = true;
                 buttonText.text = "↓";
             }
@@ -78,7 +114,7 @@ namespace Models
 
             while (currentTime < 1)
             {
-                currentTime += Time.deltaTime * moveSpeed;
+                currentTime += Time.deltaTime * MoveSpeed;
                 PlanetListContainerTransform.position = Vector3.Lerp(startPosition, endPosition, currentTime);
                 yield return null;
             }
