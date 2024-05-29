@@ -21,12 +21,13 @@ namespace UI
         [SerializeField] private TMP_InputField inputFieldInitialVelocityZ;
         [SerializeField] private Image colorPickerButtonImage;
         [SerializeField] private GameObject colorPickerPanel;
+        [SerializeField] private PlanetListManager _planetListManager;
         
         private Color _selectedColor;
 
         public void CreateNewCelestialBody()
         {
-            CelestialBodyGenerator.CreateNewCelestialBodyGameObject(
+            GameObject newCelestialBody = CelestialBodyGenerator.CreateNewCelestialBodyGameObject(
                 InputFieldName.text,
                 CelestialBody.CelestialBodyType.Planet,
                 new Vector3(float.Parse(inputFieldPositionX.text), float.Parse(inputFieldPositionY.text), float.Parse(inputFieldPositionZ.text)),
@@ -35,6 +36,8 @@ namespace UI
                 new Vector3(float.Parse(inputFieldInitialVelocityX.text), float.Parse(inputFieldInitialVelocityY.text), float.Parse(inputFieldInitialVelocityZ.text)),
                 _selectedColor
             );
+            
+            _planetListManager.AddNewCelestialBody(newCelestialBody);
         }
 
         public void OnSelectedColorChange(Color color)
