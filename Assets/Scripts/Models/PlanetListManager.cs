@@ -232,10 +232,6 @@ namespace Models
             var planetInfoPrefabController = planetInfoTab.GetComponent<PlanetInfoPrefabController>();
 
             var planetInfoCloseButton = planetInfoPrefabController.CloseTabButton;
-
-            Debug.Log(planetInfoCloseButton.name);
-            
-            Debug.Log(cameraControl);
             
             planetListElementPrefabController.SetPlanetInfo(planetSprite, planetName, planetObject, 
                 cameraControl, planetInfoTab, _activeInfoTab, planetInfoCloseButton);

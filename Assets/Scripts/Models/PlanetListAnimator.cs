@@ -13,6 +13,7 @@ namespace Models
         private bool _listIsOpen;
 
         [SerializeField] private Vector3 moveDistance;
+        private Vector3 _moveDistanceImproved;
 
         [SerializeField] private float moveSpeed = 1.0f;
 
@@ -35,6 +36,12 @@ namespace Models
         private void Start()
         {
             PlanetListContainerTransform = transform;
+            
+            
+            _moveDistanceImproved = Vector3.zero;
+            _moveDistanceImproved.y = PlanetListContainerTransform.localScale.y;
+            
+            Debug.Log(_moveDistanceImproved);
         }
 
         /// <summary>
