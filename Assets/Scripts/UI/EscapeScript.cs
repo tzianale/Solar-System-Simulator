@@ -29,7 +29,7 @@ namespace UI
             }
         }
 
-        private void escapeGame()
+        public void escapeGame()
         {
             SceneManager.LoadSceneAsync(0);
         }

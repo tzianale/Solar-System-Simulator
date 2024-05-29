@@ -39,10 +39,14 @@ namespace Models
         private const float YEAR_S = 365.25f * 24f * 3600f; // seconds
         private const float scaleFactor = 5e-9f; // Unity units per AU
 
+        //bool for forward and backward
+        public static bool isRewinding;
+
         // Start is called before the first frame update
         void Start()
         {
             celestialBodies = new List<CelestialBody>(FindObjectsOfType<CelestialBody>());
+            isRewinding = false;
 
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer)
             {
@@ -85,7 +89,7 @@ namespace Models
                     }
                 }
 
-                transform.Rotate(Vector3.down, rotaionSpeed * Time.deltaTime);
+                transform.Rotate(Vector3.down, rotaionSpeed * (isRewinding ? -Time.deltaTime : Time.deltaTime));
             }
         }
 
@@ -150,7 +154,7 @@ namespace Models
                 transform.position = newPosition;
 
                 // Increment time
-                currentTime += Time.deltaTime;
+                currentTime += isRewinding ? -Time.deltaTime : Time.deltaTime;
             }
             catch (Exception ex)
             {
@@ -278,5 +282,9 @@ namespace Models
 
         public List<CelestialBody> GetCelestialBodies() => celestialBodies;
         public void SetCelesitalBodies(List<CelestialBody> celestialBodies) => this.celestialBodies = celestialBodies;
+
+        public void StartRewind() => isRewinding = true;
+
+        public void StopRewind() => isRewinding = false;
     }
 }
