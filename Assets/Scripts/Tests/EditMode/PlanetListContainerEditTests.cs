@@ -7,19 +7,22 @@ namespace Tests.EditMode
 {
     public class PlanetListAnimatorTests
     {
-        private GameObject containerGameObject;
+        private GameObject _containerGameObject;
         private PlanetListAnimator _animator;
 
         [SetUp]
         public void Setup()
         {
-            containerGameObject = new GameObject();
-            _animator = containerGameObject.AddComponent<PlanetListAnimator>();
+            _containerGameObject = new GameObject();
+
+            var containerGameObjectRecTransform = _containerGameObject.AddComponent<RectTransform>();
+            
+            _animator = _containerGameObject.AddComponent<PlanetListAnimator>();
             _animator.buttonText = new GameObject("TextObject").AddComponent<TextMeshProUGUI>();
             _animator.buttonText.text = ""; // Initialize text to ensure it's not null
 
             // Directly use the existing transform rather than assigning a new one
-            _animator.PlanetListContainerTransform = containerGameObject.transform;
+            _animator.PlanetListContainerTransform = containerGameObjectRecTransform;
         }
 
 
@@ -30,7 +33,7 @@ namespace Tests.EditMode
             _animator.OnArrowClick();
 
             // Assert
-            //Panel is openeing
+            //Panel is opening
             Assert.IsTrue(_animator.ListIsOpen, "List should be open after first arrow click.");
             Assert.AreEqual("↓", _animator.buttonText.text, "Button text should be '↓' after first arrow click.");
 
@@ -47,7 +50,7 @@ namespace Tests.EditMode
         [TearDown]
         public void Teardown()
         {
-            Object.DestroyImmediate(containerGameObject);
+            Object.DestroyImmediate(_containerGameObject);
         }
     }
 }
