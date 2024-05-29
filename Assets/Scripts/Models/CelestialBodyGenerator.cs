@@ -6,7 +6,7 @@ namespace Models
 {
     public class CelestialBodyGenerator : MonoBehaviour
     {
-        public static void CreateNewCelestialBodyGameObject(string name, CelestialBody.CelestialBodyType type, Vector3 position, float mass, float diameter, Vector3 velocity, Color color)
+        public static GameObject CreateNewCelestialBodyGameObject(string name, CelestialBody.CelestialBodyType type, Vector3 position, float mass, float diameter, Vector3 velocity, Color color)
         {
             // Validate name
             if (string.IsNullOrEmpty(name))
