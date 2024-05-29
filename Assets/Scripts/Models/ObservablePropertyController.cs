@@ -1,10 +1,10 @@
-﻿using Models;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using SystemObject = System.Object;
 
-namespace UI
+
+namespace Models
 {
     /// <summary>
     /// Controller Script for Prefab "Observable Property Prefab"
@@ -15,9 +15,16 @@ namespace UI
         [SerializeField] private TMP_InputField planetPropertyValue;
         [SerializeField] private TMP_InputField planetPropertyMeasurementUnit;
 
+        public bool IsBeingEdited { get; private set; }
+
         public void AddListenerToPropertyValue(UnityAction<string> listener)
         {
             planetPropertyValue.onEndEdit.AddListener(listener);
+        }
+
+        private void Update()
+        {
+            IsBeingEdited = planetPropertyValue.isFocused;
         }
 
 
@@ -33,13 +40,13 @@ namespace UI
         /// </param>
         public override void SetText(SystemObject[] text)
         {
-            planetPropertyDescription.text = text[(int)DataIndexes.PropertyDescription].ToString();
-
-            SetValue(text[(int)DataIndexes.PropertyValue].ToString());
-            SetUnit(text[(int)DataIndexes.PropertyUnit].ToString());
+            planetPropertyDescription.text = text[(int) DataIndexes.PropertyDescription].ToString();
+            
+            SetValue(text[(int) DataIndexes.PropertyValue].ToString());
+            SetUnit(text[(int) DataIndexes.PropertyUnit].ToString());
         }
-
-
+        
+        
         /// <summary>
         /// Allows external scripts to edit the text inside the InputField by code
         /// </summary>
@@ -51,8 +58,8 @@ namespace UI
         {
             planetPropertyValue.text = value;
         }
-
-
+        
+        
         /// <summary>
         /// Allows external scripts to edit the text inside the InputField by code
         /// </summary>
@@ -63,8 +70,9 @@ namespace UI
         private void SetUnit(string text)
         {
             text ??= "";
-
+            
             planetPropertyMeasurementUnit.text = text;
         }
     }
 }
+
