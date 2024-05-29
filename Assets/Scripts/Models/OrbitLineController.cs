@@ -51,5 +51,32 @@ namespace Models
                 lineRenderer.SetPositions(last100Points);
             }
         }
+
+        public void InitializeLineRenderer(int count)
+        {
+            // Ensure the lineRenderer component is attached and correctly set up
+            if (lineRenderer == null)
+                lineRenderer = gameObject.GetComponent<LineRenderer>();
+
+            // Initialize or reset the LineRenderer's settings
+            lineRenderer.positionCount = 0;  // Reset any existing data
+            lineRenderer.positionCount = count;  // Set the expected number of positions
+            lineRenderer.startWidth = 0.1f;  // Set the width of the line at the start
+            lineRenderer.endWidth = 0.1f;  // Set the width of the line at the end
+            lineRenderer.useWorldSpace = true;  // Use world space coordinates
+
+            // Optional: Configure materials and colors
+            lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+            lineRenderer.startColor = Color.white;
+            lineRenderer.endColor = Color.white;
+
+            // Initialize the positions array if needed
+            Vector3[] positions = new Vector3[count];
+            for (int i = 0; i < count; i++)
+                positions[i] = Vector3.zero;  // Initialize all positions to zero
+
+            lineRenderer.SetPositions(positions);  // Apply the initialized positions
+        }
+
     }
 }

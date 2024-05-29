@@ -8,7 +8,6 @@ namespace Models
     public class GameStateController : MonoBehaviour
     {
         public static bool isPaused = false;
-        private float lastSpeed = 1f;
         public static double explorerModeDay;
         public TextMeshProUGUI dayText;
         public TextMeshProUGUI simulationSpeedText;
