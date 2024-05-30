@@ -55,6 +55,14 @@ namespace Tests.EditMode
             Assert.IsTrue(wasCalled);
         }
 
-
+        [TearDown]
+        public void TearDown()
+        {
+            // Destroy all game objects created during the test to prevent memory leaks and test cross-contamination
+            GameObject.DestroyImmediate(testObject);
+            GameObject.DestroyImmediate(descriptionField.gameObject);
+            GameObject.DestroyImmediate(valueField.gameObject);
+            GameObject.DestroyImmediate(unitField.gameObject);
+        }
     }
 }
