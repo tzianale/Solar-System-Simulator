@@ -457,10 +457,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4468792452271100843, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 527
+      objectReference: {fileID: 0}
     - target: {fileID: 4510345931566635063, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5108197252964615599, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: planetListManager
+      value: 
+      objectReference: {fileID: 1301205645}
     - target: {fileID: 5108197252964615599, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: _planetListManager
       value: 

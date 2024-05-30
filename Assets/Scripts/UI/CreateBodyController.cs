@@ -10,7 +10,8 @@ namespace UI
 {
     public class CreateBodyController : MonoBehaviour
     {
-        public TMP_InputField InputFieldName;
+        [SerializeField] private TMP_InputField inputFieldName;
+        [SerializeField] private TMP_Dropdown inputFieldType;
         [SerializeField] private TMP_InputField inputFieldMass;
         [SerializeField] private TMP_InputField inputFieldDiameter;
         [SerializeField] private TMP_InputField inputFieldPositionX;
@@ -21,15 +22,15 @@ namespace UI
         [SerializeField] private TMP_InputField inputFieldInitialVelocityZ;
         [SerializeField] private Image colorPickerButtonImage;
         [SerializeField] private GameObject colorPickerPanel;
-        [SerializeField] private PlanetListManager _planetListManager;
+        [SerializeField] private PlanetListManager planetListManager;
         
         private Color _selectedColor;
 
         public void CreateNewCelestialBody()
         {
             GameObject newCelestialBody = CelestialBodyGenerator.CreateNewCelestialBodyGameObject(
-                InputFieldName.text,
-                CelestialBodyType.Planet,
+                inputFieldName.text,
+                (CelestialBodyType)inputFieldType.value,
                 new Vector3(float.Parse(inputFieldPositionX.text), float.Parse(inputFieldPositionY.text), float.Parse(inputFieldPositionZ.text)),
                 float.Parse(inputFieldMass.text),
                 float.Parse(inputFieldDiameter.text),
@@ -37,7 +38,7 @@ namespace UI
                 _selectedColor
             );
             
-            _planetListManager.AddNewCelestialBody(newCelestialBody);
+            planetListManager.AddNewCelestialBody(newCelestialBody);
         }
 
         public void OnSelectedColorChange(Color color)
