@@ -154,9 +154,7 @@ namespace Models
             }
             catch (Exception ex)
             {
-                Debug.LogError($"Error in UpdatePositionByKepler: {ex.Message}");
-                // Optionally rethrow the exception if it should be escalated
-                throw;
+                throw ex;
             }
         }
 
@@ -164,8 +162,7 @@ namespace Models
         {
             if (float.IsNaN(t) || float.IsNaN(T) || T == 0)
             {
-                Debug.LogError($"Invalid inputs for mean anomaly calculation: t={t}, T={T}");
-                return float.NaN; // Return NaN to indicate an error
+                throw new InvalidOperationException("Eccentric Anomaly calculation resulted in NaN");
             }
 
             return 2 * Mathf.PI * (t % T) / T;
@@ -173,8 +170,6 @@ namespace Models
 
         private float eccentric_anomaly(float M, float e)
         {
-            Debug.Log($"Starting eccentric anomaly calculation with M={M}, e={e}");
-
             if (float.IsNaN(M) || float.IsNaN(e))
             {
                 throw new ArgumentException("Input values cannot be NaN.");
@@ -186,6 +181,8 @@ namespace Models
                 throw new ArgumentException("Eccentricity must be between 0 and 1 for elliptical orbits.");
             }
 
+
+
             float E = M; // Initial guess: E ≈ M
             int maxIterations = 10;
             float tolerance = 1e-6f;
@@ -196,23 +193,17 @@ namespace Models
                 float fPrime = 1 - e * Mathf.Cos(E);
                 if (Mathf.Abs(fPrime) < Mathf.Epsilon)  // Check to avoid division by zero
                 {
-                    Debug.LogError("Denominator in Newton-Raphson method is too small.");
                     throw new InvalidOperationException("Denominator in Newton-Raphson method became too small, preventing convergence.");
                 }
 
                 float deltaE = f / fPrime;
                 E += deltaE;
 
-                Debug.Log($"Iteration {i}: E={E}, f={f}, fPrime={fPrime}, deltaE={deltaE}");
-
                 if (Mathf.Abs(deltaE) < tolerance)
                 {
-                    Debug.Log("Convergence reached in eccentric anomaly calculation.");
                     return E;
                 }
             }
-
-            Debug.LogError("Eccentric anomaly calculation failed to converge.");
             throw new InvalidOperationException("Eccentric anomaly calculation failed to converge.");
         }
 
