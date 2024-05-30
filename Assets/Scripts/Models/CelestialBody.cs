@@ -7,13 +7,6 @@ namespace Models
 {
     public class CelestialBody : MonoBehaviour
     {
-        public enum CelestialBodyType
-        {
-            Sun,
-            Planet,
-            Moon
-        };
-
         public CelestialBodyType celestType;
         public float orbitingCenterPlanetMass;
         public Vector3 velocity;

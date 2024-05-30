@@ -23,13 +23,13 @@ namespace Tests.EditMode
             var sunMass = 1.99e+22f;
 
             //Act
-            celestialBody.SetCelestialBodyType(CelestialBody.CelestialBodyType.Sun);
+            celestialBody.SetCelestialBodyType(CelestialBodyType.Sun);
             celestialBody.SetMass(sunMass);
             celestialBody.SetOrbitRadius(0);
             celestialBody.SetRatioToEarthYear(1);
 
             //Assert
-            Assert.AreEqual(CelestialBody.CelestialBodyType.Sun, celestialBody.GetCelestialBodyType());
+            Assert.AreEqual(CelestialBodyType.Sun, celestialBody.GetCelestialBodyType());
             Assert.AreEqual(sunMass, celestialBody.GetMass());
             Assert.AreEqual(0, celestialBody.GetOrbitRadius());
             Assert.AreEqual(1, celestialBody.GetRatioToEarthYear());
@@ -42,11 +42,11 @@ namespace Tests.EditMode
             var earthMass = 5.97217e+16f;
 
             //Act
-            celestialBody.SetCelestialBodyType(CelestialBody.CelestialBodyType.Planet);
+            celestialBody.SetCelestialBodyType(CelestialBodyType.Planet);
             celestialBody.SetMass(earthMass);
 
             //Assert
-            Assert.AreEqual(CelestialBody.CelestialBodyType.Planet, celestialBody.GetCelestialBodyType());
+            Assert.AreEqual(CelestialBodyType.Planet, celestialBody.GetCelestialBodyType());
             Assert.AreEqual(earthMass, celestialBody.GetMass());
         }
 

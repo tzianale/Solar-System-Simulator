@@ -19,7 +19,7 @@ namespace Tests.PlayMode
             SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Sandbox;
             sun = new GameObject("Sun");
             sunCB = sun.AddComponent<CelestialBody>(); // Correctly adding the CelestialBody component
-            sunCB.SetCelestialBodyType(CelestialBody.CelestialBodyType.Sun);
+            sunCB.SetCelestialBodyType(CelestialBodyType.Sun);
             sunCB.SetMass(332900);
             var sunRb = sun.AddComponent<Rigidbody>();
             sunRb.useGravity = false;
@@ -28,7 +28,7 @@ namespace Tests.PlayMode
             planet = new GameObject("Planet");
             planetCB = planet.AddComponent<CelestialBody>(); // Correctly adding the CelestialBody component
             planet.transform.position = new Vector3(755, 0, 0);
-            planetCB.SetCelestialBodyType(CelestialBody.CelestialBodyType.Planet);
+            planetCB.SetCelestialBodyType(CelestialBodyType.Planet);
             planetCB.SetMass(1);
             var planetRb = planet.AddComponent<Rigidbody>();
             planetRb.useGravity = false;

@@ -29,7 +29,7 @@ namespace UI
         {
             GameObject newCelestialBody = CelestialBodyGenerator.CreateNewCelestialBodyGameObject(
                 InputFieldName.text,
-                CelestialBody.CelestialBodyType.Planet,
+                CelestialBodyType.Planet,
                 new Vector3(float.Parse(inputFieldPositionX.text), float.Parse(inputFieldPositionY.text), float.Parse(inputFieldPositionZ.text)),
                 float.Parse(inputFieldMass.text),
                 float.Parse(inputFieldDiameter.text),
