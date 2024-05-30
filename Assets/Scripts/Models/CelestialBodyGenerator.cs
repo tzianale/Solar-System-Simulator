@@ -41,7 +41,7 @@ namespace Models
             newBody.SetMass(mass);
             newBody.SetVelocity(velocity);
             newBody.SetCelestialBodyType(type);
-            List<CelestialBody> bodies = newBody.GetCelestialBodies() ?? new List<CelestialBody>();
+            List<CelestialBody> bodies = newBody.GetCelestialBodies() ?? new List<CelestialBody>(FindObjectsOfType<CelestialBody>());;
 
             foreach (CelestialBody body in bodies)
             {
