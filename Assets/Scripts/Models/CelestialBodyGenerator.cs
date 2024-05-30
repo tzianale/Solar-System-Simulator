@@ -6,8 +6,7 @@ namespace Models
 {
     public class CelestialBodyGenerator : MonoBehaviour
     {
-        public static GameObject CreateNewCelestialBodyGameObject(string name, CelestialBody.CelestialBodyType type,
-            Vector3 position, float mass, float diameter, Vector3 velocity)
+        public static GameObject CreateNewCelestialBodyGameObject(string name, CelestialBody.CelestialBodyType type, Vector3 position, float mass, float diameter, Vector3 velocity, Color color)
         {
             // Validate name
             if (string.IsNullOrEmpty(name))
@@ -25,6 +24,9 @@ namespace Models
             gameObject.transform.localScale = new Vector3(diameter, diameter, diameter);
             gameObject.transform.position = position;
             gameObject.name = name;
+            Material material = new Material(Shader.Find("Standard"));
+            material.color = color;
+            gameObject.GetComponent<Renderer>().material = material;
 
             AddNewCelestialBodyToGameObject(gameObject, type, velocity, mass);
 

@@ -20,7 +20,8 @@ namespace Models
 
         private void Update()
         {
-            simulationSpeedText.text = simulationSpeedSlider.value.ToString("0") + "x";
+            simulationSpeedText.text = simulationSpeedSlider.value.ToString("0") + " days per second";
+            colorSpeedText();
         }
 
         private void FixedUpdate()
@@ -28,7 +29,7 @@ namespace Models
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer && !isPaused)
             {
                 DisplayDate(ComputeDateByCurrentDate(explorerModeDay));
-                explorerModeDay += Time.deltaTime;
+                explorerModeDay += CelestialBody.isRewinding ? -Time.deltaTime : Time.deltaTime;
             }
         }
 
@@ -50,6 +51,22 @@ namespace Models
         private void DisplayDate(DateTime date)
         {
             dayText.text = date.ToString("d");
+        }
+
+        private void colorSpeedText()
+        {
+            if (simulationSpeedSlider.value == simulationSpeedSlider.maxValue)
+            {
+                simulationSpeedText.color = new Color(255, 0, 0);
+            }
+            else if (simulationSpeedSlider.value == simulationSpeedSlider.minValue)
+            {
+                simulationSpeedText.color = new Color(0, 255, 0);
+            }
+            else
+            {
+                simulationSpeedText.color = new Color(125, 125, 0);
+            }
         }
     }
 }
