@@ -72,8 +72,7 @@ namespace Tests.PlayMode
             {
                 yield return new WaitForFixedUpdate();
             }
-            Debug.Log("Position 100");
-            Debug.Log(lineRenderer.GetPosition(lineRenderer.positionCount - 1));
+            
             // Assert that the LineRenderer's last position is not zero after movement
             Vector3 lastPosition = lineRenderer.GetPosition(lineRenderer.positionCount - 1);
             Assert.AreNotEqual(Vector3.zero, lastPosition, "Last position of the line renderer should not be zero.");
