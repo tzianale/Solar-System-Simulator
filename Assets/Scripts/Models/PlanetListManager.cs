@@ -56,7 +56,7 @@ namespace Models
         private List<GameObject> planetModels;
 
         [SerializeField]
-        private CameraControl cameraControl;
+        private CameraControlV2 cameraControl;
 
         [SerializeField]
         private bool allowPropertyEditing;

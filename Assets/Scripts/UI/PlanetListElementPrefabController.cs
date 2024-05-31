@@ -19,7 +19,7 @@ namespace UI
         private GameObject planetName;
 
         [SerializeField]
-        private CameraControl cameraControl;
+        private CameraControlV2 cameraControl;
         
 
         private GameObject _planetInfoTab;
@@ -59,7 +59,7 @@ namespace UI
         /// <param name="linkedCloseButton">
         /// Reference to the button that, when pressed, should close the info tab
         /// </param>
-        public void SetPlanetInfo(Sprite inputSprite, string inputName, GameObject planetModel, CameraControl cameraCtrl, 
+        public void SetPlanetInfo(Sprite inputSprite, string inputName, GameObject planetModel, CameraControlV2 cameraCtrl, 
             GameObject linkedInfoTab, Wrapper<GameObject> referenceToActiveTab, Button linkedCloseButton)
         {
             planetSprite.GetComponent<Image>().sprite = inputSprite;
@@ -119,7 +119,7 @@ namespace UI
                     }
                     else
                     {
-                        cameraControl.SetToFollowPosition(_planet3DObject.transform);
+                        cameraControl.FollowObject(_planet3DObject.transform);
                     }
                     break;
             }
