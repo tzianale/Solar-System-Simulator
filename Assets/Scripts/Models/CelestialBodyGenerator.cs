@@ -1,11 +1,19 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
+using LightType = UnityEngine.LightType;
 
 namespace Models
 {
     public class CelestialBodyGenerator : MonoBehaviour
     {
+        private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
+        private const string KeywordEmission = "_EMISSION";
+        private const float SunLightRange = 100000.0f;
+        private const float SunLightIntensity = 2.0f;
+        private const float SunEmissionIntensity = 100.0f;
+
         public static GameObject CreateNewCelestialBodyGameObject(string name, CelestialBodyType type, Vector3 position, float mass, float diameter, Vector3 velocity, Color color)
         {
             // Validate name
@@ -24,12 +32,24 @@ namespace Models
             gameObject.transform.localScale = new Vector3(diameter, diameter, diameter);
             gameObject.transform.position = position;
             gameObject.name = name;
+            
             Material material = new Material(Shader.Find("Standard"));
             material.color = color;
+
+            if (type == CelestialBodyType.Sun)
+            {
+                Light newPointLight = gameObject.AddComponent<Light>();
+                newPointLight.type = LightType.Point;
+                newPointLight.range = SunLightRange;
+                newPointLight.intensity = SunLightIntensity;
+                
+                material.EnableKeyword(KeywordEmission);
+                material.SetColor(EmissionColor, color * SunEmissionIntensity);
+            }
+            
             gameObject.GetComponent<Renderer>().material = material;
 
             AddNewCelestialBodyToGameObject(gameObject, type, velocity, mass);
-
             return gameObject;
         }
 
