@@ -26,6 +26,7 @@ namespace UI
         private GameObject _planet3DObject;
         
         private Wrapper<GameObject> _currentlyActiveTab;
+        private Wrapper<GameObject> _currentlyLightedPlanet;
 
         /// <summary>
         /// Constructor-like method, sets all the relevant information and references, as well as linking the Closing Button
@@ -56,11 +57,16 @@ namespace UI
         /// Wrapper object containing continuously updated info about the info tab that is currently open
         /// </param>
         /// 
+        /// <param name="referenceToHighlightedPlanet">
+        /// Wrapper object containing continuously updated info about the planet that is currently being focused on
+        /// </param>
+        /// 
         /// <param name="linkedCloseButton">
         /// Reference to the button that, when pressed, should close the info tab
         /// </param>
         public void SetPlanetInfo(Sprite inputSprite, string inputName, GameObject planetModel, CameraControl cameraCtrl, 
-            GameObject linkedInfoTab, Wrapper<GameObject> referenceToActiveTab, Button linkedCloseButton)
+            GameObject linkedInfoTab, Wrapper<GameObject> referenceToActiveTab, 
+            Wrapper<GameObject> referenceToHighlightedPlanet, Button linkedCloseButton)
         {
             planetSprite.GetComponent<Image>().sprite = inputSprite;
             planetName.GetComponent<TextMeshProUGUI>().text = inputName;
@@ -70,6 +76,7 @@ namespace UI
 
             cameraControl = cameraCtrl;
             _currentlyActiveTab = referenceToActiveTab;
+            _currentlyLightedPlanet = referenceToHighlightedPlanet;
 
             linkedCloseButton.onClick.AddListener(CloseThisTab);
         }
@@ -108,6 +115,7 @@ namespace UI
                     _planetInfoTab.SetActive(true);
                     
                     _currentlyActiveTab.SetValue(_planetInfoTab);
+                    _currentlyLightedPlanet.SetValue(_planet3DObject);
                     
                     break;
                 case 2: 
@@ -151,6 +159,7 @@ namespace UI
             if (_currentlyActiveTab.GetValue() == tabToClose)
             {
                 _currentlyActiveTab.SetValue(null);
+                _currentlyLightedPlanet.SetValue(null);
             }
         }
 

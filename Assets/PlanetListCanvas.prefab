@@ -891,6 +891,7 @@ MonoBehaviour:
   - {fileID: 0}
   cameraControl: {fileID: 0}
   allowPropertyEditing: 0
+  highlightingColor: {r: 0.44715232, g: 0.6990326, b: 0.78436655, a: 0.3019608}
 --- !u!1 &8393197492367521295
 GameObject:
   m_ObjectHideFlags: 0

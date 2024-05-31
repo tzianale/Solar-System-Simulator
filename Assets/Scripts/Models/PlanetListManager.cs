@@ -61,8 +61,12 @@ namespace Models
         [SerializeField]
         private bool allowPropertyEditing;
 
+        [SerializeField]
+        private Color highlightingColor;
+
         
         private readonly Wrapper<GameObject> _activeInfoTab = new (null);
+        private readonly Wrapper<GameObject> _highlightedPlanet = new (null);
 
         private const string MoonDetector = "Rocky Moon";
         private const string DwarfDetector = "Dwarf Planet";
@@ -72,6 +76,11 @@ namespace Models
         
         private readonly List<string> _planetNames = new();
 
+        private bool _highlightedPlanetOriginalEmissionEnabled;
+        private Color _highlightedPlanetOriginalEmissionValue;
+        
+        private const string EmissionPropertyID = "_EMISSION";
+        private static readonly int EmissionColorID = Shader.PropertyToID("_EmissionColor");
         
         /// <summary>
         /// Called on Script initialization, reads the data stored in the csv file and initialises List Elements and
@@ -79,6 +88,45 @@ namespace Models
         /// </summary>
         private void Start()
         {
+            _highlightedPlanet.AddOnSetValueAction((oldValue, newValue) =>
+            {
+                if (oldValue)
+                {
+                    var oldRenderer = oldValue.GetComponent<Renderer>();
+
+                    if (oldRenderer)
+                    {
+                        var oldMaterial = oldRenderer.material;
+
+                        if (!_highlightedPlanetOriginalEmissionEnabled)
+                        {
+                            oldMaterial.DisableKeyword(EmissionPropertyID);
+                        }
+                        else
+                        {
+                            oldMaterial.SetColor(EmissionColorID, _highlightedPlanetOriginalEmissionValue);
+                        }
+                    }
+                }
+
+                if (newValue)
+                {
+                    var newRenderer = newValue.GetComponent<Renderer>();
+                    
+                    if (newRenderer)
+                    {
+                        var newMaterial = newRenderer.material;
+
+                        _highlightedPlanetOriginalEmissionEnabled = newMaterial.IsKeywordEnabled(EmissionPropertyID);
+                        _highlightedPlanetOriginalEmissionValue = newMaterial.GetColor(EmissionColorID);
+                        
+                        newMaterial.EnableKeyword(EmissionPropertyID);
+                        newMaterial.SetColor(EmissionColorID, highlightingColor);
+                    }
+                }
+            });
+            
+            
             var propertiesData = CsvReader.ReadCsv(PropertiesPath);
             var descriptionsData = CsvReader.ReadCsv(DescriptionsPath);
 
@@ -233,8 +281,13 @@ namespace Models
 
             var planetInfoCloseButton = planetInfoPrefabController.CloseTabButton;
             
-            planetListElementPrefabController.SetPlanetInfo(planetSprite, planetName, planetObject, 
-                cameraControl, planetInfoTab, _activeInfoTab, planetInfoCloseButton);
+            planetListElementPrefabController.SetPlanetInfo(
+                planetSprite, planetName, planetObject, 
+                cameraControl, 
+                planetInfoTab, 
+                _activeInfoTab,
+                _highlightedPlanet,
+                planetInfoCloseButton);
             
             var onClick = planetObject.AddComponent<OnGameObjectClick>();
             
