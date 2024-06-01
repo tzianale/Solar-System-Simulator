@@ -12,6 +12,8 @@ namespace Utils
     public class OnGameObjectClick : MonoBehaviour
     {
         private const int LeftMouseButton = 0;
+        private const int CounterStepForClickCounts = 1;
+        private const int CounterStartForClickCounts = 1;
         private const float MaxTimeBetweenMultipleClicks = 1f;
         
         private Camera _gameCamera;
@@ -91,11 +93,11 @@ namespace Utils
 
             if (timeBetweenClicks <= MaxTimeBetweenMultipleClicks)
             {
-                _lastClickCount += 1;
+                _lastClickCount += CounterStepForClickCounts;
             }
             else
             {
-                _lastClickCount = 1;
+                _lastClickCount = CounterStartForClickCounts;
             }
 
             _lastClickTime = currentTime;
