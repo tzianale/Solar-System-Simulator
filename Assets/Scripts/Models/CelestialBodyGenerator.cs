@@ -12,7 +12,7 @@ namespace Models
         private const string KeywordEmission = "_EMISSION";
         private const float SunLightRange = 100000.0f;
         private const float SunLightIntensity = 2.0f;
-        private const float SunEmissionIntensity = 100.0f;
+        private const float SunEmissionIntensity = 150.0f;
 
         public static GameObject CreateNewCelestialBodyGameObject(string name, CelestialBodyType type, Vector3 position, float mass, float diameter, Vector3 velocity, Color color)
         {
