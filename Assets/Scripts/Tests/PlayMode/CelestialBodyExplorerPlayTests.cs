@@ -16,7 +16,7 @@ namespace Tests.PlayMode
         {
             celestialBodyObject = new GameObject("Earth");
             celestialBody = celestialBodyObject.AddComponent<CelestialBody>();
-            celestialBody.SetCelestialBodyType(CelestialBody.CelestialBodyType.Planet);
+            celestialBody.SetCelestialBodyType(CelestialBodyType.Planet);
             celestialBody.SetMass(5.972e24f); // Mass of the Earth
             celestialBody.SetVelocity(new Vector3(0, 0, 11.2f)); // Velocity of the Earth
             celestialBody.SetOrbitRadius(2000f); // Orbit radius, scaled value for simulation

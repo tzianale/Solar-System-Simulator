@@ -16,7 +16,7 @@ namespace Tests.PlayMode
         {
             celestialBodyObject = new GameObject("TestCelestialBody");
             celestialBody = celestialBodyObject.AddComponent<CelestialBody>();
-            celestialBody.SetCelestialBodyType(CelestialBody.CelestialBodyType.Planet);
+            celestialBody.SetCelestialBodyType(CelestialBodyType.Planet);
             celestialBody.SetMass(5.972e24f);
             celestialBody.SetOrbitRadius(2000f);
             celestialBody.eccentricity = 0.0167f;
