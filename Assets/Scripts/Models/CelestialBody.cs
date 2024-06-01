@@ -14,39 +14,50 @@ namespace Models
         public float orbitRadius;
         public float ratioToEarthYear = 1;
         private List<CelestialBody> celestialBodies;
-        public float rotaionSpeed;
+        public float sideRealRotationPeriod;
 
         // Kepler Parameters
-        public float perihelion;
+        // public float perihelion;
+        public float semiMajorAxis; // in AU
         public float eccentricity;
         public float orbitalPeriod;
-        public float orbitalSpeed;
+        // public float orbitalSpeed;
+        public float inclination;
+        public float longitudeOfAscendingNode;
+        public float argumentOfPerihelion;
+        public float obliquityToOrbit;
         private float currentTime = 0;
         private float gravitationalConstant = 1.1904e-19f;
-        private float k;
-        private float L;
+        private float k_const;
+        private float L_const;
 
         // Constants
         private const float AU = 1.496e8f; // kilometers
         private const float SM = 1.989e30f;
-        private const float YEAR_S = 365.25f * 24f * 3600f; // seconds
-        private const float scaleFactor = 5e-9f; // Unity units per AU
+        private const float scaleFactor = 1000f;
 
         // Start is called before the first frame update
         void Start()
         {
             celestialBodies = new List<CelestialBody>(FindObjectsOfType<CelestialBody>());
+            transform.Rotate(Vector3.right, -obliquityToOrbit);
+            sideRealRotationPeriod = 360f / sideRealRotationPeriod;
 
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer)
             {
                 // CONVERSIONS
-                perihelion /= AU;
+                // perihelion /= AU;
                 mass /= SM;
-                orbitalSpeed /= AU;
+                // orbitalSpeed /= AU;
 
-                // Calculate constants k and L
-                k = gravitationalConstant * (orbitingCenterPlanetMass / SM) * mass;
-                L = mass * perihelion * orbitalSpeed;
+                // Forward to current time
+                if (celestType != CelestialBodyType.Sun)
+                {
+                    UpdatePositionByKepler();
+                    UpdateRotation(true, (float)GameStateController.explorerModeDay);
+                    transform.Rotate(Vector3.up, -90f, Space.Self);
+                    // GenerateOrbitLine();
+                }
             }
             else
             {
@@ -60,25 +71,28 @@ namespace Models
             {
                 if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Sandbox)
                 {
+                    Debug.Log("lol");
                     foreach (CelestialBody planet in celestialBodies)
                     {
                         if (planet != this)
                         {
                             UpdateVelocity(planet);
+                            Debug.Log("UPDATING");
                         }
                     }
 
                     UpdatePosition();
+                    UpdateRotation();
                 }
                 else
                 {
+                    var currentExplorerTimeStep = (float)GameStateController.currentExplorerTimeStep;
                     if (celestType != CelestialBodyType.Sun)
                     {
                         UpdatePositionByKepler();
+                        UpdateRotation(true, currentExplorerTimeStep);
                     }
                 }
-
-                transform.Rotate(Vector3.down, rotaionSpeed * Time.deltaTime);
             }
         }
 
@@ -96,78 +110,71 @@ namespace Models
             transform.position += velocity;
         }
 
+        private void UpdateRotation(bool isExplorerMode = false, float currentExplorerTimeStep = 0)
+        {
+
+            if (isExplorerMode)
+            {
+
+                transform.Rotate(Vector3.up, -sideRealRotationPeriod * currentExplorerTimeStep * 24, Space.Self);
+            } else
+            {
+                transform.Rotate(Vector3.up, -sideRealRotationPeriod * Time.deltaTime, Space.Self);
+            }
+        }
+
         private void UpdatePositionByKepler()
         {
             try
             {
+                currentTime = (float)GameStateController.explorerModeDay;
+    
                 // Calculate the mean anomaly
                 float M = mean_anomaly(currentTime, orbitalPeriod);
 
                 // Calculate the eccentric anomaly
                 float E = eccentric_anomaly(M, eccentricity);
 
-                if (float.IsNaN(E))
-                {
-                    throw new InvalidOperationException("Eccentric Anomaly calculation resulted in NaN");
-                }
-
                 // Calculate the true anomaly
                 float theta = true_anomaly(E, eccentricity);
-                if (float.IsNaN(theta))
-                {
-                    throw new InvalidOperationException("True Anomaly calculation resulted in NaN");
-                }
 
                 // Calculate the radial distance
-                float r = radius_of_orbit(L, k, mass, eccentricity, theta);
-                if (float.IsNaN(r))
-                {
-                    throw new InvalidOperationException("Radius of Orbit calculation resulted in NaN");
-                }
+                // float r = radius_of_orbit(L, k, mass, eccentricity, theta);
+                float r = semiMajorAxis * (1 - eccentricity * Mathf.Cos(E));
 
-                // Calculate the position in the orbital plane
+                // Calculate position in perifocal coordinates
                 float x = r * Mathf.Cos(theta);
                 float z = r * Mathf.Sin(theta);
+                Vector3 perifocalPosition = new Vector3(x, 0, z);
 
-                x *= scaleFactor;
-                z *= scaleFactor;
+                // Transform to global coordinates
+                Vector3 globalPosition = ApplyOrbitalElements(perifocalPosition, inclination, longitudeOfAscendingNode, argumentOfPerihelion);
+                // Vector3 globalPosition = perifocalPosition;
 
-                Vector3 newPosition = new Vector3(x, 0, z);
+                // Scale the position to make it more manageable in Unity
+                globalPosition *= scaleFactor;
 
-                if (float.IsNaN(newPosition.x) || float.IsNaN(newPosition.z))
-                {
-                    throw new InvalidOperationException($"Computed position is NaN: {newPosition}");
-                }
 
-                // Update the position
-                transform.position = newPosition;
-
-                // Increment time
-                currentTime += Time.deltaTime;
+                // Update position relative to the orbiting center (e.g., Sun)
+                Vector3 orbitingCenterPosition = Vector3.zero; // Assuming Sun is at origin
+                transform.position = orbitingCenterPosition + globalPosition;
             }
             catch (Exception ex)
             {
-                Debug.LogError($"Error in UpdatePositionByKepler: {ex.Message}");
-                // Optionally rethrow the exception if it should be escalated
-                throw;
+                throw ex;
             }
         }
 
         private float mean_anomaly(float t, float T)
         {
-            if (float.IsNaN(t) || float.IsNaN(T) || T == 0)
-            {
-                Debug.LogError($"Invalid inputs for mean anomaly calculation: t={t}, T={T}");
-                return float.NaN; // Return NaN to indicate an error
-            }
-
-            return 2 * Mathf.PI * (t % T) / T;
+            Debug.Log("mean_anomaly: t = " + t + ", and T = " + T);
+            // return 2 * Mathf.PI * (t % T) / T;
+            float n = (2 * Mathf.PI) / T; // Mean motion (rad/day)
+            return n * (t % T); // Mean anomaly
         }
 
         private float eccentric_anomaly(float M, float e)
         {
-            Debug.Log($"Starting eccentric anomaly calculation with M={M}, e={e}");
-
             if (float.IsNaN(M) || float.IsNaN(e))
             {
                 throw new ArgumentException("Input values cannot be NaN.");
@@ -179,8 +186,10 @@ namespace Models
                 throw new ArgumentException("Eccentricity must be between 0 and 1 for elliptical orbits.");
             }
 
+
+
             float E = M; // Initial guess: E ≈ M
-            int maxIterations = 10;
+            int maxIterations = 20;
             float tolerance = 1e-6f;
 
             for (int i = 0; i < maxIterations; i++) // Newton-Raphson iteration
@@ -189,35 +198,56 @@ namespace Models
                 float fPrime = 1 - e * Mathf.Cos(E);
                 if (Mathf.Abs(fPrime) < Mathf.Epsilon)  // Check to avoid division by zero
                 {
-                    Debug.LogError("Denominator in Newton-Raphson method is too small.");
                     throw new InvalidOperationException("Denominator in Newton-Raphson method became too small, preventing convergence.");
                 }
 
                 float deltaE = f / fPrime;
                 E += deltaE;
 
-                Debug.Log($"Iteration {i}: E={E}, f={f}, fPrime={fPrime}, deltaE={deltaE}");
-
                 if (Mathf.Abs(deltaE) < tolerance)
                 {
-                    Debug.Log("Convergence reached in eccentric anomaly calculation.");
                     return E;
                 }
             }
-
-            Debug.LogError("Eccentric anomaly calculation failed to converge.");
             throw new InvalidOperationException("Eccentric anomaly calculation failed to converge.");
         }
 
 
         private float true_anomaly(float E, float e)
         {
+            float sinE = Mathf.Sin(E);
+            float cosE = Mathf.Cos(E);
             return 2 * Mathf.Atan2(Mathf.Sqrt(1 + e) * Mathf.Sin(E / 2), Mathf.Sqrt(1 - e) * Mathf.Cos(E / 2));
+            // return Mathf.Asin(Mathf.Sqrt(1 - Mathf.Pow(e, 2) * sinE) / (1 - e * cosE));
+            // return (cosE - e) / (1 - e * cosE);
+            // return 2 * Mathf.Atan2(Mathf.Sqrt(1 + e) * sinE, Mathf.Sqrt(1 - e) * cosE);
         }
 
         private float radius_of_orbit(float L, float k, float m, float epsilon, float theta)
         {
+            Debug.Log("THIS SHOULDN'T BE USED ANYMORE!");
             return (L * L / (k * m)) / (1 + epsilon * Mathf.Cos(theta));
+        }
+
+        private Vector3 ApplyOrbitalElements(Vector3 perifocalPosition, float inclination, float longitudeOfAscendingNode, float argumentOfPerihelion)
+        {
+            // Convert angles from degrees to radians
+            float iRad = inclination * Mathf.Deg2Rad;
+            float ΩRad = longitudeOfAscendingNode * Mathf.Deg2Rad;
+            float ωRad = argumentOfPerihelion * Mathf.Deg2Rad;
+
+            // Rotation matrices
+            Matrix4x4 Rω = Matrix4x4.Rotate(Quaternion.Euler(0, ωRad * Mathf.Rad2Deg, 0));  // Rotate around y-axis
+            Matrix4x4 Ri = Matrix4x4.Rotate(Quaternion.Euler(iRad * Mathf.Rad2Deg, 0, 0));  // Rotate around x-axis
+            Matrix4x4 RΩ = Matrix4x4.Rotate(Quaternion.Euler(0, ΩRad * Mathf.Rad2Deg, 0));  // Rotate around y-axis
+
+            // Combined rotation matrix
+            Matrix4x4 rotationMatrix = RΩ * Ri * Rω;
+
+            // Apply rotation
+            Vector3 globalPosition = rotationMatrix.MultiplyPoint3x4(perifocalPosition);
+
+            return globalPosition;
         }
 
         public Vector3[] GetOrbitLinePoints()
