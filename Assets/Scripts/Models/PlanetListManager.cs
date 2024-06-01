@@ -1,9 +1,12 @@
-using System;
-using System.Collections.Generic;
 using UI;
+using Utils;
+using QuickOutline.Scripts;
+
+using System;
 using UnityEngine;
 using UnityEngine.Events;
-using Utils;
+using System.Collections.Generic;
+
 
 namespace Models
 {
@@ -33,6 +36,18 @@ namespace Models
         private const string PropertiesPath = "Assets/Data/PlanetProperties.csv";
         private const string DescriptionsPath = "Assets/Data/PlanetDescriptions.csv";
         private const string DecimalPlacesForPlanetCoordinates = "N2";
+
+        private const string MoonDetector = "Rocky Moon";
+        private const string DwarfDetector = "Dwarf Planet";
+        
+        private const string NullData = "null";
+        private const string UnknownData = "good question!";
+
+        [SerializeField]
+        private float highlightWidth = 5;
+
+        [SerializeField]
+        private Color highlightColor = Color.green;
         
         [SerializeField]
         private GameObject sun;
@@ -67,20 +82,11 @@ namespace Models
         
         private readonly Wrapper<GameObject> _activeInfoTab = new (null);
         private readonly Wrapper<GameObject> _highlightedPlanet = new (null);
-
-        private const string MoonDetector = "Rocky Moon";
-        private const string DwarfDetector = "Dwarf Planet";
-        
-        private const string NullData = "null";
-        private const string UnknownData = "good question!";
         
         private readonly List<string> _planetNames = new();
 
         private bool _highlightedPlanetOriginalEmissionEnabled;
         private Color _highlightedPlanetOriginalEmissionValue;
-        
-        private const string EmissionPropertyID = "_EMISSION";
-        private static readonly int EmissionColorID = Shader.PropertyToID("_EmissionColor");
         
         /// <summary>
         /// Called on Script initialization, reads the data stored in the csv file and initialises List Elements and
@@ -88,43 +94,7 @@ namespace Models
         /// </summary>
         private void Start()
         {
-            _highlightedPlanet.AddOnSetValueAction((oldValue, newValue) =>
-            {
-                if (oldValue)
-                {
-                    var oldRenderer = oldValue.GetComponent<Renderer>();
-
-                    if (oldRenderer)
-                    {
-                        var oldMaterial = oldRenderer.material;
-
-                        if (!_highlightedPlanetOriginalEmissionEnabled)
-                        {
-                            oldMaterial.DisableKeyword(EmissionPropertyID);
-                        }
-                        else
-                        {
-                            oldMaterial.SetColor(EmissionColorID, _highlightedPlanetOriginalEmissionValue);
-                        }
-                    }
-                }
-
-                if (newValue)
-                {
-                    var newRenderer = newValue.GetComponent<Renderer>();
-                    
-                    if (newRenderer)
-                    {
-                        var newMaterial = newRenderer.material;
-
-                        _highlightedPlanetOriginalEmissionEnabled = newMaterial.IsKeywordEnabled(EmissionPropertyID);
-                        _highlightedPlanetOriginalEmissionValue = newMaterial.GetColor(EmissionColorID);
-                        
-                        newMaterial.EnableKeyword(EmissionPropertyID);
-                        newMaterial.SetColor(EmissionColorID, highlightingColor);
-                    }
-                }
-            });
+            _highlightedPlanet.AddOnSetValueAction(HandlePlanetHighlighting);
             
             
             var propertiesData = CsvReader.ReadCsv(PropertiesPath);
@@ -231,6 +201,39 @@ namespace Models
                         liveStats, 
                         planetDescriptions[i]);
                 }
+            }
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// 
+        /// <param name="oldPlanet">The planet that was highlighted previously (can be null)</param>
+        /// <param name="newPlanet">The planet to highlight (can be null)</param>
+        private void HandlePlanetHighlighting(GameObject oldPlanet, GameObject newPlanet)
+        {
+            if (oldPlanet)
+            {
+                var oldOutline = oldPlanet.GetComponent<Outline>();
+
+                if (oldOutline)
+                {
+                    oldOutline.enabled = false;
+                }
+            }
+
+            if (newPlanet)
+            {
+                var newRenderer = newPlanet.GetComponent<Outline>();
+                    
+                if (!newRenderer)
+                {
+                    newRenderer = newPlanet.AddComponent<Outline>();
+                }
+                
+                newRenderer.OutlineColor = highlightColor;
+                newRenderer.OutlineWidth = highlightWidth;
+                newRenderer.enabled = true;
             }
         }
 
