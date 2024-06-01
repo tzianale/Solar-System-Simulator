@@ -6,6 +6,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using Models.PlanetListUtils;
 
 
 namespace Models
@@ -35,7 +36,6 @@ namespace Models
 
         private const string PropertiesPath = "Assets/Data/PlanetProperties.csv";
         private const string DescriptionsPath = "Assets/Data/PlanetDescriptions.csv";
-        private const string DecimalPlacesForPlanetCoordinates = "N2";
 
         private const string MoonDetector = "Rocky Moon";
         private const string DwarfDetector = "Dwarf Planet";
@@ -44,7 +44,7 @@ namespace Models
         private const string UnknownData = "good question!";
 
         [SerializeField]
-        private float highlightWidth = 5;
+        private float highlightWidth = 5f;
 
         [SerializeField]
         private Color highlightColor = Color.green;
@@ -113,80 +113,11 @@ namespace Models
                 {
                     var currentPlanetModel = planetModels[i];
 
-                    var variableProperties = new Dictionary<string, TwoObjectContainer<Func<string>, UnityAction<string>>>();
+                    Dictionary<string, TwoObjectContainer<Func<string>, UnityAction<string>>> variableProperties = new();
 
                     if (allowPropertyEditing)
                     {
-                        variableProperties.Add(
-                            "Planet Mass",
-                            new TwoObjectContainer<Func<string>, UnityAction<string>>(
-                                () => currentPlanetModel.GetComponent<CelestialBody>().mass
-                                    .ToString(DecimalPlacesForPlanetCoordinates) + "_Earth masses",
-                                updatedData =>
-                                { 
-                                    var updatedMass = float.Parse(updatedData);
-
-                                    if (updatedMass != 0) 
-                                    { 
-                                        currentPlanetModel.GetComponent<CelestialBody>().mass = updatedMass;
-                                
-                                        Debug.Log("Changed mass to " + updatedMass);
-                                    }
-                                }));
-                        variableProperties.Add(
-                            "Planet X-Position", 
-                            new TwoObjectContainer<Func<string>, UnityAction<string>>(
-                                () => currentPlanetModel.transform.position.x
-                                    .ToString(DecimalPlacesForPlanetCoordinates),
-                                updatedData =>
-                                { 
-                                    var updatedX = float.Parse(updatedData);
-
-                                    var currentPlanetPosition = currentPlanetModel.transform.position;
-                                    var currentPlanetRotation = currentPlanetModel.transform.rotation;
-
-                                    currentPlanetPosition.x = updatedX;
-
-                                    currentPlanetModel.transform.SetPositionAndRotation(currentPlanetPosition, currentPlanetRotation);
-                                
-                                    Debug.Log("Changed x-coordinate to " + updatedX);
-                                }));
-                        variableProperties.Add(
-                            "Planet Y-Position", 
-                            new TwoObjectContainer<Func<string>, UnityAction<string>>(
-                                () => currentPlanetModel.transform.position.y
-                                    .ToString(DecimalPlacesForPlanetCoordinates),
-                                updatedData =>
-                                { 
-                                    var updatedY = float.Parse(updatedData);
-
-                                    var currentPlanetPosition = currentPlanetModel.transform.position;
-                                    var currentPlanetRotation = currentPlanetModel.transform.rotation;
-
-                                    currentPlanetPosition.y = updatedY;
-
-                                    currentPlanetModel.transform.SetPositionAndRotation(currentPlanetPosition, currentPlanetRotation);
-                                
-                                    Debug.Log("Changed y-coordinate to " + updatedY);
-                                }));
-                        variableProperties.Add(
-                            "Planet Z-Position", 
-                            new TwoObjectContainer<Func<string>, UnityAction<string>>(
-                                () => currentPlanetModel.transform.position.z
-                                    .ToString(DecimalPlacesForPlanetCoordinates),
-                                updatedData =>
-                                { 
-                                    var updatedZ = float.Parse(updatedData);
-
-                                    var currentPlanetPosition = currentPlanetModel.transform.position;
-                                    var currentPlanetRotation = currentPlanetModel.transform.rotation;
-
-                                    currentPlanetPosition.z = updatedZ;
-
-                                    currentPlanetModel.transform.SetPositionAndRotation(currentPlanetPosition, currentPlanetRotation);
-                                
-                                    Debug.Log("Changed z-coordinate to " + updatedZ);
-                                }));
+                        variableProperties = PlanetListDictionaries.GetVariablePropertiesDictionary(currentPlanetModel);
                     }
                     
                     var liveStats = new Dictionary<string, Func<string>>()
@@ -205,7 +136,8 @@ namespace Models
         }
 
         /// <summary>
-        /// TODO
+        /// Turns off the highlighting effect on a deselected planet (oldPlanet) while turning it on for the newly
+        /// selected one (newPlanet). Both values can be null without exceptions being thrown
         /// </summary>
         /// 
         /// <param name="oldPlanet">The planet that was highlighted previously (can be null)</param>
