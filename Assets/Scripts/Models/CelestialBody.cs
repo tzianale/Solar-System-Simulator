@@ -71,13 +71,11 @@ namespace Models
             {
                 if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Sandbox)
                 {
-                    Debug.Log("lol");
                     foreach (CelestialBody planet in celestialBodies)
                     {
                         if (planet != this)
                         {
                             UpdateVelocity(planet);
-                            Debug.Log("UPDATING");
                         }
                     }
 
@@ -167,7 +165,7 @@ namespace Models
 
         private float mean_anomaly(float t, float T)
         {
-            Debug.Log("mean_anomaly: t = " + t + ", and T = " + T);
+            //Debug.Log("mean_anomaly: t = " + t + ", and T = " + T);
             // return 2 * Mathf.PI * (t % T) / T;
             float n = (2 * Mathf.PI) / T; // Mean motion (rad/day)
             return n * (t % T); // Mean anomaly
