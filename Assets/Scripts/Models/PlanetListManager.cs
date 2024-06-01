@@ -119,13 +119,9 @@ namespace Models
                     {
                         variableProperties = PlanetListDictionaries.GetVariablePropertiesDictionary(currentPlanetModel);
                     }
-                    
-                    var liveStats = new Dictionary<string, Func<string>>()
-                    {
-                        {"Current Speed", () => currentPlanetModel.GetComponent<CelestialBody>().velocity.magnitude.ToString("n2")},
-                        {"Distance to Sun", () => (currentPlanetModel.transform.position - sun.transform.position).magnitude.ToString("n2")}
-                    };
 
+                    var liveStats = PlanetListDictionaries.GetLiveStatsDictionary(currentPlanetModel, sun);
+                    
                     CreateNewPlanet(planetSprites[i], _planetNames[i], currentPlanetModel,
                         variableProperties,
                         planetProperties[i], 
