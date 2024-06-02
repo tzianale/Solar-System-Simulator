@@ -1,12 +1,12 @@
 using UI;
 using Utils;
 using QuickOutline.Scripts;
+using Models.PlanetListUtils;
 
 using System;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
-using Models.PlanetListUtils;
 
 
 namespace Models
@@ -100,7 +100,7 @@ namespace Models
             var propertiesData = CsvReader.ReadCsv(PropertiesPath);
             var descriptionsData = CsvReader.ReadCsv(DescriptionsPath);
 
-            var planetProperties = LoadCsvPropertiesIntoLocalDictionaries(propertiesData);
+            var planetProperties = UnpackPlanetDataFromCsv(propertiesData);
             var planetDescriptions = UnpackPlanetDescriptionsFromCsv(descriptionsData);
             
             if (planetSprites.Count != _planetNames.Count)
@@ -249,7 +249,7 @@ namespace Models
         /// <returns>
         /// The refined list of Dictionaries - One dictionary for each body
         /// </returns>
-        private List<Dictionary<string, string>> LoadCsvPropertiesIntoLocalDictionaries(List<List<string>> data)
+        private List<Dictionary<string, string>> UnpackPlanetDataFromCsv(List<List<string>> data)
         {
             var result = new List<Dictionary<string, string>>();
             var labels = data[0];
@@ -286,7 +286,17 @@ namespace Models
             return result;
         }
 
-
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// 
+        /// <param name="data">
+        ///
+        /// </param>
+        /// 
+        /// <returns>
+        ///
+        /// </returns>
         private List<string> UnpackPlanetDescriptionsFromCsv(List<List<string>> data)
         {
             var planetDescriptions = new List<string>();
@@ -307,88 +317,20 @@ namespace Models
             return planetDescriptions;
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="planetObject"></param>
         public void AddNewCelestialBody(GameObject planetObject)
         {
-            var liveStats = new Dictionary<string, Func<string>>()
+            Dictionary<string, TwoObjectContainer<Func<string>, UnityAction<string>>> variableProperties = new();
+
+            if (allowPropertyEditing)
             {
-                { "Current Speed", () => planetObject.GetComponent<CelestialBody>().velocity.magnitude.ToString("n2") },
-                {
-                    "Distance to Sun",
-                    () => (planetObject.transform.position - sun.transform.position).magnitude.ToString("n2")
-                }
-            };
+                variableProperties = PlanetListDictionaries.GetVariablePropertiesDictionary(planetObject);
+            }
 
-            var variableProperties = new Dictionary<string, TwoObjectContainer<Func<string>, UnityAction<string>>>();
-            variableProperties.Add(
-                "Planet Mass",
-                new TwoObjectContainer<Func<string>, UnityAction<string>>(
-                    () => planetObject.GetComponent<CelestialBody>().mass
-                        .ToString(DecimalPlacesForPlanetCoordinates) + "_Earth masses",
-                    updatedData =>
-                    {
-                        var updatedMass = float.Parse(updatedData);
-
-                        if (updatedMass != 0)
-                        {
-                            planetObject.GetComponent<CelestialBody>().mass = updatedMass;
-
-                            Debug.Log("Changed mass to " + updatedMass);
-                        }
-                    }));
-            variableProperties.Add(
-                "Planet X-Position",
-                new TwoObjectContainer<Func<string>, UnityAction<string>>(
-                    () => planetObject.transform.position.x
-                        .ToString(DecimalPlacesForPlanetCoordinates),
-                    updatedData =>
-                    {
-                        var updatedX = float.Parse(updatedData);
-
-                        var currentPlanetPosition = planetObject.transform.position;
-                        var currentPlanetRotation = planetObject.transform.rotation;
-
-                        currentPlanetPosition.x = updatedX;
-
-                        planetObject.transform.SetPositionAndRotation(currentPlanetPosition, currentPlanetRotation);
-
-                        Debug.Log("Changed x-coordinate to " + updatedX);
-                    }));
-            variableProperties.Add(
-                "Planet Y-Position",
-                new TwoObjectContainer<Func<string>, UnityAction<string>>(
-                    () => planetObject.transform.position.y
-                        .ToString(DecimalPlacesForPlanetCoordinates),
-                    updatedData =>
-                    {
-                        var updatedY = float.Parse(updatedData);
-
-                        var currentPlanetPosition = planetObject.transform.position;
-                        var currentPlanetRotation = planetObject.transform.rotation;
-
-                        currentPlanetPosition.y = updatedY;
-
-                        planetObject.transform.SetPositionAndRotation(currentPlanetPosition, currentPlanetRotation);
-
-                        Debug.Log("Changed y-coordinate to " + updatedY);
-                    }));
-            variableProperties.Add(
-                "Planet Z-Position",
-                new TwoObjectContainer<Func<string>, UnityAction<string>>(
-                    () => planetObject.transform.position.z
-                        .ToString(DecimalPlacesForPlanetCoordinates),
-                    updatedData =>
-                    {
-                        var updatedZ = float.Parse(updatedData);
-
-                        var currentPlanetPosition = planetObject.transform.position;
-                        var currentPlanetRotation = planetObject.transform.rotation;
-
-                        currentPlanetPosition.z = updatedZ;
-
-                        planetObject.transform.SetPositionAndRotation(currentPlanetPosition, currentPlanetRotation);
-
-                        Debug.Log("Changed z-coordinate to " + updatedZ);
-                    }));
+            var liveStats = PlanetListDictionaries.GetLiveStatsDictionary(planetObject, sun);
             
             CreateNewPlanet(planetSprites[3], planetObject.name, planetObject, variableProperties, new Dictionary<string, string>(), liveStats, planetObject.name);
         }
