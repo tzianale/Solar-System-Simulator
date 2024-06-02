@@ -96,7 +96,6 @@ namespace Models
         {
             _highlightedPlanet.AddOnSetValueAction(HandlePlanetHighlighting);
             
-            
             var propertiesData = CsvReader.ReadCsv(PropertiesPath);
             var descriptionsData = CsvReader.ReadCsv(DescriptionsPath);
 
@@ -211,6 +210,13 @@ namespace Models
             var planetInfoPrefabController = planetInfoTab.GetComponent<PlanetInfoPrefabController>();
 
             var planetInfoCloseButton = planetInfoPrefabController.CloseTabButton;
+
+            var onClickActions = new List<Action<int>>
+            {
+                clickCount => planetListElementPrefabController.HandleClickEvent(clickCount)
+            };
+            
+            SetGameObjectOnClickBehaviour(planetObject, onClickActions);
             
             planetListElementPrefabController.SetPlanetInfo(
                 planetSprite, planetName, planetObject, 
@@ -220,14 +226,6 @@ namespace Models
                 _highlightedPlanet,
                 planetInfoCloseButton);
             
-            var onClick = planetObject.AddComponent<OnGameObjectClick>();
-            
-            onClick.SetActions(
-                new List<Action<int>> 
-                {
-                    clickCount => planetListElementPrefabController.HandleClickEvent(clickCount)
-                });
-            
             planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite, planetObject,
                 variableProperties,
                 staticProperties, 
@@ -235,6 +233,35 @@ namespace Models
                 planetDescription);
             
             planetInfoTab.SetActive(false);
+        }
+        
+        /// <summary>
+        /// Sets up click behavior for a given GameObject and its children,
+        /// by assigning a list of actions to be executed on click
+        /// </summary>
+        /// 
+        /// <param name="planetObject">
+        /// The GameObject to which the click behavior will be assigned
+        /// </param>
+        /// 
+        /// <param name="actions">
+        /// A list of actions to be executed when the GameObject or its children are clicked.
+        /// Each action takes an integer parameter representing the click count
+        /// </param>
+        private static void SetGameObjectOnClickBehaviour(GameObject planetObject, List<Action<int>> actions)
+        {
+            var onClick = planetObject.AddComponent<OnGameObjectClick>();
+            
+            onClick.SetActions(actions);
+
+            for (var childIndex = 0; childIndex < planetObject.transform.childCount; childIndex++)
+            {
+                var child = planetObject.transform.GetChild(childIndex).gameObject;
+                
+                onClick = child.AddComponent<OnGameObjectClick>();
+            
+                onClick.SetActions(actions);
+            }
         }
 
         /// <summary>
