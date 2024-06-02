@@ -38,6 +38,7 @@ public class CameraControlV2 : MonoBehaviour
     // Zoom stuff
     private float zoomStrength = 1f;
     private float minZoomDistance = 10.0f;
+    private float maxZoomDistance;
 
     // Rotation stuff
     private Vector3 lastMousePosition;
@@ -54,6 +55,8 @@ public class CameraControlV2 : MonoBehaviour
     void Start()
     {
         InitializeKeyMappings();
+
+        maxZoomDistance = neptune.transform.position.magnitude * 2;
 
         pivotPoint = sun.transform.position;
 
@@ -246,6 +249,7 @@ public class CameraControlV2 : MonoBehaviour
 
     void ResetCameraView()
     {
+        Debug.Log(camHolder.transform.rotation);
         followModeActive = false;
         camToPivotDirection = defaultCamToPivotDirection;
         camToPivotDistance = defaultCamToPivotDistance;
@@ -275,14 +279,16 @@ public class CameraControlV2 : MonoBehaviour
 
     void SetFixedView(Vector3 direction)
     {
-        camToPivotDirection = direction;
-        camHolder.transform.rotation = Quaternion.LookRotation(direction * -1);
+        Debug.Log("Before direction: " + camToPivotDirection);
+        camToPivotDirection = direction; // Ensure direction is normalized
+        camHolder.transform.rotation = Quaternion.LookRotation(-direction);
+        Debug.Log("Quaternion: " + camHolder.transform.rotation);
     }
 
     private void UpdateCameraPosition()
     {
         var minZoomDistance = RayCastPlanetRadius();
-        camToPivotDistance = Mathf.Clamp(camToPivotDistance, minZoomDistance, neptune.transform.position.magnitude * 2);
+        camToPivotDistance = Mathf.Clamp(camToPivotDistance, minZoomDistance, maxZoomDistance);
         var camToPivotVector = camToPivotDirection * camToPivotDistance;
         camHolder.transform.position = pivotPoint + camToPivotVector;
     }
@@ -306,5 +312,10 @@ public class CameraControlV2 : MonoBehaviour
     {
         var step = Mathf.Pow(0.0003f * (distanceCamPivot + 10900), 3) - 34;
         return Mathf.Clamp(step, 1.0f, 300.0f);
+    }
+
+    public float GetZoomScale()
+    {
+        return Mathf.InverseLerp(minZoomDistance, maxZoomDistance, camToPivotDistance);
     }
 }
