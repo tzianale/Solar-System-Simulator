@@ -26,7 +26,7 @@ namespace Models
         private void Start()
         {
             double T = CalculateJulianCenturies(DateTime.UtcNow);
-            explorerModeDay = toggleJ2000Time ? 1 : (T * 36525);
+            explorerModeDay = toggleJ2000Time ? 0 : (T * 36525);
         }
 
         private void Update()
