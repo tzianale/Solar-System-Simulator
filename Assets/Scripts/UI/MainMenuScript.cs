@@ -6,52 +6,48 @@ namespace UI
 {
     public class MainMenuScript : MonoBehaviour
     {
+        [SerializeField]
+        private GameObject mainMenuPanel;
 
-        private GameObject panel;
+        [SerializeField]
+        private GameObject settingsPanel;
 
-        // getter and setter for Panel
-        public GameObject Panel
+        public void OnSettingsButton()
         {
-            get { return panel; }
-            set { panel = value; }
-        }
-  
-        private void callSettings()
-        {
-            SceneManager.LoadSceneAsync(1);
+            OpenSettingsPanel();
         }
 
-        public void openPanel()
+        public void OnQuitButton()
         {
-            if (Panel != null)
-            {
-                Panel.SetActive(true);
-            }
+            Application.Quit();
         }
 
-        public void closePanel()
+        public void OnBackButton()
         {
-            if(Panel != null)
-            {
-                Panel.SetActive(false);
-            }
+            CloseSettingsPanel();
         }
 
-        private void loadExplorer()
+        public void OnExplorerButton()
         {
             SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Explorer;
             SceneManager.LoadSceneAsync(2);
         }
 
-        private void loadSandbox()
+        public void OnSandboxButton()
         {
             SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Sandbox;
             SceneManager.LoadSceneAsync(1);
         }
-
-        private void QuitGame()
+        public void OpenSettingsPanel()
         {
-            Application.Quit();
+            settingsPanel.SetActive(true);
+            mainMenuPanel.SetActive(false);
+        }
+
+        public void CloseSettingsPanel()
+        {
+            mainMenuPanel.SetActive(true);
+            settingsPanel.SetActive(false);
         }
     }
 }
