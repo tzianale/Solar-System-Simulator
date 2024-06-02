@@ -16,15 +16,13 @@ namespace Tests.PlayMode
         {
             celestialBodyObject = new GameObject("Earth");
             celestialBody = celestialBodyObject.AddComponent<CelestialBody>();
-            celestialBody.SetCelestialBodyType(CelestialBody.CelestialBodyType.Planet);
+            celestialBody.SetCelestialBodyType(CelestialBodyType.Planet);
             celestialBody.SetMass(5.972e24f); // Mass of the Earth
             celestialBody.SetVelocity(new Vector3(0, 0, 11.2f)); // Velocity of the Earth
             celestialBody.SetOrbitRadius(2000f); // Orbit radius, scaled value for simulation
             celestialBody.orbitalPeriod = 365.25f; // One Earth year
-            celestialBody.orbitalSpeed = 30290;
-            celestialBody.rotaionSpeed = 50;
+            celestialBody.sideRealRotationPeriod = 50;
             celestialBody.ratioToEarthYear = 1;
-            celestialBody.perihelion = 1.47095e+08f;
             celestialBody.eccentricity = 0.0167f; // Eccentricity of Earth's orbit
             celestialBody.orbitingCenterPlanetMass = 1.989e30f; // Mass of the Sun
             SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Explorer;

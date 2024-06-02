@@ -23,7 +23,7 @@ namespace Tests.EditMode
             float expectedMass = 5.97f; // Earth mass approximation in some units
             float expectedDiameter = 12742f; // Earth diameter approximation in km
             Vector3 expectedVelocity = new Vector3(0, 29.78f, 0); // Earth orbital velocity in km/s
-            CelestialBody.CelestialBodyType expectedType = CelestialBody.CelestialBodyType.Planet;
+            CelestialBodyType expectedType = CelestialBodyType.Planet;
             Color expectedColor = Color.red;
 
             // Act
@@ -49,7 +49,7 @@ namespace Tests.EditMode
         public void CreateNewCelestialBodyGameObject_WithNullName_ThrowsArgumentException()
         {
             Assert.Throws<ArgumentException>(() =>
-                CelestialBodyGenerator.CreateNewCelestialBodyGameObject(null, CelestialBody.CelestialBodyType.Planet, new Vector3(0, 1, 0), 1.0f, 1000f, new Vector3(0, 0, 0), Color.red),
+                CelestialBodyGenerator.CreateNewCelestialBodyGameObject(null,CelestialBodyType.Planet, new Vector3(0, 1, 0), 1.0f, 1000f, new Vector3(0, 0, 0), Color.red),
                 "Expected ArgumentException for null name not thrown."
             );
         }
@@ -58,7 +58,7 @@ namespace Tests.EditMode
         public void CreateNewCelestialBodyGameObject_WithNegativeMass_ThrowsArgumentException()
         {
             Assert.Throws<ArgumentException>(() =>
-                CelestialBodyGenerator.CreateNewCelestialBodyGameObject("Earth", CelestialBody.CelestialBodyType.Planet, new Vector3(0, 1, 0), -1.0f, 1000f, new Vector3(0, 0, 0), Color.red),
+                CelestialBodyGenerator.CreateNewCelestialBodyGameObject("Earth", CelestialBodyType.Planet, new Vector3(0, 1, 0), -1.0f, 1000f, new Vector3(0, 0, 0), Color.red),
                 "Expected ArgumentException for negative mass not thrown."
             );
         }
@@ -67,7 +67,7 @@ namespace Tests.EditMode
         public void CreateNewCelestialBodyGameObject_WithNegativeDiameter_ThrowsArgumentException()
         {
             Assert.Throws<ArgumentException>(() =>
-                CelestialBodyGenerator.CreateNewCelestialBodyGameObject("Earth", CelestialBody.CelestialBodyType.Planet, new Vector3(0, 1, 0), 1.0f, -1000f, new Vector3(0, 0, 0), Color.red),
+                CelestialBodyGenerator.CreateNewCelestialBodyGameObject("Earth", CelestialBodyType.Planet, new Vector3(0, 1, 0), 1.0f, -1000f, new Vector3(0, 0, 0), Color.red),
                 "Expected ArgumentException for negative diameter not thrown."
             );
         }
