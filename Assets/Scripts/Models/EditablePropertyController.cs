@@ -14,18 +14,24 @@ namespace Models
         
 
         /// <summary>
-        /// TODO
+        /// Adds a listener that will be called when a selection event occurs in any of the relevant Input Fields
         /// </summary>
-        /// <param name="listener"></param>
+        /// 
+        /// <param name="listener">
+        /// The UnityAction that will be invoked when the selection event occurs
+        /// </param>
         public override void AddListenerToAllOnSelection(UnityAction<string> listener)
         {
             planetPropertyText.onSelect.AddListener(listener);
         }
 
         /// <summary>
-        /// TODO
+        /// Adds a listener that will be called when an editing end event occurs in any of the relevant Input Fields
         /// </summary>
-        /// <param name="listener"></param>
+        /// 
+        /// <param name="listener">
+        /// The UnityAction that will be invoked when the event occurs
+        /// </param>
         public override void AddListenerToAllOnEditEnd(UnityAction<string> listener)
         {
             planetPropertyText.onEndEdit.AddListener(listener);
