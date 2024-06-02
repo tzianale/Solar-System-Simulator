@@ -172,9 +172,14 @@ namespace Models
             GameObject.Find(buttonName).GetComponent<Image>().color = new Color(r, g, b);
         }
 
-        public void changeDate()
+        public void OpenChangeDatePanel()
         {
             datePanel.SetActive(true);
+        }
+
+        public void ChangeDate()
+        {
+
         }
     }
 }

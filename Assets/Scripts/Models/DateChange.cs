@@ -11,16 +11,22 @@ public class DateChange : MonoBehaviour
     public TMP_Dropdown dayDropdown;
     public TMP_Dropdown monthDropdown;
     public InputField yearInputField;
+
+    public TMP_Dropdown hourDropdown;
+    public TMP_Dropdown minuteDropdown;
+    public TMP_Dropdown secondDropdown;
     //private List<Resolution> filteredResolutions = new List<Resolution>(); // List to keep unique resolutions
 
     // Start is called before the first frame update
+    private List<String> options = new List<String>();
 
     public GameObject datePanel;
        
     void Start()
     {
         PopulateMonth();
-        //CameraControlV2.
+        fillHour();
+        fillMinuteAndSecond();
     }
 
     // Update is called once per frame
@@ -34,7 +40,6 @@ public class DateChange : MonoBehaviour
     void PopulateMonth()
     {
         monthDropdown.ClearOptions();
-        List<string> options = new List<string>();
         options.Clear();
 
         options.Add("January");
@@ -54,11 +59,37 @@ public class DateChange : MonoBehaviour
         monthDropdown.AddOptions(options);
     }
 
-    void PopulateDayRes(int year, int month)
+    private void fillHour()
+    {
+        hourDropdown.ClearOptions();
+        options.Clear();
+
+        for(int i = 0; i < 24; i++)
+        {
+            options.Add(i.ToString());
+        }
+        hourDropdown.AddOptions(options);
+    }
+
+    private void fillMinuteAndSecond()
+    {
+        minuteDropdown.ClearOptions();
+        secondDropdown.ClearOptions();
+
+        options.Clear();
+
+        for (int i = 0; i < 60; i++)
+        {
+            options.Add(i.ToString());
+        }
+
+        minuteDropdown.AddOptions(options);
+        secondDropdown.AddOptions(options);
+    }
+
+    private void PopulateDayRes(int year, int month)
     {
         dayDropdown.ClearOptions();
-
-        List<String> options = new List<String>();
         options.Clear();
 
         int days = DateTime.DaysInMonth(year, month);
@@ -71,7 +102,7 @@ public class DateChange : MonoBehaviour
         dayDropdown.AddOptions(options);
     }
 
-    int PopulateYearRes()
+    private int PopulateYearRes()
     {
         String value = yearInputField.GetComponent<InputField>().text;
 
@@ -80,19 +111,13 @@ public class DateChange : MonoBehaviour
         {
             if (year <= 0)
             {
-                year = 0;
                 return 0;
             }
             else if (year >= 9999)
             {
-                year = 9999;
                 return 9999;
-            } else if(year > 0 || year < 9999)
-            {
-                return year;
-            }
-        }
-        else
+            } return year;
+        } else
         {
             Debug.Log("Bitte geben Sie eine gültige Zahl ein.");
         }
