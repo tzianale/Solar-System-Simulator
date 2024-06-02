@@ -287,21 +287,20 @@ namespace Models
         }
 
         /// <summary>
-        /// TODO
+        /// Extracts planet descriptions from a CSV data structure, currently excluding moons and dwarf planets
         /// </summary>
         /// 
         /// <param name="data">
-        ///
+        /// A list of lists, where each inner list represents a row in the CSV
+        /// and each element in the inner list represents a cell in that row
         /// </param>
         /// 
-        /// <returns>
-        ///
-        /// </returns>
-        private List<string> UnpackPlanetDescriptionsFromCsv(List<List<string>> data)
+        /// <returns>The list of planet descriptions.</returns>
+        private static List<string> UnpackPlanetDescriptionsFromCsv(List<List<string>> data)
         {
             var planetDescriptions = new List<string>();
             
-            for (int planetIndex = 1; planetIndex < data.Count; planetIndex++)
+            for (var planetIndex = 1; planetIndex < data.Count; planetIndex++)
             {
                 var planet = data[planetIndex];
                 
@@ -318,9 +317,10 @@ namespace Models
         }
 
         /// <summary>
-        /// TODO
+        /// Adds a new item to the planet list based on the provided GameObject
         /// </summary>
-        /// <param name="planetObject"></param>
+        /// 
+        /// <param name="planetObject">The GameObject representing the celestial body to be added</param>
         public void AddNewCelestialBody(GameObject planetObject)
         {
             Dictionary<string, TwoObjectContainer<Func<string>, UnityAction<string>>> variableProperties = new();
