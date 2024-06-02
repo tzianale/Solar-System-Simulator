@@ -21,20 +21,23 @@ namespace Models
 
         // DEBUGGING
         public bool toggleJ2000Time = false;
-        
 
+
+        /// <summary>
+        /// Get acutal Data and color all the buttons and the speedtext correctly.
+        /// </summary>
         private void Start()
         {
             double T = CalculateJulianCenturies(DateTime.UtcNow);
             explorerModeDay = toggleJ2000Time ? 1 : (T * 36525);
-        }
-
-        private void Update()
-        {
-            simulationSpeedText.text = simulationSpeedSlider.value.ToString("0") + " days per second";
             colorSpeedText();
+            switchDirectionToForward();
         }
 
+        /// <summary>
+        /// Check which date mode was choosen. By Real Time the simulation will be simulated like real time.
+        /// Else the speed which the user have choosen will be used!
+        /// </summary>
         private void FixedUpdate()
         {
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer && !isPaused)
@@ -53,11 +56,16 @@ namespace Models
             }
         }
 
+        /// <summary>
+        /// Pause or Resume the simulation. Color the "Play / Pause" Button red, if the game is paused!
+        /// </summary>
         public void playPause()
         {
             isPaused = !isPaused;
+            executeColoring("Play / Pause", 255, isPaused ? 0 : 255, isPaused ? 0 : 255);            
         }
 
+        
         public void setTimeScale(float timeScale)
         {
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Sandbox && Time.timeScale != 0)
@@ -66,6 +74,7 @@ namespace Models
             } else if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer)
             {
                 scale = timeScale;
+                colorSpeedText();
             }
         }
 
@@ -85,18 +94,25 @@ namespace Models
 
         private void colorSpeedText()
         {
-            if (simulationSpeedSlider.value == simulationSpeedSlider.maxValue)
+            simulationSpeedText.text = simulationSpeedSlider.value.ToString("0") + " days per second";
+
+            switch (simulationSpeedSlider.value)
             {
-                simulationSpeedText.color = new Color(255, 0, 0);
+                case float value when value == simulationSpeedSlider.maxValue:
+                    colorText(simulationSpeedText, 255, 0, 0); // Red
+                    break;
+                case float value when value == simulationSpeedSlider.minValue:
+                    colorText(simulationSpeedText, 0, 255, 0); // Green
+                    break;
+                default:
+                    colorText(simulationSpeedText, 125, 125, 0); // Green
+                    break;
             }
-            else if (simulationSpeedSlider.value == simulationSpeedSlider.minValue)
-            {
-                simulationSpeedText.color = new Color(0, 255, 0);
-            }
-            else
-            {
-                simulationSpeedText.color = new Color(125, 125, 0);
-            }
+        }
+
+        private void colorText(TextMeshProUGUI text, int r, int g, int b)
+        {
+            text.color = new Color(r, g, b);
         }
 
         private double CalculateJulianCenturies(DateTime date)
@@ -122,14 +138,35 @@ namespace Models
             return JD + (date.Hour + date.Minute / 60.0 + date.Second / 3600.0) / 24.0;
         }
 
+        /// <summary>
+        /// Set the simulationDirection to 1. The simulationspeed is positive! 
+        /// Color the "ForwardButton" Green and the "BackwardButton" have no color!
+        /// </summary>
         public void switchDirectionToForward()
         {
             simulationDirection = 1;
+            if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer) colorButton();
         }
 
+        /// <summary>
+        /// Set the simulationDirection to -1. The simulationspeed is negative and the simulation moves backwards! 
+        /// Color the "BackwardButton" Green and the "ForwardButton" have no color!
+        /// </summary>
         public void switchDirectionToReverse()
         {
             simulationDirection = -1;
+            if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer) colorButton();
+        }
+
+        private void colorButton()
+        {
+            executeColoring("ForwardButton", simulationDirection > 0 ? 0 : 255, 255, simulationDirection > 0 ? 0 : 255);
+            executeColoring("BackwardButton", simulationDirection < 0 ? 0 : 255, 255, simulationDirection < 0 ? 0 : 255);
+        }
+
+        private void executeColoring(String buttonName, int r, int g, int b)
+        {
+            GameObject.Find(buttonName).GetComponent<Image>().color = new Color(r, g, b);
         }
     }
 }
