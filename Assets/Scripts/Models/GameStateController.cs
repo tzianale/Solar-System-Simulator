@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,8 @@ namespace Models
         public Slider simulationSpeedSlider;
         public Toggle realTimeToggle;
         public static float currentExplorerTimeStep;
+
+        public GameObject datePanel;
 
         private int simulationDirection = 1;
 
@@ -167,6 +170,11 @@ namespace Models
         private void executeColoring(String buttonName, int r, int g, int b)
         {
             GameObject.Find(buttonName).GetComponent<Image>().color = new Color(r, g, b);
+        }
+
+        public void changeDate()
+        {
+            datePanel.SetActive(true);
         }
     }
 }
