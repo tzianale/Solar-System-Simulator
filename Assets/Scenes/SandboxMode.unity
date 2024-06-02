@@ -237,6 +237,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &236659530
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -469,6 +471,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5108197252964615599, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: cameraControl
+      value: 
+      objectReference: {fileID: 791345435}
+    - target: {fileID: 5108197252964615599, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: planetListManager
       value: 
       objectReference: {fileID: 1301205645}
@@ -577,6 +583,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &469337565
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -709,6 +717,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &532052288
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -979,6 +989,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &711106384
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1441,6 +1453,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &1222205786
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2130,6 +2144,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &1512896392
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2288,6 +2304,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &1900456977
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2399,6 +2417,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &1918121192
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2531,6 +2551,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &1923049641
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2663,6 +2685,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &1996431362
 MeshRenderer:
   m_ObjectHideFlags: 0

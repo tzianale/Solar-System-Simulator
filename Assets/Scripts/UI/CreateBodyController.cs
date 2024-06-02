@@ -1,7 +1,8 @@
-using System;
 using Models;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using System.Collections.Generic;
 using Image = UnityEngine.UI.Image;
 
 namespace UI
@@ -9,22 +10,63 @@ namespace UI
     public class CreateBodyController : MonoBehaviour
     {
         [SerializeField] private TMP_InputField inputFieldName;
+        
         [SerializeField] private TMP_Dropdown inputFieldType;
+        
         [SerializeField] private TMP_InputField inputFieldMass;
         [SerializeField] private TMP_InputField inputFieldDiameter;
+        
         [SerializeField] private TMP_InputField inputFieldPositionX;
         [SerializeField] private TMP_InputField inputFieldPositionY;
         [SerializeField] private TMP_InputField inputFieldPositionZ;
+        
         [SerializeField] private TMP_InputField inputFieldInitialVelocityX;
         [SerializeField] private TMP_InputField inputFieldInitialVelocityY;
         [SerializeField] private TMP_InputField inputFieldInitialVelocityZ;
+        
         [SerializeField] private Image colorPickerButtonImage;
         [SerializeField] private GameObject colorPickerPanel;
+        
         [SerializeField] private PlanetListManager planetListManager;
+        
         [SerializeField] private GameObject createBodyPanel;
+        
+        [SerializeField] private CameraControlV2 cameraControl;
 
         private Color _selectedColor = Color.blue;
         private readonly Color _errorColor = new(1f, 0.49f, 0.49f);
+
+        private void Start()
+        {
+            List<TMP_InputField> inputFields = new()
+            {
+                inputFieldName,
+                inputFieldMass,
+                inputFieldDiameter,
+                inputFieldPositionX,
+                inputFieldPositionY,
+                inputFieldPositionZ,
+                inputFieldInitialVelocityX,
+                inputFieldInitialVelocityY,
+                inputFieldInitialVelocityZ
+            };
+            
+            UnityAction<string> onFieldSelected = _ => cameraControl.SetKeyboardLock(true);
+            UnityAction<string> onFieldDeselected = _ => cameraControl.SetKeyboardLock(false);
+
+            foreach (var inputField in inputFields)
+            {
+                AssignListenersToInputField(inputField, onFieldSelected, onFieldDeselected);
+            }
+        }
+
+        private void AssignListenersToInputField(TMP_InputField inputField, 
+            UnityAction<string> onEditStart,
+            UnityAction<string> onEditEnd)
+        {
+            inputField.onSelect.AddListener(onEditStart);
+            inputField.onEndEdit.AddListener(onEditEnd);
+        }
 
         public void CreateNewCelestialBody()
         {
