@@ -226,7 +226,7 @@ namespace Models
                 _highlightedPlanet,
                 planetInfoCloseButton);
             
-            planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite, planetObject,
+            planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite, planetObject, cameraControl,
                 variableProperties,
                 staticProperties, 
                 liveStats, 

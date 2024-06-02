@@ -17,11 +17,40 @@ namespace Models
 
         public bool IsBeingEdited { get; private set; }
 
-        public void AddListenerToPropertyValue(UnityAction<string> listener)
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="listener"></param>
+        public void AddListenerToPropertyValueEditEnd(UnityAction<string> listener)
         {
             planetPropertyValue.onEndEdit.AddListener(listener);
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="listener"></param>
+        public override void AddListenerToAllOnSelection(UnityAction<string> listener)
+        {
+            planetPropertyDescription.onSelect.AddListener(listener);
+            planetPropertyValue.onSelect.AddListener(listener);
+            planetPropertyMeasurementUnit.onSelect.AddListener(listener);
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="listener"></param>
+        public override void AddListenerToAllOnEditEnd(UnityAction<string> listener)
+        {
+            planetPropertyDescription.onEndEdit.AddListener(listener);
+            planetPropertyValue.onEndEdit.AddListener(listener);
+            planetPropertyMeasurementUnit.onEndEdit.AddListener(listener);
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
         private void Update()
         {
             IsBeingEdited = planetPropertyValue.isFocused;

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using SystemObject = System.Object;
 
 namespace Models
@@ -23,5 +24,8 @@ namespace Models
         /// The updated Text
         /// </param>
         public abstract void SetText(SystemObject[] text);
+
+        public abstract void AddListenerToAllOnSelection(UnityAction<string> listener);
+        public abstract void AddListenerToAllOnEditEnd(UnityAction<string> listener);
     }
 }

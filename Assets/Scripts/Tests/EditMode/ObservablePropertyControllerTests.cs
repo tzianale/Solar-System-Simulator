@@ -49,7 +49,7 @@ namespace Tests.EditMode
             bool wasCalled = false;
             void Listener(string s) { wasCalled = true; }
 
-            controller.AddListenerToPropertyValue(Listener);
+            controller.AddListenerToPropertyValueEditEnd(Listener);
             valueField.onEndEdit.Invoke("test");
 
             Assert.IsTrue(wasCalled);

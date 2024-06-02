@@ -1,9 +1,9 @@
-using Models;
+using Utils;
+
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Utils;
+using UnityEngine.EventSystems;
 
 namespace UI
 {

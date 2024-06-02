@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using SystemObject = System.Object;
 
 namespace Models
@@ -10,6 +11,25 @@ namespace Models
     public class EditablePropertyController : PropertyFieldController
     {
         [SerializeField] private TMP_InputField planetPropertyText;
+        
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="listener"></param>
+        public override void AddListenerToAllOnSelection(UnityAction<string> listener)
+        {
+            planetPropertyText.onSelect.AddListener(listener);
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        /// <param name="listener"></param>
+        public override void AddListenerToAllOnEditEnd(UnityAction<string> listener)
+        {
+            planetPropertyText.onEndEdit.AddListener(listener);
+        }
 
         /// <summary>
         /// Allows external scripts to edit the text inside the InputField by code
