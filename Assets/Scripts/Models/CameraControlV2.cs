@@ -52,6 +52,8 @@ public class CameraControlV2 : MonoBehaviour
     // Keymappings
     private Dictionary<KeyCode, System.Action> keyMappings;
 
+    private bool keyboardLock = false;
+
     void Start()
     {
         InitializeKeyMappings();
@@ -81,7 +83,11 @@ public class CameraControlV2 : MonoBehaviour
             HandlePan();
         }
 
-        HandleDefaultMovement();
+        if (!keyboardLock)
+        {
+            HandleDefaultMovement();
+        }
+        
 
         UpdateCameraPosition();
     }
@@ -175,11 +181,15 @@ public class CameraControlV2 : MonoBehaviour
             CamOrbit();
         }
 
-        var mouseScroll = Input.mouseScrollDelta.y;
-        if (mouseScroll != 0)
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            Zoom(mouseScroll);
+            var mouseScroll = Input.mouseScrollDelta.y;
+            if (mouseScroll != 0)
+            {
+                Zoom(mouseScroll);
+            }
         }
+        
 
         CheckForKeyPresses();
 
@@ -317,5 +327,10 @@ public class CameraControlV2 : MonoBehaviour
     public float GetZoomScale()
     {
         return Mathf.InverseLerp(minZoomDistance, maxZoomDistance, camToPivotDistance);
+    }
+
+    public void SetKeyboardLock(bool state)
+    {
+        keyboardLock = state;
     }
 }

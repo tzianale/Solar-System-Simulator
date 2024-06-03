@@ -17,14 +17,54 @@ namespace Models
 
         public bool IsBeingEdited { get; private set; }
 
-        public void AddListenerToPropertyValue(UnityAction<string> listener)
+        /// <summary>
+        /// Adds a listener that will be called when an editing end event occurs in the Property Value Input Field
+        /// </summary>
+        /// 
+        /// <param name="listener">
+        /// The UnityAction that will be invoked when the event occurs
+        /// </param>
+        public void AddListenerToPropertyValueEditEnd(UnityAction<string> listener)
         {
             planetPropertyValue.onEndEdit.AddListener(listener);
         }
 
-        private void Update()
+        /// <summary>
+        /// Adds a listener that will be called when a selection event occurs in any of the relevant Input Fields
+        /// </summary>
+        /// 
+        /// <param name="listener">
+        /// The UnityAction that will be invoked when the selection event occurs
+        /// </param>
+        public override void AddListenerToAllOnSelection(UnityAction<string> listener)
         {
-            IsBeingEdited = planetPropertyValue.isFocused;
+            planetPropertyDescription.onSelect.AddListener(listener);
+            planetPropertyValue.onSelect.AddListener(listener);
+            planetPropertyMeasurementUnit.onSelect.AddListener(listener);
+        }
+        
+        /// <summary>
+        /// Adds a listener that will be called when an editing end event occurs in any of the relevant Input Fields
+        /// </summary>
+        /// 
+        /// <param name="listener">
+        /// The UnityAction that will be invoked when the event occurs
+        /// </param>
+        public override void AddListenerToAllOnEditEnd(UnityAction<string> listener)
+        {
+            planetPropertyDescription.onEndEdit.AddListener(listener);
+            planetPropertyValue.onEndEdit.AddListener(listener);
+            planetPropertyMeasurementUnit.onEndEdit.AddListener(listener);
+        }
+
+
+        /// <summary>
+        /// Called at the start of the program, sets up listeners for the Value Input Field
+        /// </summary>
+        private void Start()
+        {
+            planetPropertyValue.onSelect.AddListener(_ => IsBeingEdited = true);
+            AddListenerToPropertyValueEditEnd(_ => IsBeingEdited = false);
         }
 
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.016090982, g: 0.01466979, b: 0.013826404, a: 1}
+  m_IndirectSpecularColor: {r: 0.01609639, g: 0.014628816, b: 0.013830393, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 236659533}
   m_Layer: 0
   m_Name: Sun
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,6 +237,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &236659530
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -469,6 +471,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5108197252964615599, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: cameraControl
+      value: 
+      objectReference: {fileID: 791345435}
+    - target: {fileID: 5108197252964615599, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: planetListManager
       value: 
       objectReference: {fileID: 1301205645}
@@ -546,7 +552,7 @@ GameObject:
   - component: {fileID: 469337568}
   m_Layer: 0
   m_Name: Jupiter
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -577,6 +583,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &469337565
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -678,7 +686,7 @@ GameObject:
   - component: {fileID: 532052291}
   m_Layer: 0
   m_Name: Saturn
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -709,6 +717,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &532052288
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -948,7 +958,7 @@ GameObject:
   - component: {fileID: 711106387}
   m_Layer: 0
   m_Name: Uranus
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -979,6 +989,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &711106384
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1410,7 +1422,7 @@ GameObject:
   - component: {fileID: 1222205789}
   m_Layer: 0
   m_Name: Mars
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1441,6 +1453,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &1222205786
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1600,6 +1614,34 @@ PrefabInstance:
       propertyPath: planetModels.Array.data[8]
       value: 
       objectReference: {fileID: 1918121188}
+    - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 7df2b40ea30abea42a1d0c7308061714, type: 3}
+    - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: db14c2f66fddf314b9cbb7032c13b81d, type: 3}
+    - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: 31d7310b872a736418c0f1c3c3a6f8f4, type: 3}
+    - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: 7e7cc7fba09da634faa61cb26bd87a0e, type: 3}
+    - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.data[6]
+      value: 
+      objectReference: {fileID: 21300000, guid: a301a05d3e5506647bcfa862a8a133b4, type: 3}
+    - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.data[7]
+      value: 
+      objectReference: {fileID: 21300000, guid: 0e14d9aab2f632846899f3d8e291e434, type: 3}
+    - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.data[8]
+      value: 
+      objectReference: {fileID: 21300000, guid: 3c82e82d58bd7cc4488935cdba883466, type: 3}
     - target: {fileID: 1532994944392091478, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -2071,7 +2113,7 @@ GameObject:
   - component: {fileID: 1512896395}
   m_Layer: 0
   m_Name: Mercury
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2102,6 +2144,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &1512896392
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2208,7 +2252,7 @@ GameObject:
   - component: {fileID: 1900456975}
   m_Layer: 0
   m_Name: Moon
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2260,6 +2304,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &1900456977
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2340,7 +2386,7 @@ GameObject:
   - component: {fileID: 1918121195}
   m_Layer: 0
   m_Name: Neptun
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2371,6 +2417,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &1918121192
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2472,7 +2520,7 @@ GameObject:
   - component: {fileID: 1923049644}
   m_Layer: 0
   m_Name: Earth
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2503,6 +2551,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &1923049641
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2604,7 +2654,7 @@ GameObject:
   - component: {fileID: 1996431365}
   m_Layer: 0
   m_Name: Venus
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2635,6 +2685,8 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!23 &1996431362
 MeshRenderer:
   m_ObjectHideFlags: 0
