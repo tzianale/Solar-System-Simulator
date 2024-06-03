@@ -50,6 +50,36 @@ namespace Tests.EditMode
             Assert.AreEqual(earthMass, celestialBody.GetMass());
         }
 
+        [Test]
+        public void GetOrbitLinePoints_ShouldReturnCorrectNumberOfPoints()
+        {
+            // Arrange
+            celestialBody.SetOrbitRadius(100f); // Set a test orbit radius
+
+            // Act
+            Vector3[] points = celestialBody.GetOrbitLinePoints();
+
+            // Assert
+            Assert.AreEqual(360, points.Length, "GetOrbitLinePoints should return 360 points.");
+        }
+
+        [Test]
+        public void GetOrbitLinePoints_PointsShouldLieOnOrbitRadius()
+        {
+            // Arrange
+            celestialBody.SetOrbitRadius(100f); // Set a test orbit radius
+
+            // Act
+            Vector3[] points = celestialBody.GetOrbitLinePoints();
+
+            // Assert
+            foreach (var point in points)
+            {
+                float distance = Vector3.Distance(Vector3.zero, point);
+                Assert.AreEqual(100f, distance, 0.01f, "All points should lie on the orbit radius.");
+            }
+        }
+
         [TearDown]
         public void TearDown()
         {
