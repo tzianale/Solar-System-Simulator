@@ -31,8 +31,7 @@ namespace Models
         /// </summary>
         private void Start()
         {
-            double T = CalculateJulianCenturies(DateTime.UtcNow);
-            explorerModeDay = toggleJ2000Time ? 0 : (T * 36525);
+            ChangeDate(DateTime.UtcNow);
             colorSpeedText();
             switchDirectionToForward();
         }
@@ -56,7 +55,7 @@ namespace Models
 
                 DisplayDate(ComputeDateByCurrentDate(explorerModeDay));
                 explorerModeDay += currentExplorerTimeStep;
-            }
+            } 
         }
 
         /// <summary>
@@ -118,7 +117,7 @@ namespace Models
             text.color = new Color(r, g, b);
         }
 
-        private double CalculateJulianCenturies(DateTime date)
+        public double CalculateJulianCenturies(DateTime date)
         {
             double JD = CalculateJulianDate(date);
             return (JD - 2451545.0) / 36525.0;
@@ -139,6 +138,12 @@ namespace Models
             double JD = Math.Floor(365.25 * (year + 4716)) + Math.Floor(30.6001 * (month + 1)) + date.Day + B - 1524.5;
 
             return JD + (date.Hour + date.Minute / 60.0 + date.Second / 3600.0) / 24.0;
+        }
+
+        public void ChangeDate(DateTime time)
+        { 
+            double T = CalculateJulianCenturies(time);
+            explorerModeDay = false ? 0 : (T * 36525);
         }
 
         /// <summary>
@@ -175,11 +180,6 @@ namespace Models
         public void OpenChangeDatePanel()
         {
             datePanel.SetActive(true);
-        }
-
-        public void ChangeDate()
-        {
-
         }
     }
 }

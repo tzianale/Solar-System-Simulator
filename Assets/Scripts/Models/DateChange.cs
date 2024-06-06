@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Models;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,11 +18,18 @@ public class DateChange : MonoBehaviour
     public TMP_Dropdown secondDropdown;
     //private List<Resolution> filteredResolutions = new List<Resolution>(); // List to keep unique resolutions
 
+    [SerializeField] private GameStateController gameStateController;
+
     // Start is called before the first frame update
     private List<String> options = new List<String>();
 
     public GameObject datePanel;
-       
+
+    private int previousYear = -1;
+    private int previousMonth = -1;
+
+    private int actualValue = 1;
+
     void Start()
     {
         PopulateMonth();
@@ -33,9 +41,15 @@ public class DateChange : MonoBehaviour
     void Update()
     {
         int year = PopulateYearRes();
-        int month = monthDropdown.GetComponent<TMP_Dropdown>().value + 1;
+        int month = monthDropdown.value + 1;
 
-        PopulateDayRes(year, month);
+        // Nur aktualisieren, wenn Jahr oder Monat geändert wurden
+        if (year != previousYear || month != previousMonth)
+        {
+            PopulateDayRes(year, month);
+            previousYear = year;
+            previousMonth = month;
+        }
     }
     void PopulateMonth()
     {
@@ -129,4 +143,12 @@ public class DateChange : MonoBehaviour
     {
         datePanel.SetActive(false);
     }
+
+    public void submit()
+    {
+        DateTime time = new DateTime(int.Parse(yearInputField.text), (monthDropdown.value + actualValue), (dayDropdown.value + actualValue), hourDropdown.value, minuteDropdown.value, secondDropdown.value);
+        time = TimeZoneInfo.ConvertTimeToUtc(time);
+        gameStateController.ChangeDate(time);
+    }
+
 }
