@@ -31,7 +31,7 @@ namespace Models
         /// </summary>
         private void Start()
         {
-            ChangeDate(DateTime.UtcNow);
+            updateDate(DateTime.UtcNow);
             colorSpeedText();
             switchDirectionToForward();
         }
@@ -140,7 +140,7 @@ namespace Models
             return JD + (date.Hour + date.Minute / 60.0 + date.Second / 3600.0) / 24.0;
         }
 
-        public void ChangeDate(DateTime time)
+        public void updateDate(DateTime time)
         { 
             double T = CalculateJulianCenturies(time);
             explorerModeDay = false ? 0 : (T * 36525);

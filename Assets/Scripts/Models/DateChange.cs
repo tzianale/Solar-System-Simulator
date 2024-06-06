@@ -148,7 +148,7 @@ public class DateChange : MonoBehaviour
     {
         DateTime time = new DateTime(int.Parse(yearInputField.text), (monthDropdown.value + actualValue), (dayDropdown.value + actualValue), hourDropdown.value, minuteDropdown.value, secondDropdown.value);
         time = TimeZoneInfo.ConvertTimeToUtc(time);
-        gameStateController.ChangeDate(time);
+        gameStateController.updateDate(time);
     }
 
 }
