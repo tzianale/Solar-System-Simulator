@@ -1,7 +1,7 @@
 using Models;
+
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using SystemObject = System.Object;
 
 namespace UI
@@ -54,36 +54,6 @@ namespace UI
         /// 
         /// <param name="propertyName">The Name of the property to be initialised</param>
         /// <param name="propertyValue">The Value of the property to be initialised</param>
-        /// 
-        /// <returns>
-        /// The generated Input Field GameObject with the corresponding text
-        /// </returns>
-        private GameObject GenerateInputFieldInCode(string propertyName, string propertyValue)
-        {
-            // You want to know how I managed to get this method to running?
-            // Good question, I don't know either!
-            var newListElement = TMP_DefaultControls.CreateInputField(new TMP_DefaultControls.Resources());
-
-            var inputField = newListElement.GetComponent<TMP_InputField>();
-            var inputSprite = newListElement.GetComponent<Image>();
-
-            inputSprite.enabled = false;
-
-            inputField.lineType = TMP_InputField.LineType.MultiLineSubmit;
-            inputField.pointSize = propertiesTextSize;
-            inputField.textComponent.color = Color.white;
-
-            inputField.text = propertyName + NameValueSeparator + propertyValue;
-
-            return newListElement;
-        }
-
-        /// <summary>
-        /// Generates an Input Field GameObjet and initialises the text inside of it depending on the provided parameters.
-        /// </summary>
-        /// 
-        /// <param name="propertyName">The Name of the property to be initialised</param>
-        /// <param name="propertyValue">The Value of the property to be initialised</param>
         /// <param name="measurementUnit">The Unit of the property to be initialised</param>
         /// 
         /// <returns>
@@ -95,6 +65,9 @@ namespace UI
             var planetPropertyGameObject = Instantiate(editablePropertiesFieldPrefab);
 
             var planetPropertyController = planetPropertyGameObject.GetComponent<PropertyFieldController>();
+            
+            planetPropertyController.AddListenerToAllOnSelection(_ => CameraControl.SetKeyboardLock(true));
+            planetPropertyController.AddListenerToAllOnEditEnd(_ => CameraControl.SetKeyboardLock(false));
 
             var propertyText = new SystemObject[]
                 { propertyName + NameValueSeparator, propertyValue, ValueUnitSeparatorForProperties + measurementUnit };

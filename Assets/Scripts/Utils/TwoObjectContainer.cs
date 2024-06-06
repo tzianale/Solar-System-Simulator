@@ -13,8 +13,8 @@
     /// </typeparam>
     public class TwoObjectContainer<TFirst, TSecond>
     {
-        public TFirst FirstObject;
-        public TSecond SecondObject;
+        public readonly TFirst FirstObject;
+        public readonly TSecond SecondObject;
 
         /// <summary>
         /// Constructor for Two Object Containers, asks for the initial values of the contained objects 

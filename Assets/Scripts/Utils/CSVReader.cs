@@ -5,25 +5,38 @@ using System.Collections.Generic;
 
 namespace Utils
 {
+    /// <summary>
+    /// Provides utility methods for reading CSV files
+    /// </summary>
     public class CsvReader : MonoBehaviour
     {
+        /// <summary>
+        /// Reads a CSV file from the specified path and returns the data as a list of lists of strings.
+        /// Each inner list represents a row in the CSV file
+        /// </summary>
+        /// 
+        /// <param name="path">The file path to the CSV file</param>
+        /// 
+        /// <returns>A list of lists of strings, where each inner list represents a row of data from the CSV file</returns>
         public static List<List<string>> ReadCsv(string path)
         {
             var table = new List<List<string>>();
-
-            using (var reader = new StreamReader(path))
+            using var reader = new StreamReader(path);
+            
+            while (!reader.EndOfStream)
             {
-                while (!reader.EndOfStream)
+                var line = reader.ReadLine();
+
+                if (line != null)
                 {
-                    var line = reader.ReadLine();
                     var values = line.Split(';');
 
                     table.Add(new List<string>(values));
                 }
-
-                reader.Close();
+                
             }
 
+            reader.Close();
             return table;
         }
     }
