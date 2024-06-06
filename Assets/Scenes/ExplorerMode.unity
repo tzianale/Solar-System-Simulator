@@ -10706,7 +10706,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1804095602
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10799,6 +10799,7 @@ MonoBehaviour:
   hourDropdown: {fileID: 1282065655}
   minuteDropdown: {fileID: 757559310}
   secondDropdown: {fileID: 375215272}
+  gameStateController: {fileID: 880853223}
   datePanel: {fileID: 1804095601}
 --- !u!1 &1809987352
 GameObject:
