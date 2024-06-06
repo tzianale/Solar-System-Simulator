@@ -378,6 +378,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3436642345862159900, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 893765187}
+    - target: {fileID: 3436642345862159900, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: closePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436642345862159900, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.EscapeScript, Scripts
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472281657163508012, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: panel
+      value: 
+      objectReference: {fileID: 341696543}
     - target: {fileID: 3986101165301364651, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -482,6 +498,18 @@ PrefabInstance:
       propertyPath: _planetListManager
       value: 
       objectReference: {fileID: 1301205645}
+    - target: {fileID: 6736977528716640127, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 893765187}
+    - target: {fileID: 6736977528716640127, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: escapeGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 6736977528716640127, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.EscapeScript, Scripts
+      objectReference: {fileID: 0}
     - target: {fileID: 6842459235003305348, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -520,7 +548,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3986101165301364651, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       insertIndex: 1
       addedObject: {fileID: 663925729}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3360335619342833472, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 893765187}
   m_SourcePrefab: {fileID: 100100000, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
 --- !u!224 &341696542 stripped
 RectTransform:
@@ -1127,6 +1158,24 @@ MonoBehaviour:
   camHolder: {fileID: 791345433}
   neptune: {fileID: 1918121188}
   minDistanceToSurfaceRadiusFactor: 1.2
+--- !u!1 &893765186 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3360335619342833472, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+  m_PrefabInstance: {fileID: 341696541}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &893765187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893765186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76749322b5ce2234193691ab2785aebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

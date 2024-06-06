@@ -43,7 +43,6 @@ public class DateChange : MonoBehaviour
         int year = PopulateYearRes();
         int month = monthDropdown.value + 1;
 
-        // Nur aktualisieren, wenn Jahr oder Monat geändert wurden
         if (year != previousYear || month != previousMonth)
         {
             PopulateDayRes(year, month);
@@ -120,23 +119,41 @@ public class DateChange : MonoBehaviour
     {
         String value = yearInputField.GetComponent<InputField>().text;
 
-        int year;
-        if (int.TryParse(value, out year))
-        {
-            if (year <= 0)
-            {
-                return 0;
-            }
-            else if (year >= 9999)
-            {
-                return 9999;
-            } return year;
-        } else
-        {
-            Debug.Log("Bitte geben Sie eine gültige Zahl ein.");
-        }
+        int year = checkYear(value);
+        return year;
+    }
 
-        return 2024;
+    private int checkYear(String year)
+    {
+        int val;
+        try
+        {
+            val = int.Parse(year);
+        }
+        catch
+        {
+            val = DateTime.UtcNow.Year;
+            setYearTextField(DateTime.UtcNow.Year.ToString());
+        } 
+        return checkLimitYear(val);
+    }
+
+    private int checkLimitYear(int year)
+    {
+        if (year <= 1)
+        {
+            return 1;
+        }
+        else if (year >= 9999)
+        {
+            return 9999;
+        }
+        return year;
+    }
+
+    private void setYearTextField(String year)
+    {
+        yearInputField.GetComponent<InputField>().text = year;
     }
 
     public void closePanel()
@@ -146,7 +163,12 @@ public class DateChange : MonoBehaviour
 
     public void submit()
     {
-        DateTime time = new DateTime(int.Parse(yearInputField.text), (monthDropdown.value + actualValue), (dayDropdown.value + actualValue), hourDropdown.value, minuteDropdown.value, secondDropdown.value);
+        DateTime time = new DateTime(checkYear(yearInputField.text), 
+            (monthDropdown.value + actualValue), 
+            (dayDropdown.value + actualValue), 
+            hourDropdown.value, 
+            minuteDropdown.value, 
+            secondDropdown.value);
         time = TimeZoneInfo.ConvertTimeToUtc(time);
         gameStateController.updateDate(time);
     }
