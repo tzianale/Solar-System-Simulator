@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace Models
 {
+    /// <summary>
+    /// Represents a celestial body in the simulation, handling its physical properties, 
+    /// orbital mechanics, and interactions with other celestial bodies.
+    /// </summary>
+
     public class CelestialBody : MonoBehaviour
     {
         [SerializeField] private CelestialBodyType celestType;
@@ -18,9 +23,6 @@ namespace Models
         private readonly float orbitalPeriod;
         private readonly float obliquityToOrbit;
 
-        //Aleksander hat dieses rausgenommen!!
-        public Material lineRender;
-        private LineRenderer lineRenderer;
         public CameraControlV2 cameraControl;
 
         // Constants
@@ -32,22 +34,14 @@ namespace Models
             transform.Rotate(Vector3.right, obliquityToOrbit);
             sideRealRotationPeriod = 360f / sideRealRotationPeriod;
 
-            if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer)
+            if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer && celestType != CelestialBodyType.Sun)
             {
+                UpdatePositionUsingAccurateKepler();
+                UpdateRotation(true, (float)GameStateController.explorerModeDay);
+                transform.Rotate(Vector3.up, 80f, Space.Self);
+            }
 
-                // Forward to current time
-                if (celestType != CelestialBodyType.Sun)
-                {
-                    UpdatePositionUsingAccurateKepler();
-                    UpdateRotation(true, (float)GameStateController.GetExplorerModeDay());
-                    transform.Rotate(Vector3.up, 80f, Space.Self);
-                    GenerateExplorerOrbitLine();
-                }
-            }
-            else
-            {
-                GenerateOrbitLine();
-            }
+            InitializeOrbitLine(transform);
         }
 
         private void FixedUpdate()
@@ -68,26 +62,28 @@ namespace Models
         private void UpdateSandboxMode()
         {
             foreach (CelestialBody planet in celestialBodies)
-            {
-                if (planet != this)
-                {
-                    UpdateVelocity(planet);
-                }
-            }
+                    {
+                        if (planet != this)
+                        {
+                            UpdateVelocity(planet);
+                            
+                        }
+                    }
 
-            UpdatePosition();
-            UpdateRotation();
+                    UpdatePosition();
+                    UpdateRotation();
+                    UpdateOrbitalLineWidth();
         }
 
         private void UpdateExplorerMode()
         {
-            var currentExplorerTimeStep = GameStateController.GetCurrentExplorerTimeStep();
-            if (celestType != CelestialBodyType.Sun)
-            {
-                UpdatePositionUsingAccurateKepler();
-                UpdateRotation(true, currentExplorerTimeStep);
-                UpdateLineRenderer();
-            }
+            var currentExplorerTimeStep = (float)GameStateController.currentExplorerTimeStep;
+                    if (celestType != CelestialBodyType.Sun)
+                    {
+                        UpdatePositionUsingAccurateKepler();
+                        UpdateRotation(true, (float)GameStateController.currentExplorerTimeStep);
+                        UpdateOrbitalLineWidth();
+                    }
         }
 
         private void UpdateLineRenderer()
@@ -125,10 +121,7 @@ namespace Models
             }
         }
 
-        /// <summary>
-        /// Updates the position of the celestial body using accurate Keplerian elements.
-        /// </summary>
-        public void UpdatePositionUsingAccurateKepler()
+        private void UpdatePositionUsingAccurateKepler()
         {
             if (!PlanetDatabase.Planets.ContainsKey(gameObject.name))
             {
@@ -200,7 +193,7 @@ namespace Models
             // Step 6: Correct Orientation
             // Final correction based on empirical observations
             // We rotate around the X axis to fix the inclination
-            float angle = 90 * toRad; // -45 degrees to radians
+            float angle = 90 * toRad; // degrees to radians
             float correctedY = y * Mathf.Cos(angle) - z * Mathf.Sin(angle);
             float correctedZ = y * Mathf.Sin(angle) + z * Mathf.Cos(angle);
 
@@ -215,53 +208,24 @@ namespace Models
             float dE = dM / (1 - e * Mathf.Cos(E * toRad));
             return dE;
         }
-
-        private void GenerateOrbitLine()
+        
+        // CHECK FABIAN
+        private void InitializeOrbitLine(Transform meshTransform)
         {
             GameObject orbitLineGameObject = new GameObject("OrbitLine");
-            orbitLineGameObject.transform.SetParent(transform);
+            orbitLineGameObject.transform.SetParent(meshTransform);
 
-            lineRenderer = orbitLineGameObject.AddComponent<LineRenderer>();
-            lineRenderer.loop = true;
-            lineRenderer.widthMultiplier = 10;
+            LineRenderer lineRenderer = orbitLineGameObject.AddComponent<LineRenderer>();
+            lineRenderer.loop = SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer;
+            lineRenderer.widthMultiplier = 5.0f;
+
+            lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
 
             OrbitLineController orbitLineController = orbitLineGameObject.AddComponent<OrbitLineController>();
             orbitLineController.CelestialBody = this;
-        }
 
-        private void GenerateExplorerOrbitLine()
-        {
-            GameObject orbitLineGameObject = new GameObject("ExplorerOrbitLine");
-            orbitLineGameObject.transform.SetParent(transform);
+            Texture2D planetTexture = meshTransform.GetComponent<Renderer>().material.mainTexture as Texture2D;
 
-            lineRenderer = orbitLineGameObject.AddComponent<LineRenderer>();
-            lineRenderer.loop = true;
-            lineRenderer.widthMultiplier = 5.0f;
-
-            Material orbitLineMaterial = lineRender;
-            if (orbitLineMaterial != null)
-            {
-                lineRenderer.material = orbitLineMaterial;
-            }
-            else
-            {
-                Debug.LogError("OrbitLineMaterial not found in Resources folder.");
-            }
-
-            int pointsLength = 360;
-            Vector3[] points = new Vector3[pointsLength];
-
-            var data = PlanetDatabase.Planets[gameObject.name];
-            for (int i = 0; i < pointsLength; i++)
-            {
-                float t = i / (float)pointsLength * orbitalPeriod;
-                points[i] = ComputePlanetPosition(t, data.Elements, data.Rates, data.ExtraTerms);
-            }
-
-            lineRenderer.positionCount = points.Length;
-            lineRenderer.SetPositions(points);
-
-            Texture2D planetTexture = GetComponent<Renderer>().material.mainTexture as Texture2D;
             if (planetTexture != null && planetTexture.isReadable)
             {
                 Color32 averageColor = AverageColorFromTexture(planetTexture);
@@ -270,8 +234,40 @@ namespace Models
             }
             else
             {
-                Debug.LogError($"Texture for {gameObject.name} is not readable. Please enable read/write in the texture import settings.");
+                Color meshColor = meshTransform.GetComponent<Renderer>().material.GetColor("_Color");
+                lineRenderer.startColor = meshColor;
+                lineRenderer.endColor = meshColor;
             }
+        }
+
+        private void UpdateOrbitalLineWidth()
+        {
+            float zoomScale = cameraControl.GetZoomScale();
+
+            OrbitLineController olc = GetComponentInChildren<OrbitLineController>();
+            olc.UpdateLineWidth(zoomScale);
+        }
+
+        /// <summary>
+        /// Computes the points that define the orbit line in explorer mode.
+        /// </summary>
+        /// <returns>An array of Vector3 points representing the orbit line.</returns>
+        public Vector3[] GetExplorerLinePoints()
+        {
+            int pointsLength = 360;
+            Vector3[] points = new Vector3[pointsLength];
+
+            if (celestType != CelestialBodyType.Sun)
+            {
+                var data = PlanetDatabase.Planets[gameObject.name];
+                for (int i = 0; i < pointsLength; i++)
+                {
+                    float t = i / (float)pointsLength * orbitalPeriod;
+                    points[i] = ComputePlanetPosition(t, data.Elements, data.Rates, data.ExtraTerms);
+                }
+            }
+
+            return points;
         }
 
         private Color32 AverageColorFromTexture(Texture2D tex)

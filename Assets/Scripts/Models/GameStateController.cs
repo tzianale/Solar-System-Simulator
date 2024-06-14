@@ -18,6 +18,8 @@ namespace Models
 
         [SerializeField] private GameObject datePanel;
 
+        [SerializeField] private CameraControlV2 cam;
+
         private int simulationDirection = 1;
 
         private float scale = 1f;
@@ -31,7 +33,6 @@ namespace Models
         public void SetSilmulationSpeedSlider(Slider value) => simulationSpeedSlider = value;
         public void SetRealTimeToggle(Toggle value) => realTimeToggle = value;
         public static float GetCurrentExplorerTimeStep() => currentExplorerTimeStep;
-
 
         /// <summary>
         /// Get acutal Data and color all the buttons and the speedtext correctly.
@@ -189,6 +190,7 @@ namespace Models
 
         public void OpenChangeDatePanel()
         {
+            cam.SetKeyboardLock(true);
             datePanel.SetActive(true);
         }
     }

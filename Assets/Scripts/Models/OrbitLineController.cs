@@ -20,7 +20,8 @@ namespace Models
             lineRenderer = GetComponent<LineRenderer>();
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer)
             {
-                Vector3[] orbitPoints = celestialBody.GetOrbitLinePoints();
+
+                Vector3[] orbitPoints = celestialBody.GetExplorerLinePoints();
                 lineRenderer.positionCount = orbitPoints.Length;
                 lineRenderer.SetPositions(orbitPoints);
             }
@@ -53,35 +54,12 @@ namespace Models
             }
         }
 
-        /// <summary>
-        /// Initializes or resets the settings of the LineRenderer component attached to the GameObject.
-        /// </summary>
-        /// <param name="count">The number of positions to set for the LineRenderer.</param>
-        public void InitializeLineRenderer(int count)
+        public void UpdateLineWidth(float zoomScale)
         {
-            // Ensure the lineRenderer component is attached and correctly set up
-            if (lineRenderer == null)
-                lineRenderer = gameObject.GetComponent<LineRenderer>();
-
-            // Initialize or reset the LineRenderer's settings
-            lineRenderer.positionCount = 0;  // Reset any existing data
-            lineRenderer.positionCount = count;  // Set the expected number of positions
-            lineRenderer.startWidth = 0.1f;  // Set the width of the line at the start
-            lineRenderer.endWidth = 0.1f;  // Set the width of the line at the end
-            lineRenderer.useWorldSpace = true;  // Use world space coordinates
-
-            // Optional: Configure materials and colors
-            lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-            lineRenderer.startColor = Color.white;
-            lineRenderer.endColor = Color.white;
-
-            // Initialize the positions array if needed
-            Vector3[] positions = new Vector3[count];
-            for (int i = 0; i < count; i++)
-                positions[i] = Vector3.zero;  // Initialize all positions to zero
-
-            lineRenderer.SetPositions(positions);  // Apply the initialized positions
+            if (lineRenderer != null)
+            {
+                lineRenderer.widthMultiplier = Mathf.Lerp(1.0f, 100.0f, zoomScale);
+            }
         }
-
     }
 }

@@ -6,9 +6,8 @@ using LightType = UnityEngine.LightType;
 
 namespace Models
 {
-
     /// <summary>
-    /// A class that generates celestial bodies such as planets, stars, and other astronomical objects.
+    /// Provides functionality to generate celestial bodies within the simulation.
     /// </summary>
     public class CelestialBodyGenerator : MonoBehaviour
     {
@@ -85,6 +84,27 @@ namespace Models
             {
                 body.SetCelesitalBodies(bodies);
             }
+
+            // Ensure camHolder object exists and has the CameraControlV2 component
+            GameObject camHolder = GameObject.Find("camHolder");
+            if (camHolder != null)
+            {
+                CameraControlV2 cameraControl = camHolder.GetComponent<CameraControlV2>();
+                if (cameraControl != null)
+                {
+                    newBody.cameraControl = cameraControl;
+                }
+                else
+                {
+                    Debug.LogError("CameraControlV2 component not found on camHolder.");
+                }
+            }
+            else
+            {
+                Debug.LogError("camHolder object not found.");
+            }
+
+            return newBody;
         }
     }
 }

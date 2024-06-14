@@ -14,7 +14,6 @@ namespace Models
     /// </summary>
     public class DateChange : MonoBehaviour
     {
-        // year 0 to 9999
         [SerializeField] private TMP_Dropdown dayDropdown;
         [SerializeField] private TMP_Dropdown monthDropdown;
         [SerializeField] private InputField yearInputField;
@@ -22,9 +21,9 @@ namespace Models
         [SerializeField] private TMP_Dropdown hourDropdown;
         [SerializeField] private TMP_Dropdown minuteDropdown;
         [SerializeField] private TMP_Dropdown secondDropdown;
-        //private List<Resolution> filteredResolutions = new List<Resolution>(); // List to keep unique resolutions
 
         [SerializeField] private GameStateController gameStateController;
+        [SerializeField] private CameraControlV2 cam;
 
         [SerializeField] private GameObject datePanel;
 
@@ -163,13 +162,14 @@ namespace Models
         {
             yearInputField.GetComponent<InputField>().text = year;
         }
-
+        
         /// <summary>
         /// Closes the date panel.
         /// </summary>
         public void ClosePanel()
         {
             datePanel.SetActive(false);
+            cam.SetKeyboardLock(false);
         }
 
         /// <summary>
