@@ -188,7 +188,7 @@ namespace Models
 
             time = TimeZoneInfo.ConvertTimeToUtc(time);
 
-            gameStateController.updateDate(time);
+            gameStateController.UpdateDate(time);
         }
     }
 }

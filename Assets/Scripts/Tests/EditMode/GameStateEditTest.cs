@@ -34,10 +34,10 @@ namespace Tests.EditMode
             var backwardButton = new GameObject("BackwardButton").AddComponent<Image>();
 
             // Assigning components to the GameStateController
-            gameStateController.dayText = dayText;
-            gameStateController.simulationSpeedText = simulationSpeedText;
-            gameStateController.simulationSpeedSlider = simulationSpeedSlider;
-            gameStateController.realTimeToggle = realTimeToggle;
+            gameStateController.SetDayText(dayText);
+            gameStateController.SetSilmulationSpeedText(simulationSpeedText);
+            gameStateController.SetSilmulationSpeedSlider(simulationSpeedSlider);
+            gameStateController.SetRealTimeToggle(realTimeToggle);
 
             // Initial setup for slider
             simulationSpeedSlider.minValue = 0;
@@ -60,17 +60,17 @@ namespace Tests.EditMode
         public void PlayPause_ShouldToggleIsPaused()
         {
             // Arrange
-            Assert.IsFalse(GameStateController.isPaused, "Initially, isPaused should be false");
+            Assert.IsFalse(GameStateController.GetIsPaused(), "Initially, isPaused should be false");
 
             // Act - Pause the game
-            gameStateController.playPause();
+            gameStateController.PlayPause();
             // Assert - Check if game is paused
-            Assert.IsTrue(GameStateController.isPaused, "isPaused should be true after pausing");
+            Assert.IsTrue(GameStateController.GetIsPaused(), "isPaused should be true after pausing");
 
             // Act - Unpause the game
-            gameStateController.playPause();
+            gameStateController.PlayPause();
             // Assert - Check if game is not paused
-            Assert.IsFalse(GameStateController.isPaused, "isPaused should be false after unpausing");
+            Assert.IsFalse(GameStateController.GetIsPaused(), "isPaused should be false after unpausing");
         }
 
         [Test]
@@ -79,15 +79,15 @@ namespace Tests.EditMode
             SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Sandbox;
 
             // Test setting normal speed
-            gameStateController.setTimeScale(1);
+            gameStateController.SetTimeScale(1);
             Assert.AreEqual(1, Time.timeScale, "Time.timeScale should be set to 1 for normal speed.");
 
             // Test increasing speed
-            gameStateController.setTimeScale(5);
+            gameStateController.SetTimeScale(5);
             Assert.AreEqual(5, Time.timeScale, "Time.timeScale should be set to 5 when increased.");
 
             // Test maximum speed
-            gameStateController.setTimeScale(10);
+            gameStateController.SetTimeScale(10);
             Assert.AreEqual(10, Time.timeScale, "Time.timeScale should be set to 10 for maximum speed.");
         }
 
@@ -97,15 +97,15 @@ namespace Tests.EditMode
             SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Sandbox;
 
             // Set to a specific time scale
-            gameStateController.setTimeScale(2);
+            gameStateController.SetTimeScale(2);
             Assert.AreEqual(2, Time.timeScale, "Time.timeScale should initially be set to 2.");
 
             // Pause the game
-            gameStateController.playPause();
-            gameStateController.setTimeScale(1); // Reset to normal when paused
+            gameStateController.PlayPause();
+            gameStateController.SetTimeScale(1); // Reset to normal when paused
 
             // Resume the game
-            gameStateController.playPause();
+            gameStateController.PlayPause();
             Assert.AreEqual(1, Time.timeScale, "Time.timeScale should reset to 1 after resuming the game.");
         }
 

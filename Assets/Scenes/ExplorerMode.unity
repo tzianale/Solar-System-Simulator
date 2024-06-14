@@ -793,6 +793,22 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2306204952292658643, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306204952292658643, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetTimeScale
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306204952292658643, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Models.GameStateController, Scripts
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306204952292658643, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3360335619342833472, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -992,6 +1008,14 @@ PrefabInstance:
     - target: {fileID: 6406110210717406640, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406110210717406640, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayPause
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406110210717406640, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Models.GameStateController, Scripts
       objectReference: {fileID: 0}
     - target: {fileID: 6706962749656561217, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5878,7 +5902,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 880853223}
         m_TargetAssemblyTypeName: Models.GameStateController, Scripts
-        m_MethodName: switchDirectionToForward
+        m_MethodName: SwitchDirectionToForward
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10539,7 +10563,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 880853223}
         m_TargetAssemblyTypeName: Models.GameStateController, Scripts
-        m_MethodName: switchDirectionToReverse
+        m_MethodName: SwitchDirectionToReverse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

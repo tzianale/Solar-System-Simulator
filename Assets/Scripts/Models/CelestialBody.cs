@@ -21,7 +21,7 @@ namespace Models
         //Aleksander hat dieses rausgenommen!!
         public Material lineRender;
         private LineRenderer lineRenderer;
-        [SerializeField] private CameraControlV2 cameraControl;
+        public CameraControlV2 cameraControl;
 
         // Constants
         private const float scaleFactor = 1000f;
@@ -39,7 +39,7 @@ namespace Models
                 if (celestType != CelestialBodyType.Sun)
                 {
                     UpdatePositionUsingAccurateKepler();
-                    UpdateRotation(true, (float)GameStateController.explorerModeDay);
+                    UpdateRotation(true, (float)GameStateController.GetExplorerModeDay());
                     transform.Rotate(Vector3.up, 80f, Space.Self);
                     GenerateExplorerOrbitLine();
                 }
@@ -52,7 +52,7 @@ namespace Models
 
         private void FixedUpdate()
         {
-            if (!GameStateController.isPaused)
+            if (!GameStateController.GetIsPaused())
             {
                 if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Sandbox)
                 {
@@ -81,7 +81,7 @@ namespace Models
 
         private void UpdateExplorerMode()
         {
-            var currentExplorerTimeStep = GameStateController.currentExplorerTimeStep;
+            var currentExplorerTimeStep = GameStateController.GetCurrentExplorerTimeStep();
             if (celestType != CelestialBodyType.Sun)
             {
                 UpdatePositionUsingAccurateKepler();
@@ -137,7 +137,7 @@ namespace Models
             }
 
             var data = PlanetDatabase.Planets[gameObject.name];
-            float currentTime = (float)GameStateController.explorerModeDay;
+            float currentTime = (float)GameStateController.GetExplorerModeDay();
             Vector3 position = ComputePlanetPosition(currentTime, data.Elements, data.Rates, data.ExtraTerms);
             transform.position = position;
         }
