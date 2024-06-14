@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
 
 namespace UI
 {
@@ -12,8 +13,6 @@ namespace UI
     {
         [SerializeField]
         private GameObject panel;
-
-        private const int MainMenuSceneId = 0;
         
         public GameObject Panel { private get; set; }
 
@@ -49,7 +48,7 @@ namespace UI
         /// </summary>
         public void EscapeGame()
         {
-            SceneManager.LoadSceneAsync(MainMenuSceneId);
+            SceneManager.LoadSceneAsync((int) ScenesIndexes.MainMenu);
         }
     }
 }
