@@ -1,4 +1,3 @@
-/*
 using Models;
 using NUnit.Framework;
 using TMPro;
@@ -6,11 +5,19 @@ using UnityEngine;
 
 namespace Tests.EditMode
 {
+    /// <summary>
+    /// Tests the Planet List Animator class to ensure that it works correctly
+    /// </summary>
     public class PlanetListAnimatorTests
     {
         private GameObject _containerGameObject;
         private PlanetListAnimator _animator;
 
+        private const string AnimatorInitText = "↑";
+
+        /// <summary>
+        /// Sets up the testing environment
+        /// </summary>
         [SetUp]
         public void Setup()
         {
@@ -19,14 +26,18 @@ namespace Tests.EditMode
             var containerGameObjectRecTransform = _containerGameObject.AddComponent<RectTransform>();
             
             _animator = _containerGameObject.AddComponent<PlanetListAnimator>();
+            
             _animator.buttonText = new GameObject("TextObject").AddComponent<TextMeshProUGUI>();
-            _animator.buttonText.text = ""; // Initialize text to ensure it's not null
-
+            _animator.buttonText.text = AnimatorInitText; // Initialize text 
+            
             // Directly use the existing transform rather than assigning a new one
             _animator.PlanetListContainerTransform = containerGameObjectRecTransform;
         }
 
-
+        /// <summary>
+        /// Tests the opening / closing of the list by ensuring that ListIsOpen
+        /// and ButtonText parameters are set as expected
+        /// </summary>
         [Test]
         public void OnArrowClick_TogglesListAndChangesButtonText()
         {
@@ -48,10 +59,13 @@ namespace Tests.EditMode
             Assert.AreEqual("↑", _animator.buttonText.text, "Button text should be '↑' after second arrow click.");
         }
 
+        /// <summary>
+        /// Cleans up the testing environment after the tests have ended
+        /// </summary>
         [TearDown]
         public void Teardown()
         {
             Object.DestroyImmediate(_containerGameObject);
         }
     }
-}*/
+}

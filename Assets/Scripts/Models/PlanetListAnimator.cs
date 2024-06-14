@@ -22,31 +22,17 @@ namespace Models
         
         public TextMeshProUGUI buttonText;
         private Vector3 _moveDistanceImproved;
-
-        /// <summary>
-        /// Getter / Setter methods for the Transform that will contain the Planet List Items
-        /// </summary>
+        
+        
         public RectTransform PlanetListContainerTransform { private get; set; }
 
-        /// <summary>
-        /// Getter / Setter methods for the Transform that will contain the Planet List Items
-        /// </summary>
         private Vector3 MoveOffset { get; set; }
 
-        /// <summary>
-        /// Getter / Setter methods for the Transform that will contain the Planet List Items
-        /// </summary>
         private float MoveSpeed { get; set; }
 
-        /// <summary>
-        /// Getter / Setter methods to read the List Is Open boolean outside of this Class
-        /// </summary>
         public bool ListIsOpen { get; private set; }
 
         
-        /// <summary>
-        /// Called on Object Instantiation, sets the PlanetListContainerTransform to the Transform of the current Object
-        /// </summary>
         private void Start()
         {
             PlanetListContainerTransform = planetListContainerTransform;
@@ -54,12 +40,7 @@ namespace Models
             MoveSpeed = moveSpeed;
             ListIsOpen = _listIsOpen;
         }
-
         
-        /// <summary>
-        /// Called every frame, sets the PlanetListContainerTransform and the transform height variables, as soon as
-        /// the transform is not null anymore
-        /// </summary>
         private void Update()
         {
             if (PlanetListContainerTransform)
@@ -74,7 +55,6 @@ namespace Models
         /// </summary>
         public void OnArrowClick()
         {
-            Debug.Log(planetListScrollViewTransform.rect.height);
             if (ListIsOpen)
             {
                 StartCoroutine(MovePanel(-_moveDistanceImproved));
@@ -88,19 +68,7 @@ namespace Models
                 buttonText.text = "↓";
             }
         }
-
-        /// <summary>
-        /// Creates a nice moving animation for the Planet List Container using multi threading
-        /// </summary>
-        /// 
-        /// <param name="vectorToTarget">
-        /// The vector pointing towards the target.
-        /// Vector length should be equal to the distance between the points
-        /// </param>
-        /// 
-        /// <returns>
-        /// An IEnumerator, which allows for this method to be called in parallel
-        /// </returns>
+        
         private IEnumerator MovePanel(Vector3 vectorToTarget)
         {
             var startPosition = PlanetListContainerTransform.position;
