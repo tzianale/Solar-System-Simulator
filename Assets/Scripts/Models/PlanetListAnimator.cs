@@ -15,6 +15,8 @@ namespace Models
         [SerializeField] private Vector3 moveOffset;
         [SerializeField] private float moveSpeed = 1.0f;
         
+        [SerializeField] private float widthRatioCorrection = .1f;
+        
         private bool _listIsOpen;
         private bool _initialised;
         
@@ -29,12 +31,12 @@ namespace Models
         /// <summary>
         /// Getter / Setter methods for the Transform that will contain the Planet List Items
         /// </summary>
-        public Vector3 MoveOffset { get; private set; }
+        private Vector3 MoveOffset { get; set; }
 
         /// <summary>
         /// Getter / Setter methods for the Transform that will contain the Planet List Items
         /// </summary>
-        public float MoveSpeed { get; private set; }
+        private float MoveSpeed { get; set; }
 
         /// <summary>
         /// Getter / Setter methods to read the List Is Open boolean outside of this Class
@@ -60,16 +62,10 @@ namespace Models
         /// </summary>
         private void Update()
         {
-            if (_initialised)
-            {
-                
-            }
-            else if (PlanetListContainerTransform)
+            if (PlanetListContainerTransform)
             {
                 _moveDistanceImproved = MoveOffset;
-                _moveDistanceImproved.y += planetListScrollViewTransform.rect.height;
-
-                _initialised = true;
+                _moveDistanceImproved.y += planetListScrollViewTransform.rect.height * planetListScrollViewTransform.lossyScale.y;
             }
         }
 
@@ -78,7 +74,7 @@ namespace Models
         /// </summary>
         public void OnArrowClick()
         {
-            Debug.Log("Arrow clicked");
+            Debug.Log(planetListScrollViewTransform.rect.height);
             if (ListIsOpen)
             {
                 StartCoroutine(MovePanel(-_moveDistanceImproved));

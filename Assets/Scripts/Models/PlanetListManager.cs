@@ -30,7 +30,8 @@ namespace Models
         /// </summary>
         private enum DataDescriptionIndexes
         {
-            PlanetType = 1,
+            PlanetName,
+            PlanetType,
             PlanetDescription
         }
 
@@ -39,6 +40,8 @@ namespace Models
 
         private const string MoonDetector = "Rocky Moon";
         private const string DwarfDetector = "Dwarf Planet";
+
+        private const string EarthsMoonName = "Earths Moon";
         
         private const string NullData = "null";
         private const string UnknownData = "good question!";
@@ -285,24 +288,27 @@ namespace Models
             
             for (var rowIndex = 1; rowIndex < rowCount; rowIndex++)
             {
-                if (data[rowIndex][(int) DataPropertyIndexes.PlanetType] != MoonDetector && 
-                    data[rowIndex][(int) DataPropertyIndexes.PlanetType] != DwarfDetector)
+                var row = data[rowIndex];
+                
+                if (IncludePlanetInfoInList(
+                        row[(int) DataPropertyIndexes.PlanetName], 
+                        row[(int) DataPropertyIndexes.PlanetType]))
                 {
                     var planetProperties = new Dictionary<string, string>();
                     
-                    for(var property = 0; property < data[rowIndex].Count; property++)
+                    for(var property = 0; property < row.Count; property++)
                     {
                         if ((DataPropertyIndexes) property == DataPropertyIndexes.PlanetName)
                         {
-                            _planetNames.Add(data[rowIndex][property]);
+                            _planetNames.Add(row[property]);
                         }
-                        else if (data[rowIndex][property] == NullData) 
+                        else if (row[property] == NullData) 
                         {
                             planetProperties.Add(labels[property], UnknownData);
                         }
                         else
                         {
-                            planetProperties.Add(labels[property], data[rowIndex][property]);
+                            planetProperties.Add(labels[property], row[property]);
                         }
                     }
                     
@@ -323,7 +329,7 @@ namespace Models
         /// </param>
         /// 
         /// <returns>The list of planet descriptions.</returns>
-        private static List<string> UnpackPlanetDescriptionsFromCsv(List<List<string>> data)
+        private List<string> UnpackPlanetDescriptionsFromCsv(List<List<string>> data)
         {
             var planetDescriptions = new List<string>();
             
@@ -331,8 +337,9 @@ namespace Models
             {
                 var planet = data[planetIndex];
                 
-                if (planet[(int)DataDescriptionIndexes.PlanetType] == MoonDetector ||
-                    planet[(int)DataDescriptionIndexes.PlanetType] == DwarfDetector)
+                if (!IncludePlanetInfoInList(
+                        planet[(int) DataDescriptionIndexes.PlanetName],
+                        planet[(int) DataDescriptionIndexes.PlanetType]))
                 {
                     continue;
                 }
@@ -342,6 +349,34 @@ namespace Models
 
             return planetDescriptions;
         }
+
+
+        /// <summary>
+        /// Checks, depending on the given parameters, if the item from the csv file should be included
+        /// in the planet list and info tabs
+        /// </summary>
+        /// 
+        /// <param name="planetName">
+        /// The name of the planet
+        /// </param>
+        /// 
+        /// <param name="planetType">
+        /// The type of the planet
+        /// </param>
+        /// 
+        /// <returns>
+        /// A boolean, excluding moon and dwarf planet data from the planet list.
+        /// An exception is made for the earths moon when the simulation is in the sandbox mode
+        /// </returns>
+        private bool IncludePlanetInfoInList(string planetName, string planetType)
+        {
+            var isMoonOrDwarf = planetType.Equals(MoonDetector) || planetType.Equals(DwarfDetector);
+            var isEarthsMoon = planetName.Equals(EarthsMoonName);
+            var isSandboxMode = allowPropertyEditing;
+
+            return !isMoonOrDwarf || (isEarthsMoon && isSandboxMode);
+        }
+        
 
         /// <summary>
         /// Adds a new item to the planet list based on the provided GameObject

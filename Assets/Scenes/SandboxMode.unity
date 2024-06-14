@@ -378,6 +378,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3436642345862159900, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 893765187}
+    - target: {fileID: 3436642345862159900, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: closePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3436642345862159900, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.EscapeScript, Scripts
+      objectReference: {fileID: 0}
+    - target: {fileID: 3472281657163508012, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: panel
+      value: 
+      objectReference: {fileID: 341696543}
     - target: {fileID: 3986101165301364651, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -482,6 +498,18 @@ PrefabInstance:
       propertyPath: _planetListManager
       value: 
       objectReference: {fileID: 1301205645}
+    - target: {fileID: 6736977528716640127, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 893765187}
+    - target: {fileID: 6736977528716640127, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: escapeGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 6736977528716640127, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.EscapeScript, Scripts
+      objectReference: {fileID: 0}
     - target: {fileID: 6842459235003305348, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -520,7 +548,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3986101165301364651, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       insertIndex: 1
       addedObject: {fileID: 663925729}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3360335619342833472, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 893765187}
   m_SourcePrefab: {fileID: 100100000, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
 --- !u!224 &341696542 stripped
 RectTransform:
@@ -1127,6 +1158,24 @@ MonoBehaviour:
   camHolder: {fileID: 791345433}
   neptune: {fileID: 1918121188}
   minDistanceToSurfaceRadiusFactor: 1.2
+--- !u!1 &893765186 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3360335619342833472, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+  m_PrefabInstance: {fileID: 341696541}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &893765187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893765186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76749322b5ce2234193691ab2785aebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 341696543}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1579,6 +1628,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetModels.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: planetModels.Array.data[0]
       value: 
       objectReference: {fileID: 236659527}
@@ -1597,21 +1654,25 @@ PrefabInstance:
     - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: planetModels.Array.data[4]
       value: 
-      objectReference: {fileID: 1222205782}
+      objectReference: {fileID: 1900456974}
     - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: planetModels.Array.data[5]
       value: 
-      objectReference: {fileID: 469337561}
+      objectReference: {fileID: 1222205782}
     - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: planetModels.Array.data[6]
       value: 
-      objectReference: {fileID: 532052284}
+      objectReference: {fileID: 469337561}
     - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: planetModels.Array.data[7]
       value: 
-      objectReference: {fileID: 711106380}
+      objectReference: {fileID: 532052284}
     - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: planetModels.Array.data[8]
+      value: 
+      objectReference: {fileID: 711106380}
+    - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetModels.Array.data[9]
       value: 
       objectReference: {fileID: 1918121188}
     - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
@@ -1625,21 +1686,25 @@ PrefabInstance:
     - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: planetSprites.Array.data[4]
       value: 
-      objectReference: {fileID: 21300000, guid: 31d7310b872a736418c0f1c3c3a6f8f4, type: 3}
+      objectReference: {fileID: 21300000, guid: 7df2b40ea30abea42a1d0c7308061714, type: 3}
     - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: planetSprites.Array.data[5]
       value: 
-      objectReference: {fileID: 21300000, guid: 7e7cc7fba09da634faa61cb26bd87a0e, type: 3}
+      objectReference: {fileID: 21300000, guid: 31d7310b872a736418c0f1c3c3a6f8f4, type: 3}
     - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: planetSprites.Array.data[6]
       value: 
-      objectReference: {fileID: 21300000, guid: a301a05d3e5506647bcfa862a8a133b4, type: 3}
+      objectReference: {fileID: 21300000, guid: 7e7cc7fba09da634faa61cb26bd87a0e, type: 3}
     - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: planetSprites.Array.data[7]
       value: 
-      objectReference: {fileID: 21300000, guid: 0e14d9aab2f632846899f3d8e291e434, type: 3}
+      objectReference: {fileID: 21300000, guid: a301a05d3e5506647bcfa862a8a133b4, type: 3}
     - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
       propertyPath: planetSprites.Array.data[8]
+      value: 
+      objectReference: {fileID: 21300000, guid: 0e14d9aab2f632846899f3d8e291e434, type: 3}
+    - target: {fileID: 929269257475290902, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}
+      propertyPath: planetSprites.Array.data[9]
       value: 
       objectReference: {fileID: 21300000, guid: 3c82e82d58bd7cc4488935cdba883466, type: 3}
     - target: {fileID: 1532994944392091478, guid: 50ce1a3b457299c4c83f5e562e537987, type: 3}

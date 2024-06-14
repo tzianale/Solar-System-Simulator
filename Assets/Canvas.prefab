@@ -646,7 +646,6 @@ GameObject:
   - component: {fileID: 2962886007625483550}
   - component: {fileID: 5616841283994482927}
   - component: {fileID: 3436642345862159900}
-  - component: {fileID: 3472281657163508012}
   m_Layer: 5
   m_Name: No
   m_TagString: Untagged
@@ -756,7 +755,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3472281657163508012}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EscapeScript, Assembly-CSharp
         m_MethodName: closePanel
         m_Mode: 1
@@ -768,19 +767,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3472281657163508012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2516457884659876391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76749322b5ce2234193691ab2785aebe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 0}
 --- !u!1 &2718328360927085417
 GameObject:
   m_ObjectHideFlags: 0
@@ -2102,7 +2088,6 @@ GameObject:
   - component: {fileID: 6673650597873699263}
   - component: {fileID: 979045205785043528}
   - component: {fileID: 6736977528716640127}
-  - component: {fileID: 8501440812963748917}
   m_Layer: 5
   m_Name: Yes
   m_TagString: Untagged
@@ -2212,7 +2197,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8501440812963748917}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EscapeScript, Assembly-CSharp
         m_MethodName: escapeGame
         m_Mode: 1
@@ -2224,19 +2209,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8501440812963748917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7701597523409735182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76749322b5ce2234193691ab2785aebe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 0}
 --- !u!1 &8709729549923327847
 GameObject:
   m_ObjectHideFlags: 0
@@ -2288,6 +2260,9 @@ MonoBehaviour:
   dayText: {fileID: 314748820963870049}
   simulationSpeedText: {fileID: 8029036882798617627}
   simulationSpeedSlider: {fileID: 2306204952292658643}
+  realTimeToggle: {fileID: 0}
+  datePanel: {fileID: 0}
+  toggleJ2000Time: 0
 --- !u!1001 &7144898274127180616
 PrefabInstance:
   m_ObjectHideFlags: 0
