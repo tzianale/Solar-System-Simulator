@@ -228,7 +228,6 @@ MonoBehaviour:
   mass: 332900
   orbitRadius: 0
   ratioToEarthYear: 1
-  orbitalPeriod: 0
   lineRender: {fileID: 0}
   cameraControl: {fileID: 0}
 --- !u!23 &236659530
@@ -597,8 +596,7 @@ MonoBehaviour:
   mass: 317.8
   orbitRadius: 10400
   ratioToEarthYear: 1
-  orbitalPeriod: 0
-  lineRender: {fileID: 0}
+  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
   cameraControl: {fileID: 0}
 --- !u!23 &469337565
 MeshRenderer:
@@ -723,8 +721,7 @@ MonoBehaviour:
   mass: 95.2
   orbitRadius: 19140
   ratioToEarthYear: 1
-  orbitalPeriod: 0
-  lineRender: {fileID: 0}
+  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
   cameraControl: {fileID: 0}
 --- !u!23 &532052288
 MeshRenderer:
@@ -987,8 +984,7 @@ MonoBehaviour:
   mass: 14.5
   orbitRadius: 38340
   ratioToEarthYear: 1
-  orbitalPeriod: 0
-  lineRender: {fileID: 0}
+  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
   cameraControl: {fileID: 0}
 --- !u!23 &711106384
 MeshRenderer:
@@ -1461,8 +1457,7 @@ MonoBehaviour:
   mass: 0.107
   orbitRadius: 3040
   ratioToEarthYear: 1
-  orbitalPeriod: 0
-  lineRender: {fileID: 0}
+  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
   cameraControl: {fileID: 0}
 --- !u!23 &1222205786
 MeshRenderer:
@@ -2160,8 +2155,7 @@ MonoBehaviour:
   mass: 0.0553
   orbitRadius: 774
   ratioToEarthYear: 1
-  orbitalPeriod: 0
-  lineRender: {fileID: 0}
+  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
   cameraControl: {fileID: 0}
 --- !u!23 &1512896392
 MeshRenderer:
@@ -2307,13 +2301,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9a5a089e93c34a4093053459a09a15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  celestType: 2
+  celestType: 0
   velocity: {x: 0, y: 0, z: 2.068637}
   mass: 0.01230032
   orbitRadius: 774
   ratioToEarthYear: 1
-  orbitalPeriod: 0
-  lineRender: {fileID: 0}
+  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
   cameraControl: {fileID: 0}
 --- !u!23 &1900456977
 MeshRenderer:
@@ -2417,8 +2410,7 @@ MonoBehaviour:
   mass: 17.1
   orbitRadius: 60360
   ratioToEarthYear: 1
-  orbitalPeriod: 0
-  lineRender: {fileID: 0}
+  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
   cameraControl: {fileID: 0}
 --- !u!23 &1918121192
 MeshRenderer:
@@ -2543,8 +2535,7 @@ MonoBehaviour:
   mass: 1
   orbitRadius: 2000
   ratioToEarthYear: 1
-  orbitalPeriod: 0
-  lineRender: {fileID: 0}
+  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
   cameraControl: {fileID: 0}
 --- !u!23 &1923049641
 MeshRenderer:
@@ -2669,8 +2660,7 @@ MonoBehaviour:
   mass: 0.815
   orbitRadius: 1446
   ratioToEarthYear: 1
-  orbitalPeriod: 0
-  lineRender: {fileID: 0}
+  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
   cameraControl: {fileID: 0}
 --- !u!23 &1996431362
 MeshRenderer:
