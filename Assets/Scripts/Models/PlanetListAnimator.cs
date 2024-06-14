@@ -15,8 +15,6 @@ namespace Models
         [SerializeField] private Vector3 moveOffset;
         [SerializeField] private float moveSpeed = 1.0f;
         
-        [SerializeField] private float widthRatioCorrection = .1f;
-        
         private bool _listIsOpen;
         private bool _initialised;
         
@@ -46,7 +44,8 @@ namespace Models
             if (PlanetListContainerTransform)
             {
                 _moveDistanceImproved = MoveOffset;
-                _moveDistanceImproved.y += planetListScrollViewTransform.rect.height * planetListScrollViewTransform.lossyScale.y;
+                _moveDistanceImproved.y += planetListScrollViewTransform.rect.height 
+                                           * planetListScrollViewTransform.lossyScale.y;
             }
         }
 
