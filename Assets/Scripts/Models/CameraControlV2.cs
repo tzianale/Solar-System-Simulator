@@ -35,7 +35,9 @@ namespace Models
 
         private const float NoMouseScroll = 0f;
         private const float ScrollTolerance = 0.001f;
-        
+
+        private const float PositionZero = 0;
+        private const float PositionTolerance = 0.00001f;
         
         private Vector3 _pivotPoint;
 
@@ -204,7 +206,7 @@ namespace Models
             {
                 var mouseScroll = Input.mouseScrollDelta.y;
                 
-                if (Math.Abs(mouseScroll - NoMouseScroll) > ScrollTolerance)
+                if (FloatEqualToValue(mouseScroll, NoMouseScroll, ScrollTolerance))
                 {
                     Zoom(mouseScroll);
                 }
@@ -227,7 +229,8 @@ namespace Models
             float horizontalInput = delta.x * RotationSpeed * 0.1f;
             float verticalInput = delta.y * RotationSpeed * 0.1f;
 
-            if (customDeltaX != 0 || customDeltaY != 0)
+            if (!FloatEqualToValue(customDeltaX, PositionZero, PositionTolerance)
+                || !FloatEqualToValue(customDeltaY, PositionZero, PositionTolerance))
             {
                 horizontalInput = customDeltaX;
                 verticalInput = customDeltaY;
@@ -384,6 +387,11 @@ namespace Models
         public void SetKeyboardLock(bool state)
         {
             _keyboardLock = state;
+        }
+
+        private bool FloatEqualToValue(float floatToCompare, float targetValue, float tolerance)
+        {
+            return Math.Abs(floatToCompare - targetValue) > tolerance;
         }
     }
 }
