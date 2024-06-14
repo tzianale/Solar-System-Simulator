@@ -39,8 +39,8 @@ namespace Tests.EditMode
             CelestialBody createdBody = createdObject.GetComponent<CelestialBody>();
             Renderer createdBodyRenderer = createdObject.GetComponent<Renderer>();
             Assert.IsNotNull(createdBody);
-            Assert.AreEqual(expectedMass, createdBody.mass);
-            Assert.AreEqual(expectedVelocity, createdBody.velocity);
+            Assert.AreEqual(expectedMass, createdBody.GetMass());
+            Assert.AreEqual(expectedVelocity, createdBody.GetVelocity());
             Assert.AreEqual(expectedType, createdBody.GetCelestialBodyType());
             Assert.AreEqual(expectedColor, createdBodyRenderer.sharedMaterial.color);
         }

@@ -7,21 +7,21 @@ namespace Models
     public class CelestialBody : MonoBehaviour
     {
         [SerializeField] private CelestialBodyType celestType;
-        public Vector3 velocity;
-        public float mass;
-        public float orbitRadius;
-        public float ratioToEarthYear = 1;
+        [SerializeField] private Vector3 velocity;
+        [SerializeField] private float mass;
+        [SerializeField] private float orbitRadius;
+        [SerializeField] private float ratioToEarthYear = 1;
         private List<CelestialBody> celestialBodies;
         private float sideRealRotationPeriod;
 
         // Kepler Parameters
-        public float orbitalPeriod;
+        private readonly float orbitalPeriod;
         private readonly float obliquityToOrbit;
 
         //Aleksander hat dieses rausgenommen!!
         public Material lineRender;
         private LineRenderer lineRenderer;
-        public CameraControlV2 cameraControl;
+        [SerializeField] private CameraControlV2 cameraControl;
 
         // Constants
         private const float scaleFactor = 1000f;
@@ -325,6 +325,7 @@ namespace Models
         public float GetRatioToEarthYear() => ratioToEarthYear;
         public void SetRatioToEarthYear(float ratio) => ratioToEarthYear = ratio;
 
+        public Vector3 GetVelocity() => velocity;
         public void SetVelocity(Vector3 velocity) => this.velocity = velocity;
 
         public List<CelestialBody> GetCelestialBodies() => celestialBodies;
