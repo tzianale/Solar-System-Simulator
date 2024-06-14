@@ -803,7 +803,7 @@ PrefabInstance:
       objectReference: {fileID: 946105594}
     - target: {fileID: 3436642345862159900, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: closePanel
+      value: ClosePanel
       objectReference: {fileID: 0}
     - target: {fileID: 3436642345862159900, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1023,7 +1023,7 @@ PrefabInstance:
       objectReference: {fileID: 946105594}
     - target: {fileID: 6736977528716640127, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: escapeGame
+      value: EscapeGame
       objectReference: {fileID: 0}
     - target: {fileID: 6736977528716640127, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
