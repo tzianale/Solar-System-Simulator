@@ -206,7 +206,7 @@ namespace Models
             {
                 var mouseScroll = Input.mouseScrollDelta.y;
                 
-                if (FloatEqualToValue(mouseScroll, NoMouseScroll, ScrollTolerance))
+                if (!FloatEqualToValue(mouseScroll, NoMouseScroll, ScrollTolerance))
                 {
                     Zoom(mouseScroll);
                 }
@@ -229,8 +229,19 @@ namespace Models
             float horizontalInput = delta.x * RotationSpeed * 0.1f;
             float verticalInput = delta.y * RotationSpeed * 0.1f;
 
+            Debug.Log("Start Log");
+            Debug.Log("X: " + customDeltaX);
+            Debug.Log("Y: " + customDeltaY);
+            
+            Debug.Log(customDeltaX != 0);
+            Debug.Log(customDeltaY != 0);
+
+            Debug.Log(!FloatEqualToValue(customDeltaX, PositionZero, PositionTolerance));
+            Debug.Log(!FloatEqualToValue(customDeltaY, PositionZero, PositionTolerance));
+            
             if (!FloatEqualToValue(customDeltaX, PositionZero, PositionTolerance)
-                || !FloatEqualToValue(customDeltaY, PositionZero, PositionTolerance))
+                || 
+                !FloatEqualToValue(customDeltaY, PositionZero, PositionTolerance))
             {
                 horizontalInput = customDeltaX;
                 verticalInput = customDeltaY;
@@ -389,9 +400,9 @@ namespace Models
             _keyboardLock = state;
         }
 
-        private bool FloatEqualToValue(float floatToCompare, float targetValue, float tolerance)
+        private static bool FloatEqualToValue(float floatToCompare, float targetValue, float tolerance)
         {
-            return Math.Abs(floatToCompare - targetValue) > tolerance;
+            return Math.Abs(floatToCompare - targetValue) < tolerance;
         }
     }
 }
