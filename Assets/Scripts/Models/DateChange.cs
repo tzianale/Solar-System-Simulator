@@ -8,6 +8,10 @@ using UnityEngine.UI;
 
 namespace Models
 {
+
+    /// <summary>
+    /// Handling date changes and updates the gamestate accordingly.
+    /// </summary>
     public class DateChange : MonoBehaviour
     {
         // year 0 to 9999
@@ -32,7 +36,9 @@ namespace Models
 
         private readonly int actualValue = 1;
 
-        void Start()
+        private readonly int actualMonth = 1;
+
+        private void Start()
         {
             PopulateMonth();
             fillHour();
@@ -40,10 +46,10 @@ namespace Models
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             int year = PopulateYearRes();
-            int month = monthDropdown.value + 1;
+            int month = monthDropdown.value + actualMonth;
 
             if (year != previousYear || month != previousMonth)
             {
@@ -52,7 +58,7 @@ namespace Models
                 previousMonth = month;
             }
         }
-        void PopulateMonth()
+        private void PopulateMonth()
         {
             monthDropdown.ClearOptions();
             options.Clear();
@@ -158,11 +164,17 @@ namespace Models
             yearInputField.GetComponent<InputField>().text = year;
         }
 
+        /// <summary>
+        /// Closes the date panel.
+        /// </summary>
         public void closePanel()
         {
             datePanel.SetActive(false);
         }
 
+        /// <summary>
+        /// Submits the selected date and updates the game state.
+        /// </summary>
         public void submit()
         {
             DateTime time = new DateTime(
@@ -178,8 +190,5 @@ namespace Models
 
             gameStateController.updateDate(time);
         }
-
-
     }
-
 }
