@@ -10,11 +10,12 @@ namespace Models
 
         public CelestialBody CelestialBody
         {
+            get { return celestialBody; }
             set { celestialBody = value; }
         }
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
             lineRenderer = GetComponent<LineRenderer>();
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer)
@@ -26,7 +27,7 @@ namespace Models
             else
             {
                 last100Points = new Vector3[100];
-                Vector3 celestialBodyIntialPostion = celestialBody.getPostion();
+                Vector3 celestialBodyIntialPostion = celestialBody.GetPostion();
                 for (int i = 0; i < last100Points.Length; i++)
                 {
                     last100Points[i] = celestialBodyIntialPostion;
@@ -36,7 +37,7 @@ namespace Models
             }
         }
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Sandbox)
             {
@@ -45,13 +46,17 @@ namespace Models
                     last100Points[i] = last100Points[i - 1];
                 }
 
-                last100Points[0] = celestialBody.getPostion();
+                last100Points[0] = celestialBody.GetPostion();
 
                 lineRenderer.positionCount = last100Points.Length;
                 lineRenderer.SetPositions(last100Points);
             }
         }
 
+        /// <summary>
+        /// Initializes or resets the settings of the LineRenderer component attached to the GameObject.
+        /// </summary>
+        /// <param name="count">The number of positions to set for the LineRenderer.</param>
         public void InitializeLineRenderer(int count)
         {
             // Ensure the lineRenderer component is attached and correctly set up
