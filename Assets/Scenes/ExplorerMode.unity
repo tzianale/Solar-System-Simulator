@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.01609639, g: 0.014628816, b: 0.013830393, a: 1}
+  m_IndirectSpecularColor: {r: 0.016090982, g: 0.01466979, b: 0.013826404, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1078,6 +1078,10 @@ PrefabInstance:
       value: -82
       objectReference: {fileID: 0}
     - target: {fileID: 8836377135195044258, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 34196995}
+    - target: {fileID: 8836377135195044258, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: datePanel
       value: 
       objectReference: {fileID: 1804095601}
@@ -1106,9 +1110,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1804095602}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3360335619342833472, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 946105590}
     - targetCorrespondingSourceObject: {fileID: 3360335619342833472, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 946105594}
@@ -2648,7 +2649,7 @@ RectTransform:
   m_GameObject: {fileID: 344012688}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1735857488}
@@ -2705,8 +2706,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3886,7 +3887,7 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
-  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
+  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 34196995}
 --- !u!135 &469337564
 SphereCollider:
@@ -4330,7 +4331,7 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
-  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
+  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 34196995}
 --- !u!135 &532052287
 SphereCollider:
@@ -5200,7 +5201,7 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
-  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
+  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 34196995}
 --- !u!135 &711106383
 SphereCollider:
@@ -6518,34 +6519,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3986101165301364651, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
   m_PrefabInstance: {fileID: 80201471}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &946105590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 363015448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9a5a089e93c34a4093053459a09a15b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  celestType: 0
-  orbitingCenterPlanetMass: 0
-  velocity: {x: 0, y: 0, z: 0}
-  mass: 0
-  orbitRadius: 0
-  ratioToEarthYear: 1
-  sideRealRotationPeriod: 0
-  semiMajorAxis: 0
-  eccentricity: 0
-  orbitalPeriod: 0
-  inclination: 0
-  longitudeOfAscendingNode: 0
-  argumentOfPerihelion: 0
-  obliquityToOrbit: 0
-  lineRender: {fileID: 0}
-  cameraControl: {fileID: 0}
 --- !u!114 &946105594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6649,7 +6622,7 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
-  lineRender: {fileID: 0}
+  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 0}
 --- !u!135 &952305629
 SphereCollider:
@@ -7424,7 +7397,7 @@ RectTransform:
   m_GameObject: {fileID: 1109744529}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1809987353}
@@ -7481,8 +7454,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7558,7 +7531,7 @@ RectTransform:
   m_GameObject: {fileID: 1148817022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1213010618}
@@ -7615,8 +7588,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7831,7 +7804,7 @@ MonoBehaviour:
   longitudeOfAscendingNode: 49.57854
   argumentOfPerihelion: 336.0408
   obliquityToOrbit: 25.19
-  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
+  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 34196995}
 --- !u!135 &1222205785
 SphereCollider:
@@ -8445,7 +8418,7 @@ RectTransform:
   m_GameObject: {fileID: 1309346653}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 48426481}
@@ -8502,8 +8475,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8659,7 +8632,7 @@ RectTransform:
   m_GameObject: {fileID: 1374894950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 358859270}
@@ -8716,8 +8689,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -9346,7 +9319,7 @@ MonoBehaviour:
   longitudeOfAscendingNode: 48.33167
   argumentOfPerihelion: 77.45645
   obliquityToOrbit: 0.034
-  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
+  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 34196995}
 --- !u!135 &1512896391
 SphereCollider:
@@ -10799,6 +10772,7 @@ MonoBehaviour:
   minuteDropdown: {fileID: 757559310}
   secondDropdown: {fileID: 375215272}
   gameStateController: {fileID: 880853223}
+  cam: {fileID: 34196995}
   datePanel: {fileID: 1804095601}
 --- !u!1 &1809987352
 GameObject:
@@ -11600,7 +11574,7 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
-  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
+  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 34196995}
 --- !u!135 &1918121191
 SphereCollider:
@@ -11735,7 +11709,7 @@ MonoBehaviour:
   longitudeOfAscendingNode: -11.26064
   argumentOfPerihelion: 102.94719
   obliquityToOrbit: 23.44
-  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
+  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 34196995}
 --- !u!135 &1923049640
 SphereCollider:
@@ -12061,7 +12035,7 @@ MonoBehaviour:
   longitudeOfAscendingNode: 76.68069
   argumentOfPerihelion: 131.53297
   obliquityToOrbit: 177.36
-  lineRender: {fileID: 2100000, guid: ec9b3a03cd9cebf4b8122d9aa8436a7a, type: 2}
+  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 34196995}
 --- !u!135 &1996431361
 SphereCollider:

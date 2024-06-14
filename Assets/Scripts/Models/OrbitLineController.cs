@@ -19,7 +19,8 @@ namespace Models
             lineRenderer = GetComponent<LineRenderer>();
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer)
             {
-                Vector3[] orbitPoints = celestialBody.GetOrbitLinePoints();
+
+                Vector3[] orbitPoints = celestialBody.GetExplorerLinePoints();
                 lineRenderer.positionCount = orbitPoints.Length;
                 lineRenderer.SetPositions(orbitPoints);
             }
@@ -49,6 +50,14 @@ namespace Models
 
                 lineRenderer.positionCount = last100Points.Length;
                 lineRenderer.SetPositions(last100Points);
+            }
+        }
+
+        public void UpdateLineWidth(float zoomScale)
+        {
+            if (lineRenderer != null)
+            {
+                lineRenderer.widthMultiplier = Mathf.Lerp(1.0f, 100.0f, zoomScale);
             }
         }
 

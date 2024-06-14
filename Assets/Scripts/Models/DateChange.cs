@@ -19,7 +19,7 @@ public class DateChange : MonoBehaviour
     //private List<Resolution> filteredResolutions = new List<Resolution>(); // List to keep unique resolutions
 
     [SerializeField] private GameStateController gameStateController;
-
+    [SerializeField] private CameraControlV2 cam;
     // Start is called before the first frame update
     private List<String> options = new List<String>();
 
@@ -159,6 +159,7 @@ public class DateChange : MonoBehaviour
     public void closePanel()
     {
         datePanel.SetActive(false);
+        cam.SetKeyboardLock(false);
     }
 
     public void submit()

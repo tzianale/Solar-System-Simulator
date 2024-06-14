@@ -18,6 +18,8 @@ namespace Models
 
         public GameObject datePanel;
 
+        [SerializeField] private CameraControlV2 cam;
+
         private int simulationDirection = 1;
 
         private float scale = 1f;
@@ -179,6 +181,7 @@ namespace Models
 
         public void OpenChangeDatePanel()
         {
+            cam.SetKeyboardLock(true);
             datePanel.SetActive(true);
         }
     }
