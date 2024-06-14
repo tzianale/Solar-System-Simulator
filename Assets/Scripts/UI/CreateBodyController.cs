@@ -7,6 +7,10 @@ using Image = UnityEngine.UI.Image;
 
 namespace UI
 {
+    /// <summary>
+    /// Manages the UI for creating a new celestial body, including input validation
+    /// and interaction with the camera control and planet list manager
+    /// </summary>
     public class CreateBodyController : MonoBehaviour
     {
         [SerializeField] private TMP_InputField inputFieldName;
@@ -68,6 +72,10 @@ namespace UI
             inputField.onEndEdit.AddListener(onEditEnd);
         }
 
+        /// <summary>
+        /// Creates a new celestial body for the simulation (depending on the input fields) and
+        /// adds the generated GameObject to the planet list
+        /// </summary>
         public void CreateNewCelestialBody()
         {
             if (!ValidateInputFields()) return;
@@ -85,6 +93,13 @@ namespace UI
             createBodyPanel.SetActive(false);
         }
 
+        /// <summary>
+        /// Changes the currently selected color to a new value
+        /// </summary>
+        /// 
+        /// <param name="color">
+        /// The new currently selected color
+        /// </param>
         public void OnSelectedColorChange(Color color)
         {
             colorPickerButtonImage.color = color;
@@ -117,11 +132,18 @@ namespace UI
         private void ValidatePositiveNumber(TMP_InputField field, ref bool isValid)
         {
             ValidateField(field, ref isValid);
-            if (float.TryParse(field.text, out float value) && !(value <= 0)) return;
+            if (float.TryParse(field.text, out float value) && value > 0) return;
             field.image.color = _errorColor;
             isValid = false;
         }
 
+        /// <summary>
+        /// Resets the image of an Input Field to white
+        /// </summary>
+        /// 
+        /// <param name="field">
+        /// The input field whose color has to be reset
+        /// </param>
         public void ResetInputColor(TMP_InputField field)
         {
             field.image.color = Color.white;

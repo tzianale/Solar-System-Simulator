@@ -105,11 +105,7 @@ namespace Models
             var planetProperties = UnpackPlanetDataFromCsv(propertiesData);
             var planetDescriptions = UnpackPlanetDescriptionsFromCsv(descriptionsData);
             
-            if (planetSprites.Count != _planetNames.Count)
-            {
-                
-            }
-            else
+            if (planetSprites.Count == _planetNames.Count)
             {
                 for (var i = 0; i < _planetNames.Count; i++)
                 {

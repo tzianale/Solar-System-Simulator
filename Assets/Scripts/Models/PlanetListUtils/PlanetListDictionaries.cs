@@ -58,7 +58,7 @@ namespace Models.PlanetListUtils
                 {
                     "Planet Mass",
                     new TwoObjectContainer<Func<string>, UnityAction<string>>(
-                        () => currentPlanetModel.GetComponent<CelestialBody>().mass
+                        () => currentPlanetModel.GetComponent<CelestialBody>().GetMass()
                             .ToString(FloatStringFormat) + "_Earth masses",
                             
                         updatedData =>
@@ -67,7 +67,7 @@ namespace Models.PlanetListUtils
 
                             if (updatedMass > NoMass)
                             {
-                                currentPlanetModel.GetComponent<CelestialBody>().mass = updatedMass;
+                                currentPlanetModel.GetComponent<CelestialBody>().SetMass(updatedMass);
 
                                 Debug.Log("Changed mass to " + updatedMass);
                             }
@@ -162,7 +162,7 @@ namespace Models.PlanetListUtils
         {
             return new Dictionary<string, Func<string>>
             {
-                {"Current Speed", () => currentPlanetModel.GetComponent<CelestialBody>().velocity.magnitude.ToString(FloatStringFormat)},
+                {"Current Speed", () => currentPlanetModel.GetComponent<CelestialBody>().GetVelocity().magnitude.ToString(FloatStringFormat)},
                 {"Distance to " + star.name , () => (currentPlanetModel.transform.position - star.transform.position).magnitude.ToString(FloatStringFormat)}
             };
         }

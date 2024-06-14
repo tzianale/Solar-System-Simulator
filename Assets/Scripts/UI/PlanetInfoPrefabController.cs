@@ -241,8 +241,8 @@ namespace UI
                 var propertyName = UnknownPropertyText;
                 var propertyValueAndUnit = UnknownPropertyText;
 
-                if (elementIndex < propertiesNamesCount) propertyName = planetPropertiesNames.ElementAt(elementIndex);
-                if (elementIndex < propertiesValuesCount) propertyValueAndUnit = planetPropertiesValues.ElementAt(elementIndex);
+                if (elementIndex < propertiesNamesCount) propertyName = planetPropertiesNames[elementIndex];
+                if (elementIndex < propertiesValuesCount) propertyValueAndUnit = planetPropertiesValues[elementIndex];
 
                 var propertyValueAndUnitSeparated = SeparateValueAndUnit(propertyValueAndUnit);
 

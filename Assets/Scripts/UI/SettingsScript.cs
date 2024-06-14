@@ -3,59 +3,74 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class SettingsScript : MonoBehaviour
+namespace UI
 {
-    public TMP_Dropdown resolutionDropdown;
-    private List<Resolution> filteredResolutions = new List<Resolution>(); // List to keep unique resolutions
-
-    void Start()
+    /// <summary>
+    /// Manages the settings for the game, including resolution and quality settings.
+    /// </summary>
+    public class SettingsScript : MonoBehaviour
     {
-        PopulateResolutions();
-        resolutionDropdown.value = GetCurrentResolutionIndex();
-        resolutionDropdown.RefreshShownValue();
-    }
+        [SerializeField] private TMP_Dropdown resolutionDropdown;
+        private readonly List<Resolution> filteredResolutions = new List<Resolution>(); // List to keep unique resolutions
 
-    void PopulateResolutions()
-    {
-        resolutionDropdown.ClearOptions();
-        List<string> options = new List<string>();
-        Resolution currentResolution = Screen.currentResolution;
-        filteredResolutions.Clear();
-
-        foreach (Resolution res in Screen.resolutions)
+        private void Start()
         {
-            string option = res.width + "x" + res.height;
-            if (!options.Contains(option))
-            {
-                options.Add(option);
-                filteredResolutions.Add(res);
-            }
+            PopulateResolutions();
+            resolutionDropdown.value = GetCurrentResolutionIndex();
+            resolutionDropdown.RefreshShownValue();
         }
 
-        resolutionDropdown.AddOptions(options);
-    }
-
-    int GetCurrentResolutionIndex()
-    {
-        for (int i = 0; i < filteredResolutions.Count; i++)
+        private void PopulateResolutions()
         {
-            if (filteredResolutions[i].width == Screen.currentResolution.width &&
-                filteredResolutions[i].height == Screen.currentResolution.height)
+            resolutionDropdown.ClearOptions();
+            List<string> options = new List<string>();
+            filteredResolutions.Clear();
+
+            foreach (Resolution res in Screen.resolutions)
             {
-                return i;
+                string option = res.width + "x" + res.height;
+                if (!options.Contains(option))
+                {
+                    options.Add(option);
+                    filteredResolutions.Add(res);
+                }
             }
+
+            resolutionDropdown.AddOptions(options);
         }
-        return 0;
+
+        private int GetCurrentResolutionIndex()
+        {
+            for (int i = 0; i < filteredResolutions.Count; i++)
+            {
+                if (filteredResolutions[i].width == Screen.currentResolution.width &&
+                    filteredResolutions[i].height == Screen.currentResolution.height)
+                {
+                    return i;
+                }
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// Sets the screen resolution based on the selected index.
+        /// </summary>
+        /// <param name="resolutionIndex">The index of the resolution to set.</param>
+        public void SetResolution(int resolutionIndex)
+        {
+            Resolution resolution = filteredResolutions[resolutionIndex];
+            Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        }
+
+        /// <summary>
+        /// Sets the quality level of the game graphics.
+        /// </summary>
+        /// <param name="qualityIndex">The index of the quality level to set.</param>
+        public void SetQuality(int qualityIndex)
+        {
+            QualitySettings.SetQualityLevel(qualityIndex);
+        }
     }
 
-    public void SetResolution(int resolutionIndex)
-    {
-        Resolution resolution = filteredResolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-    }
-
-    public void SetQuality(int qualityIndex)
-    {
-        QualitySettings.SetQualityLevel(qualityIndex);
-    }
 }
+

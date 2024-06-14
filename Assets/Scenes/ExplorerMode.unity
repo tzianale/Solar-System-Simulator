@@ -793,6 +793,22 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2306204952292658643, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306204952292658643, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetTimeScale
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306204952292658643, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Models.GameStateController, Scripts
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306204952292658643, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3360335619342833472, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -803,7 +819,7 @@ PrefabInstance:
       objectReference: {fileID: 946105594}
     - target: {fileID: 3436642345862159900, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: closePanel
+      value: ClosePanel
       objectReference: {fileID: 0}
     - target: {fileID: 3436642345862159900, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -993,6 +1009,14 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6406110210717406640, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayPause
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406110210717406640, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Models.GameStateController, Scripts
+      objectReference: {fileID: 0}
     - target: {fileID: 6706962749656561217, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1023,7 +1047,7 @@ PrefabInstance:
       objectReference: {fileID: 946105594}
     - target: {fileID: 6736977528716640127, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: escapeGame
+      value: EscapeGame
       objectReference: {fileID: 0}
     - target: {fileID: 6736977528716640127, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -3874,7 +3898,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 1
-  orbitingCenterPlanetMass: 1.989e+30
   velocity: {x: 0, y: 0, z: 5}
   mass: 1.89813e+27
   orbitRadius: 10400
@@ -4317,7 +4340,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 1
-  orbitingCenterPlanetMass: 1.989e+30
   velocity: {x: 0, y: 0, z: 2.5}
   mass: 5.6832e+26
   orbitRadius: 19140
@@ -5186,7 +5208,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 1
-  orbitingCenterPlanetMass: 1.989e+30
   velocity: {x: 0, y: 0, z: 21.3}
   mass: 8.6811e+25
   orbitRadius: 38340
@@ -5903,7 +5924,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 880853223}
         m_TargetAssemblyTypeName: Models.GameStateController, Scripts
-        m_MethodName: switchDirectionToForward
+        m_MethodName: SwitchDirectionToForward
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6035,8 +6056,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1804095606}
-        m_TargetAssemblyTypeName: DateChange, Scripts
-        m_MethodName: closePanel
+        m_TargetAssemblyTypeName: Models.DateChange, Scripts
+        m_MethodName: ClosePanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6516,6 +6537,25 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3986101165301364651, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
   m_PrefabInstance: {fileID: 80201471}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &946105590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363015448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9a5a089e93c34a4093053459a09a15b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  celestType: 0
+  velocity: {x: 0, y: 0, z: 0}
+  mass: 0
+  orbitRadius: 0
+  ratioToEarthYear: 1
+  lineRender: {fileID: 0}
+  cameraControl: {fileID: 0}
 --- !u!114 &946105594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6606,7 +6646,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 0
-  orbitingCenterPlanetMass: 0
   velocity: {x: 0, y: 0, z: 0}
   mass: 1.989e+30
   orbitRadius: 0
@@ -7787,7 +7826,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 1
-  orbitingCenterPlanetMass: 1.989e+30
   velocity: {x: 0, y: 0, z: 9}
   mass: 6.4169e+23
   orbitRadius: 3040
@@ -8954,8 +8992,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1804095606}
-        m_TargetAssemblyTypeName: DateChange, Scripts
-        m_MethodName: submit
+        m_TargetAssemblyTypeName: Models.DateChange, Scripts
+        m_MethodName: Submit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9301,7 +9339,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 1
-  orbitingCenterPlanetMass: 1.989e+30
   velocity: {x: 0, y: 0, z: 12}
   mass: 3.301e+23
   orbitRadius: 774
@@ -10569,7 +10606,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 880853223}
         m_TargetAssemblyTypeName: Models.GameStateController, Scripts
-        m_MethodName: switchDirectionToReverse
+        m_MethodName: SwitchDirectionToReverse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11555,7 +11592,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 1
-  orbitingCenterPlanetMass: 1.989e+30
   velocity: {x: 0, y: 0, z: 23.5}
   mass: 1.02409e+26
   orbitRadius: 60360
@@ -11689,7 +11725,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 1
-  orbitingCenterPlanetMass: 1.989e+30
   velocity: {x: 0, y: 0, z: 11.2}
   mass: 5.972e+24
   orbitRadius: 2000
@@ -12014,7 +12049,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   celestType: 1
-  orbitingCenterPlanetMass: 1.989e+30
   velocity: {x: 0, y: 0, z: 10.4}
   mass: 4.8673e+24
   orbitRadius: 1446

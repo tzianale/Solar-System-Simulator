@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -46,14 +47,14 @@ namespace Models
         /// </param>
         public override void SetText(SystemObject[] text)
         {
-            var stringToDisplay = "";
+            StringBuilder stringBuilder = new StringBuilder();
 
             foreach (var stringPiece in text)
             {
-                stringToDisplay += stringPiece.ToString();
+                stringBuilder.Append(stringPiece.ToString()); ;
             }
 
-            planetPropertyText.text = stringToDisplay;
+            planetPropertyText.text = stringBuilder.ToString();
         }
 
         /// <summary>

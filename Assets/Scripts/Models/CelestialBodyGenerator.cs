@@ -18,18 +18,18 @@ namespace Models
         private const float SunEmissionIntensity = 150.0f;
 
         /// <summary>
-        /// Creates a new GameObject representing a celestial body.
+        /// Creates a new GameObject representing a celestial body and configures its properties.
         /// </summary>
-        /// <param name="name">The name of the celestial body.</param>
-        /// <param name="type">The type of the celestial body.</param>
-        /// <param name="position">The position of the celestial body in the simulation.</param>
-        /// <param name="mass">The mass of the celestial body.</param>
-        /// <param name="diameter">The diameter of the celestial body.</param>
+        /// <param name="name">The name of the celestial body. Must not be null or empty.</param>
+        /// <param name="type">The type of the celestial body (e.g., Planet, Sun).</param>
+        /// <param name="position">The position of the celestial body in space.</param>
+        /// <param name="mass">The mass of the celestial body. Must be greater than zero.</param>
+        /// <param name="diameter">The diameter of the celestial body. Must be greater than zero.</param>
         /// <param name="velocity">The velocity of the celestial body.</param>
         /// <param name="color">The color of the celestial body.</param>
-        /// <returns>A new GameObject representing the celestial body.</returns>
+        /// <returns>The created GameObject representing the celestial body.</returns>
         /// <exception cref="ArgumentException">
-        /// Thrown when the name is null or empty, or when mass or diameter are less than or equal to zero.
+        /// Thrown if the name is null or empty, or if mass or diameter are less than or equal to zero.
         /// </exception>
         public static GameObject CreateNewCelestialBodyGameObject(string name, CelestialBodyType type, Vector3 position, float mass, float diameter, Vector3 velocity, Color color)
         {
@@ -70,7 +70,7 @@ namespace Models
             return gameObject;
         }
 
-        private static CelestialBody AddNewCelestialBodyToGameObject(GameObject gameObject,
+        private static void AddNewCelestialBodyToGameObject(GameObject gameObject,
             CelestialBodyType type, Vector3 velocity, float mass)
         {
             CelestialBody newBody = gameObject.AddComponent<CelestialBody>();
@@ -78,7 +78,7 @@ namespace Models
             newBody.SetMass(mass);
             newBody.SetVelocity(velocity);
             newBody.SetCelestialBodyType(type);
-            List<CelestialBody> bodies = newBody.GetCelestialBodies() ?? new List<CelestialBody>(FindObjectsOfType<CelestialBody>());;
+            List<CelestialBody> bodies = newBody.GetCelestialBodies() ?? new List<CelestialBody>(FindObjectsOfType<CelestialBody>());
 
             foreach (CelestialBody body in bodies)
             {

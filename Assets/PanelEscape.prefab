@@ -394,7 +394,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6749008947783630298}
         m_TargetAssemblyTypeName: EscapeScript, Assembly-CSharp
-        m_MethodName: closePanel
+        m_MethodName: ClosePanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -619,7 +619,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2841205768092547880}
         m_TargetAssemblyTypeName: EscapeScript, Assembly-CSharp
-        m_MethodName: escapeGame
+        m_MethodName: EscapeGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

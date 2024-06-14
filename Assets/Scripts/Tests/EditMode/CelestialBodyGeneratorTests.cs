@@ -39,9 +39,9 @@ namespace Tests.EditMode
             CelestialBody createdBody = createdObject.GetComponent<CelestialBody>();
             Renderer createdBodyRenderer = createdObject.GetComponent<Renderer>();
             Assert.IsNotNull(createdBody);
-            Assert.AreEqual(expectedMass, createdBody.mass);
-            Assert.AreEqual(expectedVelocity, createdBody.velocity);
-            Assert.AreEqual(expectedType, createdBody.celestType);
+            Assert.AreEqual(expectedMass, createdBody.GetMass());
+            Assert.AreEqual(expectedVelocity, createdBody.GetVelocity());
+            Assert.AreEqual(expectedType, createdBody.GetCelestialBodyType());
             Assert.AreEqual(expectedColor, createdBodyRenderer.sharedMaterial.color);
         }
 
@@ -49,7 +49,7 @@ namespace Tests.EditMode
         public void CreateNewCelestialBodyGameObject_WithNullName_ThrowsArgumentException()
         {
             Assert.Throws<ArgumentException>(() =>
-                CelestialBodyGenerator.CreateNewCelestialBodyGameObject(null,CelestialBodyType.Planet, new Vector3(0, 1, 0), 1.0f, 1000f, new Vector3(0, 0, 0), Color.red),
+                CelestialBodyGenerator.CreateNewCelestialBodyGameObject(null, CelestialBodyType.Planet, new Vector3(0, 1, 0), 1.0f, 1000f, new Vector3(0, 0, 0), Color.red),
                 "Expected ArgumentException for null name not thrown."
             );
         }

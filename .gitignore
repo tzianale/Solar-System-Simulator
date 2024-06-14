@@ -75,3 +75,6 @@ crashlytics-build.properties
 /CodeCoverage/
 /ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json/
 /ProjectSettings/Packages/com.unity.testtools.codecoverage/
+.idea/.idea.Solar-System-Simulator.dir/.idea/encodings.xml
+.idea/.idea.Solar-System-Simulator.dir/.idea/indexLayout.xml
+.idea/.idea.Solar-System-Simulator.dir/.idea/vcs.xml
