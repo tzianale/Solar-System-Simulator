@@ -27,7 +27,7 @@ namespace Models
             else
             {
                 last100Points = new Vector3[100];
-                Vector3 celestialBodyIntialPostion = celestialBody.GetPostion();
+                Vector3 celestialBodyIntialPostion = celestialBody.GetPosition();
                 for (int i = 0; i < last100Points.Length; i++)
                 {
                     last100Points[i] = celestialBodyIntialPostion;
@@ -46,7 +46,7 @@ namespace Models
                     last100Points[i] = last100Points[i - 1];
                 }
 
-                last100Points[0] = celestialBody.GetPostion();
+                last100Points[0] = celestialBody.GetPosition();
 
                 lineRenderer.positionCount = last100Points.Length;
                 lineRenderer.SetPositions(last100Points);
