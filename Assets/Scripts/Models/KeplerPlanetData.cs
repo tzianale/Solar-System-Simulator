@@ -4,12 +4,21 @@ using UnityEngine;
 
 namespace Models
 {
+    /// <summary>
+    /// Represents Keplerian orbital elements and rates for a planet.
+    /// </summary>
     public class KeplerPlanetData
     {
         public float[] Elements { get; set; }
         public float[] Rates { get; set; }
         public float[] ExtraTerms { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KeplerPlanetData"/> class.
+        /// </summary>
+        /// <param name="elements">The orbital elements of the planet.</param>
+        /// <param name="rates">The rates of change of the orbital elements.</param>
+        /// <param name="extraTerms">Additional terms for more accurate calculations (optional).</param>
         public KeplerPlanetData(float[] elements, float[] rates, float[] extraTerms = null)
         {
             Elements = elements;
@@ -18,9 +27,14 @@ namespace Models
         }
     }
 
-
+    /// <summary>
+    /// Static class containing a database of planetary data.
+    /// </summary>
     public static class PlanetDatabase
     {
+        /// <summary>
+        /// Dictionary containing the Keplerian data for all planets.
+        /// </summary>
         public static readonly Dictionary<string, KeplerPlanetData> Planets = new Dictionary<string, KeplerPlanetData>
     {
         {
@@ -84,6 +98,9 @@ namespace Models
         }
     };
 
+        /// <summary>
+        /// Prints the keys of the planets dictionary to the console.
+        /// </summary>
         public static void PrintKeys()
         {
             foreach (var key in Planets.Keys)
