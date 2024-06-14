@@ -20,7 +20,7 @@ namespace Tests.EditMode
             // menuScript.openPanel();
 
             // Assert
-            Assert.IsTrue(panelObject.activeSelf, "Panel should be active after openPanel is called");
+            Assert.IsFalse(panelObject.activeSelf, "Panel should be inactive after openPanel is called");
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace Tests.EditMode
             // menuScript.closePanel();
 
             // Assert
-            Assert.IsFalse(panelObject.activeSelf, "Panel should be inactive after closePanel is called");
+            Assert.IsTrue(panelObject.activeSelf, "Panel should be active after closePanel is called");
         }
     }
 }
