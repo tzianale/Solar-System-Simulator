@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
@@ -139,12 +141,9 @@ namespace Models
         
         private void CheckForKeyPresses()
         {
-            foreach (var keyMapping in _keyMappings)
+            foreach (var keyMapping in _keyMappings.Where(keyValuePair => Input.GetKeyDown(keyValuePair.Key)))
             {
-                if (Input.GetKeyDown(keyMapping.Key))
-                {
-                    keyMapping.Value.Invoke();
-                }
+                keyMapping.Value.Invoke();
             }
         }
 
