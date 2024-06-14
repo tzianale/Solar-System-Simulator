@@ -228,16 +228,6 @@ namespace Models
 
             float horizontalInput = delta.x * RotationSpeed * 0.1f;
             float verticalInput = delta.y * RotationSpeed * 0.1f;
-
-            Debug.Log("Start Log");
-            Debug.Log("X: " + customDeltaX);
-            Debug.Log("Y: " + customDeltaY);
-            
-            Debug.Log(customDeltaX != 0);
-            Debug.Log(customDeltaY != 0);
-
-            Debug.Log(!FloatEqualToValue(customDeltaX, PositionZero, PositionTolerance));
-            Debug.Log(!FloatEqualToValue(customDeltaY, PositionZero, PositionTolerance));
             
             if (!FloatEqualToValue(customDeltaX, PositionZero, PositionTolerance)
                 || 
