@@ -41,8 +41,8 @@ namespace Models
         private void Start()
         {
             PopulateMonth();
-            fillHour();
-            fillMinuteAndSecond();
+            FillHour();
+            FillMinuteAndSecond();
         }
 
         // Update is called once per frame
@@ -80,7 +80,7 @@ namespace Models
             monthDropdown.AddOptions(options);
         }
 
-        private void fillHour()
+        private void FillHour()
         {
             hourDropdown.ClearOptions();
             options.Clear();
@@ -92,7 +92,7 @@ namespace Models
             hourDropdown.AddOptions(options);
         }
 
-        private void fillMinuteAndSecond()
+        private void FillMinuteAndSecond()
         {
             minuteDropdown.ClearOptions();
             secondDropdown.ClearOptions();
@@ -127,11 +127,11 @@ namespace Models
         {
             String value = yearInputField.GetComponent<InputField>().text;
 
-            int year = checkYear(value);
+            int year = CheckYear(value);
             return year;
         }
 
-        private int checkYear(String year)
+        private int CheckYear(String year)
         {
             int val;
             try
@@ -141,12 +141,12 @@ namespace Models
             catch
             {
                 val = DateTime.UtcNow.Year;
-                setYearTextField(DateTime.UtcNow.Year.ToString());
+                SetYearTextField(DateTime.UtcNow.Year.ToString());
             }
-            return checkLimitYear(val);
+            return CheckLimitYear(val);
         }
 
-        private int checkLimitYear(int year)
+        private int CheckLimitYear(int year)
         {
             if (year <= 1)
             {
@@ -159,7 +159,7 @@ namespace Models
             return year;
         }
 
-        private void setYearTextField(String year)
+        private void SetYearTextField(String year)
         {
             yearInputField.GetComponent<InputField>().text = year;
         }
@@ -167,7 +167,7 @@ namespace Models
         /// <summary>
         /// Closes the date panel.
         /// </summary>
-        public void closePanel()
+        public void ClosePanel()
         {
             datePanel.SetActive(false);
         }
@@ -175,10 +175,10 @@ namespace Models
         /// <summary>
         /// Submits the selected date and updates the game state.
         /// </summary>
-        public void submit()
+        public void Submit()
         {
-            DateTime time = new DateTime(
-                checkYear(yearInputField.text),
+            DateTime time = new(
+                CheckYear(yearInputField.text),
                 monthDropdown.value + actualValue,
                 dayDropdown.value + actualValue,
                 hourDropdown.value,
