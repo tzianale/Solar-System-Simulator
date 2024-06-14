@@ -1,23 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeplerPlanetData
-{
-    public float[] Elements { get; set; }
-    public float[] Rates { get; set; }
-    public float[] ExtraTerms { get; set; }
 
-    public KeplerPlanetData(float[] elements, float[] rates, float[] extraTerms = null)
+namespace Models
+{
+    public class KeplerPlanetData
     {
-        Elements = elements;
-        Rates = rates;
-        ExtraTerms = extraTerms ?? new float[0];
-    }
-}
+        public float[] Elements { get; set; }
+        public float[] Rates { get; set; }
+        public float[] ExtraTerms { get; set; }
 
-public static class PlanetDatabase
-{
-    public static Dictionary<string, KeplerPlanetData> Planets = new Dictionary<string, KeplerPlanetData>
+        public KeplerPlanetData(float[] elements, float[] rates, float[] extraTerms = null)
+        {
+            Elements = elements;
+            Rates = rates;
+            ExtraTerms = extraTerms ?? new float[0];
+        }
+    }
+
+
+    public static class PlanetDatabase
+    {
+        public static readonly Dictionary<string, KeplerPlanetData> Planets = new Dictionary<string, KeplerPlanetData>
     {
         {
             "Mercury", new KeplerPlanetData(
@@ -80,12 +84,14 @@ public static class PlanetDatabase
         }
     };
 
-    public static void PrintKeys()
-    {
-        foreach (var key in Planets.Keys)
+        public static void PrintKeys()
         {
-            Debug.Log("Planet Key: " + key);
+            foreach (var key in Planets.Keys)
+            {
+                Debug.Log("Planet Key: " + key);
+            }
         }
     }
+
 }
 
