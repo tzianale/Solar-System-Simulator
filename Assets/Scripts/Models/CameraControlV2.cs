@@ -154,9 +154,7 @@ namespace Models
         
         private void HandlePan()
         {
-            var isLeftMouseButtonDown = Input.GetMouseButtonDown(LeftMouseButton);
-            
-            if (isLeftMouseButtonDown)
+            if (Input.GetMouseButtonDown(LeftMouseButton))
             {
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
@@ -170,7 +168,7 @@ namespace Models
                 }
             }
 
-            if (isLeftMouseButtonDown && _panMode)
+            if (Input.GetMouseButton(LeftMouseButton) && _panMode)
             {
                 Vector3 currentMousePosition = Input.mousePosition;
 
