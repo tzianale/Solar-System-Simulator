@@ -6,7 +6,7 @@ namespace Models
 {
     public class CelestialBody : MonoBehaviour
     {
-        private CelestialBodyType celestType;
+        [SerializeField] private CelestialBodyType celestType;
         public Vector3 velocity;
         public float mass;
         public float orbitRadius;
@@ -18,7 +18,8 @@ namespace Models
         public float orbitalPeriod;
         private readonly float obliquityToOrbit;
 
-        private readonly Material lineRender;
+        //Aleksander hat dieses rausgenommen!!
+        public Material lineRender;
         private LineRenderer lineRenderer;
         public CameraControlV2 cameraControl;
 
@@ -293,7 +294,7 @@ namespace Models
         }
 
         //getter and setter methods
-        public Vector3 GetPostion()
+        public Vector3 GetPosition()
         {
             return transform.position;
         }
