@@ -1091,7 +1091,7 @@ PrefabInstance:
       objectReference: {fileID: 351833388}
     - target: {fileID: 8836377135195044258, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
       propertyPath: toggleJ2000Time
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3472281657163508012, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
@@ -3887,7 +3887,6 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
-  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 34196995}
 --- !u!135 &469337564
 SphereCollider:
@@ -4331,7 +4330,6 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
-  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 34196995}
 --- !u!135 &532052287
 SphereCollider:
@@ -5201,7 +5199,6 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
-  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 34196995}
 --- !u!135 &711106383
 SphereCollider:
@@ -6622,7 +6619,6 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
-  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 0}
 --- !u!135 &952305629
 SphereCollider:
@@ -7804,7 +7800,6 @@ MonoBehaviour:
   longitudeOfAscendingNode: 49.57854
   argumentOfPerihelion: 336.0408
   obliquityToOrbit: 25.19
-  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 34196995}
 --- !u!135 &1222205785
 SphereCollider:
@@ -9319,7 +9314,6 @@ MonoBehaviour:
   longitudeOfAscendingNode: 48.33167
   argumentOfPerihelion: 77.45645
   obliquityToOrbit: 0.034
-  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 34196995}
 --- !u!135 &1512896391
 SphereCollider:
@@ -11574,7 +11568,6 @@ MonoBehaviour:
   longitudeOfAscendingNode: 0
   argumentOfPerihelion: 0
   obliquityToOrbit: 0
-  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 34196995}
 --- !u!135 &1918121191
 SphereCollider:
@@ -11709,7 +11702,6 @@ MonoBehaviour:
   longitudeOfAscendingNode: -11.26064
   argumentOfPerihelion: 102.94719
   obliquityToOrbit: 23.44
-  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 34196995}
 --- !u!135 &1923049640
 SphereCollider:
@@ -12035,7 +12027,6 @@ MonoBehaviour:
   longitudeOfAscendingNode: 76.68069
   argumentOfPerihelion: 131.53297
   obliquityToOrbit: 177.36
-  lineRenderMaterial: {fileID: 0}
   cameraControl: {fileID: 34196995}
 --- !u!135 &1996431361
 SphereCollider:

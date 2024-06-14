@@ -24,10 +24,6 @@ namespace Models
 
         private float scale = 1f;
 
-        // DEBUGGING
-        public bool toggleJ2000Time = false;
-
-
         /// <summary>
         /// Get acutal Data and color all the buttons and the speedtext correctly.
         /// </summary>
