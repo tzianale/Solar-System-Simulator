@@ -88,8 +88,8 @@ namespace Models
             else if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer)
             {
                 scale = timeScale;
-                ColorSpeedText();
             }
+            ColorSpeedText();
         }
 
         private DateTime ComputeDateByCurrentDate(double daysPassed)
