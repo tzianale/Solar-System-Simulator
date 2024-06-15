@@ -575,6 +575,10 @@ PrefabInstance:
       propertyPath: m_ReferenceResolution.y
       value: 1080
       objectReference: {fileID: 0}
+    - target: {fileID: 8836377135195044258, guid: 7adad7bd41a408849ac5800db98f22cf, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 791345435}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
