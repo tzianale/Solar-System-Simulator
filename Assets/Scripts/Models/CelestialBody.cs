@@ -291,6 +291,11 @@ namespace Models
             return transform.position;
         }
 
+        public void SetOrbitalPeriod(float period) // Add this method
+        {
+            orbitalPeriod = period;
+        }
+
         public CelestialBodyType GetCelestialBodyType() => celestType;
         public void SetCelestialBodyType(CelestialBodyType type) => celestType = type;
 
