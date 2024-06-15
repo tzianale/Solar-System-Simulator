@@ -20,8 +20,9 @@ namespace Utils
         /// <returns>A list of lists of strings, where each inner list represents a row of data from the CSV file</returns>
         public static List<List<string>> ReadCsv(string path)
         {
+            var basePath = Path.Combine(Application.streamingAssetsPath, path);
             var table = new List<List<string>>();
-            using var reader = new StreamReader(path);
+            using var reader = new StreamReader(basePath);
             
             while (!reader.EndOfStream)
             {

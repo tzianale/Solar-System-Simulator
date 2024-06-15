@@ -35,8 +35,8 @@ namespace Models
             PlanetDescription
         }
 
-        private const string PropertiesPath = "Assets/Data/PlanetProperties.csv";
-        private const string DescriptionsPath = "Assets/Data/PlanetDescriptions.csv";
+        private const string PropertiesPath = "PlanetProperties.csv";
+        private const string DescriptionsPath = "PlanetDescriptions.csv";
 
         private const string MoonDetector = "Rocky Moon";
         private const string DwarfDetector = "Dwarf Planet";
