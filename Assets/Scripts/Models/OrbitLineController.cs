@@ -20,7 +20,6 @@ namespace Models
             lineRenderer = GetComponent<LineRenderer>();
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer)
             {
-
                 Vector3[] orbitPoints = celestialBody.GetExplorerLinePoints();
                 lineRenderer.positionCount = orbitPoints.Length;
                 lineRenderer.SetPositions(orbitPoints);
@@ -54,6 +53,7 @@ namespace Models
             }
         }
 
+        // TODO DOCS
         public void UpdateLineWidth(float zoomScale)
         {
             if (lineRenderer != null)

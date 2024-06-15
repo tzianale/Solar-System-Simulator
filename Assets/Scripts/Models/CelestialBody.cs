@@ -17,11 +17,11 @@ namespace Models
         [SerializeField] private float orbitRadius;
         [SerializeField] private float ratioToEarthYear = 1;
         private List<CelestialBody> celestialBodies;
-        private float sideRealRotationPeriod;
+        [SerializeField] private float sideRealRotationPeriod;
 
         // Kepler Parameters
-        private readonly float orbitalPeriod;
-        private readonly float obliquityToOrbit;
+        [SerializeField] private float orbitalPeriod;
+        [SerializeField] private float obliquityToOrbit;
 
         public CameraControlV2 cameraControl;
 
@@ -32,13 +32,18 @@ namespace Models
         {
             celestialBodies = new List<CelestialBody>(FindObjectsOfType<CelestialBody>());
             transform.Rotate(Vector3.right, obliquityToOrbit);
-            sideRealRotationPeriod = 360f / sideRealRotationPeriod;
+            
 
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer && celestType != CelestialBodyType.Sun)
             {
+                sideRealRotationPeriod = 360f / sideRealRotationPeriod;
                 UpdatePositionUsingAccurateKepler();
-                UpdateRotation(true, (float)GameStateController.explorerModeDay);
+                UpdateRotation(true, (float)GameStateController.GetExplorerModeDay());
                 transform.Rotate(Vector3.up, 80f, Space.Self);
+            } else
+            {
+                // Multiply the rotation period by a factor, so planets rotate in sandbox mode visibly, but not realisticly.
+                sideRealRotationPeriod = sideRealRotationPeriod * 36;
             }
 
             InitializeOrbitLine(transform);
@@ -62,36 +67,28 @@ namespace Models
         private void UpdateSandboxMode()
         {
             foreach (CelestialBody planet in celestialBodies)
-                    {
-                        if (planet != this)
-                        {
-                            UpdateVelocity(planet);
-                            
-                        }
-                    }
+            {
+                if (planet != this)
+                {
+                    UpdateVelocity(planet);
+        
+                }
+            }
 
-                    UpdatePosition();
-                    UpdateRotation();
-                    UpdateOrbitalLineWidth();
+            UpdatePosition();
+            UpdateRotation();
+            UpdateOrbitalLineWidth();
         }
 
         private void UpdateExplorerMode()
         {
-            var currentExplorerTimeStep = (float)GameStateController.currentExplorerTimeStep;
-                    if (celestType != CelestialBodyType.Sun)
-                    {
-                        UpdatePositionUsingAccurateKepler();
-                        UpdateRotation(true, (float)GameStateController.currentExplorerTimeStep);
-                        UpdateOrbitalLineWidth();
-                    }
+            if (celestType != CelestialBodyType.Sun)
+            {
+                UpdatePositionUsingAccurateKepler();
+                UpdateRotation(true, (float)GameStateController.GetCurrentExplorerTimeStep());
+                UpdateOrbitalLineWidth();
+            }
         }
-
-        private void UpdateLineRenderer()
-        {
-            float zoomScale = cameraControl.GetZoomScale();
-            lineRenderer.widthMultiplier = Mathf.Lerp(1.0f, 100.0f, zoomScale);
-        }
-
 
         private void UpdateVelocity(CelestialBody planet)
         {
@@ -112,7 +109,6 @@ namespace Models
 
             if (isExplorerMode)
             {
-
                 transform.Rotate(Vector3.up, -sideRealRotationPeriod * currentExplorerTimeStep * 24, Space.Self);
             }
             else
@@ -293,20 +289,6 @@ namespace Models
         public Vector3 GetPosition()
         {
             return transform.position;
-        }
-        public Vector3[] GetOrbitLinePoints()
-        {
-            int pointsLentgth = 360;
-            Vector3[] points = new Vector3[pointsLentgth];
-
-            for (int i = 0; i < pointsLentgth; i++)
-            {
-                float x = (float)Math.Cos(2 * Math.PI / pointsLentgth * i) * orbitRadius;
-                float z = (float)Math.Sin(2 * Math.PI / pointsLentgth * i) * orbitRadius;
-                points[i] = new Vector3(x, 0, z);
-            }
-
-            return points;
         }
 
         public CelestialBodyType GetCelestialBodyType() => celestType;

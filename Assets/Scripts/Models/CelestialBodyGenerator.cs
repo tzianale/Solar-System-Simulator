@@ -103,8 +103,6 @@ namespace Models
             {
                 Debug.LogError("camHolder object not found.");
             }
-
-            return newBody;
         }
     }
 }

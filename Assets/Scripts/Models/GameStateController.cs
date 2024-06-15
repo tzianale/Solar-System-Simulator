@@ -9,12 +9,15 @@ namespace Models
     public class GameStateController : MonoBehaviour
     {
         private static bool isPaused = false;
-        private static double explorerModeDay;
+
+        public static double explorerModeDay;
+
         [SerializeField] private TextMeshProUGUI dayText;
         [SerializeField] private TextMeshProUGUI simulationSpeedText;
         [SerializeField] private Slider simulationSpeedSlider;
         [SerializeField] private Toggle realTimeToggle;
-        private static float currentExplorerTimeStep;
+
+        public static float currentExplorerTimeStep;
 
         [SerializeField] private GameObject datePanel;
 
