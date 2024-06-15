@@ -394,5 +394,32 @@ namespace Models
         {
             return Math.Abs(floatToCompare - targetValue) < tolerance;
         }
+
+        public void SetSun(GameObject sun)
+        {
+            this.sun = sun;
+        }
+
+        public void SetCamera(Camera cam)
+        {
+            this.cam = cam;
+        }
+
+        public void SetCamHolder(GameObject camHolder)
+        {
+            this.camHolder = camHolder;
+        }
+
+        public void SetNeptune(GameObject neptune)
+        {
+            this.neptune = neptune;
+        }
+
+        public void SetFollowTarget(Transform target)
+        {
+            _followModeActive = true;
+            _followTarget = target;
+        }
+
     }
 }
