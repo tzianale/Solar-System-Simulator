@@ -57,10 +57,6 @@ namespace Models
             planetPropertyMeasurementUnit.onEndEdit.AddListener(listener);
         }
 
-
-        /// <summary>
-        /// Called at the start of the program, sets up listeners for the Value Input Field
-        /// </summary>
         private void Start()
         {
             planetPropertyValue.onSelect.AddListener(_ => IsBeingEdited = true);
@@ -85,28 +81,11 @@ namespace Models
             SetValue(text[(int) DataIndexes.PropertyValue].ToString());
             SetUnit(text[(int) DataIndexes.PropertyUnit].ToString());
         }
-        
-        
-        /// <summary>
-        /// Allows external scripts to edit the text inside the InputField by code
-        /// </summary>
-        /// 
-        /// <param name="value">
-        /// The new script that should be stored in the InputField
-        /// </param>
+
         private void SetValue(string value)
         {
             planetPropertyValue.text = value;
         }
-        
-        
-        /// <summary>
-        /// Allows external scripts to edit the text inside the InputField by code
-        /// </summary>
-        /// 
-        /// <param name="text">
-        /// The new script that should be stored in the InputField
-        /// </param>
         private void SetUnit(string text)
         {
             text ??= "";

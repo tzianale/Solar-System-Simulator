@@ -8,7 +8,6 @@ namespace Models
     /// Represents a celestial body in the simulation, handling its physical properties, 
     /// orbital mechanics, and interactions with other celestial bodies.
     /// </summary>
-
     public class CelestialBody : MonoBehaviour
     {
         [SerializeField] private CelestialBodyType celestType;

@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 namespace Models
 {
+    /// <summary>
+    /// Controls the gamestate, including simulation time and speed, and handles UI updates.
+    /// </summary>
     public class GameStateController : MonoBehaviour
     {
         private static bool isPaused = false;
@@ -37,20 +40,12 @@ namespace Models
         public void SetRealTimeToggle(Toggle value) => realTimeToggle = value;
         public static float GetCurrentExplorerTimeStep() => currentExplorerTimeStep;
 
-        /// <summary>
-        /// Get acutal Data and color all the buttons and the speedtext correctly.
-        /// </summary>
         private void Start()
         {
             UpdateDate(DateTime.UtcNow);
             ColorSpeedText();
             SwitchDirectionToForward();
         }
-
-        /// <summary>
-        /// Check which date mode was choosen. By Real Time the simulation will be simulated like real time.
-        /// Else the speed which the user have choosen will be used!
-        /// </summary>
         private void FixedUpdate()
         {
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer && !isPaused)
@@ -78,7 +73,10 @@ namespace Models
             ExecuteColoring("Play / Pause", 255, isPaused ? 0 : 255, isPaused ? 0 : 255);
         }
 
-
+        /// <summary>
+        /// Sets the time scale for the simulation.
+        /// </summary>
+        /// <param name="timeScale">The time scale to set.</param>
         public void SetTimeScale(float timeScale)
         {
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Sandbox && Mathf.Abs(Time.timeScale) > epsilon)
@@ -131,6 +129,11 @@ namespace Models
             text.color = new Color(r, g, b);
         }
 
+        /// <summary>
+        /// Calculates the Julian centuries for a given date.
+        /// </summary>
+        /// <param name="date">The date to calculate for.</param>
+        /// <returns>The Julian centuries.</returns>
         public double CalculateJulianCenturies(DateTime date)
         {
             double JD = CalculateJulianDate(date);
@@ -154,6 +157,10 @@ namespace Models
             return JD + (date.Hour + date.Minute / 60.0 + date.Second / 3600.0) / 24.0;
         }
 
+        /// <summary>
+        /// Updates the current date in the explorer mode.
+        /// </summary>
+        /// <param name="time">The date and time to set.</param>
         public void UpdateDate(DateTime time)
         {
             double T = CalculateJulianCenturies(time);
@@ -191,6 +198,9 @@ namespace Models
             GameObject.Find(buttonName).GetComponent<Image>().color = new Color(r, g, b);
         }
 
+        /// <summary>
+        /// Opens the change date panel and locks the camera controls.
+        /// </summary>
         public void OpenChangeDatePanel()
         {
             cam.SetKeyboardLock(true);
