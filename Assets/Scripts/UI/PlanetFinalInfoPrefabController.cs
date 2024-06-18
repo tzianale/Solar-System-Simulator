@@ -25,18 +25,6 @@ namespace UI
             planetDescriptionContainer.SetText(planetDescription);
         }
 
-        /// <summary>
-        /// Overrides the base method in class PlanetInfoPrefabController.
-        /// Generates Text Fields with a given property and returns the GameObject containing the information.
-        /// </summary>
-        /// 
-        /// <param name="propertyName">The Name of the property to be initialised</param>
-        /// <param name="propertyValue">The Value of the property to be initialised</param>
-        /// <param name="measurementUnit">The Unit of the property to be initialised</param> 
-        /// 
-        /// <returns>
-        /// A GameObject containing the information.
-        /// </returns>
         private protected override GameObject GeneratePropertyDependingOnSubClass(string propertyName,
             string propertyValue, string measurementUnit)
         {

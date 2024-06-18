@@ -134,10 +134,6 @@ namespace UI
             }
         }
 
-        /// <summary>
-        /// When called checks if the currently active tab corresponds to the planet of the Element.
-        /// If so, the tab will be closed, else nothing will happen
-        /// </summary>
         private void CloseThisTab()
         {
             if (_currentlyActiveTab.GetValue() == _planetInfoTab)
@@ -146,13 +142,6 @@ namespace UI
             } 
         }
 
-        /// <summary>
-        /// Closes the info tab provided in the parameters and sets the currently active tab Wrapper to null
-        /// </summary>
-        /// 
-        /// <param name="tabToClose">
-        /// The tab to be closed
-        /// </param>
         private void CloseTab(GameObject tabToClose)
         {
             tabToClose.SetActive(false);
@@ -164,14 +153,6 @@ namespace UI
             }
         }
 
-        /// <summary>
-        /// Closes the tab that is currently open. If no tab is found, nothing happens.
-        /// </summary>
-        /// 
-        /// <returns>
-        /// Returns true if the closed tab was the caller's own planet tab.
-        /// Otherwise, returns false if another planet tab or no tab was closed.
-        /// </returns>
         private bool CloseCurrentlyOpenTab()
         {
             if (_currentlyActiveTab.GetValue() == _planetInfoTab)

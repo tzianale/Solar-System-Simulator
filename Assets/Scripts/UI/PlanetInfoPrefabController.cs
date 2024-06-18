@@ -112,14 +112,6 @@ namespace UI
         }
 
         
-        /// <summary>
-        /// Generates the list of properties that, when changed, will influence the simulation (variable Properties)
-        /// The method also assigns the observers and initialises the data
-        /// </summary>
-        /// 
-        /// <returns>
-        /// A list of GameObjects, which contain the various Properties Fields, ready to be added under the variable properties tab
-        /// </returns>
         private List<GameObject> GenerateVariablePropertiesList()
         {
             var resultList = new List<GameObject>();
@@ -173,18 +165,13 @@ namespace UI
         /// <param name="planetDescription">The string that will be used as description</param>
         protected abstract void SetDescription(string planetDescription);
         
-        /// <summary>
-        /// Update is called every frame, if the MonoBehaviour is enabled.
-        /// </summary>
+
         private void Update()
         {
             RefreshLiveInfo();
             RefreshVariableInfo();
         }
 
-        /// <summary>
-        /// Calls each of the methods provided by the planetLiveStats Dictionary, actualising the stored data
-        /// </summary>
         private void RefreshLiveInfo()
         {
             var newLiveStatsList = GenerateLiveStatsValues();
@@ -195,9 +182,6 @@ namespace UI
             }
         }
 
-        /// <summary>
-        /// Calls each of the methods provided by the planetLiveStats Dictionary, actualising the stored data
-        /// </summary>
         private void RefreshVariableInfo()
         {
             var newLiveStatsList = GenerateVariableStatsValues();
@@ -213,17 +197,6 @@ namespace UI
             }
         }
 
-        /// <summary>
-        /// Generate a list of GameObjects containing the various static properties of the planet
-        /// depending on the Dictionary given at the application start
-        /// </summary>
-        /// 
-        /// <param name="planetProperties">A dictionary containing the static properties (name and value) of the planet</param>
-        /// 
-        /// <returns>
-        /// Returns a list of GameObjects to append as children of the Static Properties Container.
-        /// In practice, it can either be a list of TextFields of one of InputFields, depending on the subclass
-        /// </returns>
         private List<GameObject> GenerateStaticPropertiesList(Dictionary<string, string> planetProperties)
         {
             var planetPropertiesNames = planetProperties.Keys.ToArray();
@@ -256,18 +229,6 @@ namespace UI
         }
 
 
-        /// <summary>
-        /// Takes a String input from the csv Planet Properties file and separates values and their (eventual) measurement units
-        /// </summary>
-        /// 
-        /// <param name="inputString">
-        /// The string with the data to separate. As separator a constant is used,
-        /// which is defined in this script as "ValueUnitSeparatorForRawData"
-        /// </param>
-        /// 
-        /// <returns>
-        /// A TwoObjectContainer, with the "value" as first object and the measurement unit as second
-        /// </returns>
         private static TwoObjectContainer<string, string> SeparateValueAndUnit(string inputString)
         {
             var propertyUnit = "";
@@ -285,17 +246,6 @@ namespace UI
         }
         
 
-        /// <summary>
-        /// Generate a list of GameObjects containing the various variable properties of the planet
-        /// depending on the Dictionary given at the application start
-        /// </summary>
-        /// 
-        /// <param name="planetProperties">A dictionary containing the variable properties (name and function) of the planet</param>
-        /// 
-        /// <returns>
-        /// Returns a list of GameObjects to append as children of the Variable Properties Container.
-        /// Properties will be automatically updated at each Update() method call
-        /// </returns>
         private List<GameObject> GenerateLiveStatsList(Dictionary<string, Func<string>> planetProperties)
         {
             var resultList = new List<GameObject>();
@@ -308,14 +258,7 @@ namespace UI
             return resultList;
         }
         
-        /// <summary>
-        /// In order to avoid regenerating GameObjects for the Variable Properties List,
-        /// the following method will generate a list of strings to update the values.
-        /// </summary>
-        /// 
-        /// <returns>
-        /// A list of strings to replace the outdated variable properties values
-        /// </returns>
+
         private List<string> GenerateLiveStatsValues()
         {
             var properties = new List<string>();
@@ -330,15 +273,7 @@ namespace UI
 
             return properties;
         }
-        
-        /// <summary>
-        /// In order to avoid regenerating GameObjects for the Observable Properties List,
-        /// the following method will generate a list of strings to update the values.
-        /// </summary>
-        /// 
-        /// <returns>
-        /// A list of strings to replace the outdated observable properties values
-        /// </returns>
+
         private List<SystemObject[]> GenerateVariableStatsValues()
         {
             var properties = new List<SystemObject[]>();
@@ -359,17 +294,6 @@ namespace UI
             return properties;
         }
         
-        /// <summary>
-        /// Generates a Property Game Object no matter what the subclass is.
-        /// The game object contains the text provided in the parameters and is sized correctly vertically and horizontally
-        /// </summary>
-        /// 
-        /// <param name="propertyName">The name of the property</param>
-        /// <param name="propertyValue">The value of the property</param>
-        /// 
-        /// <returns>
-        /// A TextField GameObject containing the property information
-        /// </returns>
         private GameObject GeneratePropertySubClassIndependently(string propertyName, string propertyValue)
         {
             var newListElement = new GameObject(propertyName + " Property");
@@ -389,30 +313,8 @@ namespace UI
             return newListElement;
         }
 
-        /// <summary>
-        /// Overridable method, gives the possibility to generate either TextFields or InputFields depending
-        /// on the subclass implementation.
-        /// </summary>
-        /// 
-        /// <param name="propertyName">The Name of the property to be initialised</param>
-        /// <param name="propertyValue">The Value of the property to be initialised</param>
-        /// <param name="measurementUnit">The Unit of the property to be initialised</param>
-        /// 
-        /// <returns>
-        /// A GameObject containing the property information.
-        /// </returns>
         private protected abstract GameObject GeneratePropertyDependingOnSubClass(string propertyName, string propertyValue, string measurementUnit);
 
-        /// <summary>
-        /// Simple utility method to get the maximum value between two integers
-        /// </summary>
-        /// 
-        /// <param name="firstNumber">The first number</param>
-        /// <param name="secondNumber">The second number</param>
-        /// 
-        /// <returns>
-        /// The number that, out of the two, has the greater value
-        /// </returns>
         private static int GetMaxInt(int firstNumber, int secondNumber)
         {
             return (firstNumber >= secondNumber) ? firstNumber : secondNumber;

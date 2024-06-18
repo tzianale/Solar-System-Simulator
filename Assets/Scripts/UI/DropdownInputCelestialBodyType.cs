@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 namespace UI
 {
+    /// <summary>
+    /// Handles the population of a dropdown menu with celestial body types.
+    /// </summary>
     public class DropdownInputCelestialBodyType : MonoBehaviour
     {
         private TMP_Dropdown _dropdown;
