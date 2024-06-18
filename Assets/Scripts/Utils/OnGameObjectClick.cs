@@ -22,10 +22,7 @@ namespace Utils
         private float _lastClickTime;
         
         private List<Action<int>> _onClickActions;
-        
-        /// <summary>
-        /// Called on Script instantiation, sets up the Camera and the last click time
-        /// </summary>
+
         private void Awake()
         {
             _gameCamera = Camera.main;
@@ -44,12 +41,6 @@ namespace Utils
             _onClickActions = actionsInitializer;
         }
         
-        /// <summary>
-        /// Update is called once per frame.
-        /// If a click is detected, it tries to obtain the clicked object using Ray casting and, if the object
-        /// corresponds to the one containing this instance of the script,
-        /// the saved Actions will be scheduled for execution
-        /// </summary>
         private void Update()
         {
             if (Input.GetMouseButtonDown(LeftMouseButton))
@@ -64,13 +55,6 @@ namespace Utils
             }
         }
 
-        /// <summary>
-        /// Executes all the actions saved in the _onClickActions list
-        /// </summary>
-        /// 
-        /// <param name="clickCount">
-        /// How many times the object has been clicked in a set timeframe
-        /// </param>
         private void ExecuteClickActions(int clickCount)
         {
             foreach (var action in _onClickActions)
@@ -79,13 +63,6 @@ namespace Utils
             }
         }
 
-        /// <summary>
-        /// Helper method to obtain the number of times a planet has been clicked subsequently
-        /// </summary>
-        /// 
-        /// <returns>
-        /// The click count - lowest possible result is one, with no bounds for the highest count
-        /// </returns>
         private int GetClickCount()
         {
             var currentTime = Time.time;
