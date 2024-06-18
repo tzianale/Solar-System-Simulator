@@ -6,6 +6,9 @@ using Models;
 
 namespace Tests.EditMode
 {
+    /// <summary>
+    /// Test fixture for testing the GameStateController class.
+    /// </summary>
     public class GameStateControllerTests
     {
         private GameObject gameObject;
@@ -15,6 +18,9 @@ namespace Tests.EditMode
         private Slider simulationSpeedSlider;
         private Toggle realTimeToggle;
 
+        /// <summary>
+        /// Sets up the test environment by creating a new GameObject and adding the required components.
+        /// </summary>
         [SetUp]
         public void Setup()
         {
@@ -45,6 +51,9 @@ namespace Tests.EditMode
             simulationSpeedSlider.value = 1;
         }
 
+        /// <summary>
+        /// Cleans up the objects created for the test and resets the time scale.
+        /// </summary>
         [TearDown]
         public void Teardown()
         {
@@ -56,6 +65,9 @@ namespace Tests.EditMode
             Time.timeScale = 1;
         }
 
+        /// <summary>
+        /// Tests that the PlayPause method correctly toggles the isPaused state.
+        /// </summary>
         [Test]
         public void PlayPause_ShouldToggleIsPaused()
         {
@@ -109,6 +121,6 @@ namespace Tests.EditMode
             Assert.AreEqual(1, Time.timeScale, "Time.timeScale should reset to 1 after resuming the game.");
         }
 
-        
+
     }
 }

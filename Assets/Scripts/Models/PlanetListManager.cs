@@ -36,7 +36,7 @@ namespace Models
         private const string DwarfDetector = "Dwarf Planet";
 
         private const string EarthsMoonName = "Earths Moon";
-        
+
         private const string NullData = "null";
         private const string UnknownData = "good question!";
 
@@ -45,19 +45,19 @@ namespace Models
 
         [SerializeField]
         private Color highlightColor = Color.green;
-        
+
         [SerializeField]
         private GameObject sun;
-        
+
         [SerializeField]
         private Transform planetListContent;
-        
+
         [SerializeField]
         private Transform canvas;
 
         [SerializeField]
         private GameObject planetObjectPrefab;
-        
+
         [SerializeField]
         private GameObject planetInfoPrefab;
 
@@ -76,10 +76,10 @@ namespace Models
         [SerializeField]
         private Color highlightingColor;
 
-        
-        private readonly Wrapper<GameObject> _activeInfoTab = new (null);
-        private readonly Wrapper<GameObject> _highlightedPlanet = new (null);
-        
+
+        private readonly Wrapper<GameObject> _activeInfoTab = new(null);
+        private readonly Wrapper<GameObject> _highlightedPlanet = new(null);
+
         private readonly List<string> _planetNames = new();
 
         private bool _highlightedPlanetOriginalEmissionEnabled;
@@ -88,13 +88,13 @@ namespace Models
         private void Start()
         {
             _highlightedPlanet.AddOnSetValueAction(HandlePlanetHighlighting);
-            
+
             var propertiesData = CsvReader.ReadCsv(PropertiesPath);
             var descriptionsData = CsvReader.ReadCsv(DescriptionsPath);
 
             var planetProperties = UnpackPlanetDataFromCsv(propertiesData);
             var planetDescriptions = UnpackPlanetDescriptionsFromCsv(descriptionsData);
-            
+
             if (planetSprites.Count == _planetNames.Count)
             {
                 for (var i = 0; i < _planetNames.Count; i++)
@@ -109,11 +109,11 @@ namespace Models
                     }
 
                     var liveStats = PlanetListDictionaries.GetLiveStatsDictionary(currentPlanetModel, sun);
-                    
+
                     CreateNewPlanet(planetSprites[i], _planetNames[i], currentPlanetModel,
                         variableProperties,
-                        planetProperties[i], 
-                        liveStats, 
+                        planetProperties[i],
+                        liveStats,
                         planetDescriptions[i]);
                 }
             }
@@ -133,27 +133,27 @@ namespace Models
             if (newPlanet)
             {
                 var newRenderer = newPlanet.GetComponent<Outline>();
-                    
+
                 if (!newRenderer)
                 {
                     newRenderer = newPlanet.AddComponent<Outline>();
                 }
-                
+
                 newRenderer.OutlineColor = highlightColor;
                 newRenderer.OutlineWidth = highlightWidth;
                 newRenderer.enabled = true;
             }
         }
 
-        private void CreateNewPlanet(Sprite planetSprite, string planetName, GameObject planetObject, 
+        private void CreateNewPlanet(Sprite planetSprite, string planetName, GameObject planetObject,
             Dictionary<string, TwoObjectContainer<Func<string>, UnityAction<string>>> variableProperties,
-            Dictionary<string, string> staticProperties, 
+            Dictionary<string, string> staticProperties,
             Dictionary<string, Func<string>> liveStats,
             string planetDescription)
         {
             var planetListElement = Instantiate(planetObjectPrefab, planetListContent);
             var planetInfoTab = Instantiate(planetInfoPrefab, canvas);
-            
+
             var planetListElementPrefabController = planetListElement.GetComponent<PlanetListElementPrefabController>();
             var planetInfoPrefabController = planetInfoTab.GetComponent<PlanetInfoPrefabController>();
 
@@ -163,38 +163,38 @@ namespace Models
             {
                 clickCount => planetListElementPrefabController.HandleClickEvent(clickCount)
             };
-            
+
             SetGameObjectOnClickBehaviour(planetObject, onClickActions);
-            
+
             planetListElementPrefabController.SetPlanetInfo(
-                planetSprite, planetName, planetObject, 
-                cameraControl, 
-                planetInfoTab, 
+                planetSprite, planetName, planetObject,
+                cameraControl,
+                planetInfoTab,
                 _activeInfoTab,
                 _highlightedPlanet,
                 planetInfoCloseButton);
-            
+
             planetInfoPrefabController.SetPlanetInfo(planetName, planetSprite, planetObject, cameraControl,
                 variableProperties,
-                staticProperties, 
-                liveStats, 
+                staticProperties,
+                liveStats,
                 planetDescription);
-            
+
             planetInfoTab.SetActive(false);
         }
 
         private static void SetGameObjectOnClickBehaviour(GameObject planetObject, List<Action<int>> actions)
         {
             var onClick = planetObject.AddComponent<OnGameObjectClick>();
-            
+
             onClick.SetActions(actions);
 
             for (var childIndex = 0; childIndex < planetObject.transform.childCount; childIndex++)
             {
                 var child = planetObject.transform.GetChild(childIndex).gameObject;
-                
+
                 onClick = child.AddComponent<OnGameObjectClick>();
-            
+
                 onClick.SetActions(actions);
             }
         }
@@ -203,26 +203,26 @@ namespace Models
         {
             var result = new List<Dictionary<string, string>>();
             var labels = data[0];
-            
+
             var rowCount = data.Count;
-            
+
             for (var rowIndex = 1; rowIndex < rowCount; rowIndex++)
             {
                 var row = data[rowIndex];
-                
+
                 if (IncludePlanetInfoInList(
-                        row[(int) DataPropertyIndexes.PlanetName], 
-                        row[(int) DataPropertyIndexes.PlanetType]))
+                        row[(int)DataPropertyIndexes.PlanetName],
+                        row[(int)DataPropertyIndexes.PlanetType]))
                 {
                     var planetProperties = new Dictionary<string, string>();
-                    
-                    for(var property = 0; property < row.Count; property++)
+
+                    for (var property = 0; property < row.Count; property++)
                     {
-                        if ((DataPropertyIndexes) property == DataPropertyIndexes.PlanetName)
+                        if ((DataPropertyIndexes)property == DataPropertyIndexes.PlanetName)
                         {
                             _planetNames.Add(row[property]);
                         }
-                        else if (row[property] == NullData) 
+                        else if (row[property] == NullData)
                         {
                             planetProperties.Add(labels[property], UnknownData);
                         }
@@ -231,7 +231,7 @@ namespace Models
                             planetProperties.Add(labels[property], row[property]);
                         }
                     }
-                    
+
                     result.Add(planetProperties);
                 }
             }
@@ -242,19 +242,19 @@ namespace Models
         private List<string> UnpackPlanetDescriptionsFromCsv(List<List<string>> data)
         {
             var planetDescriptions = new List<string>();
-            
+
             for (var planetIndex = 1; planetIndex < data.Count; planetIndex++)
             {
                 var planet = data[planetIndex];
-                
+
                 if (!IncludePlanetInfoInList(
-                        planet[(int) DataDescriptionIndexes.PlanetName],
-                        planet[(int) DataDescriptionIndexes.PlanetType]))
+                        planet[(int)DataDescriptionIndexes.PlanetName],
+                        planet[(int)DataDescriptionIndexes.PlanetType]))
                 {
                     continue;
                 }
-                
-                planetDescriptions.Add(planet[(int) DataDescriptionIndexes.PlanetDescription]);
+
+                planetDescriptions.Add(planet[(int)DataDescriptionIndexes.PlanetDescription]);
             }
 
             return planetDescriptions;
@@ -268,7 +268,7 @@ namespace Models
 
             return !isMoonOrDwarf || (isEarthsMoon && isSandboxMode);
         }
-        
+
 
         /// <summary>
         /// Adds a new item to the planet list based on the provided GameObject
@@ -285,7 +285,7 @@ namespace Models
             }
 
             var liveStats = PlanetListDictionaries.GetLiveStatsDictionary(planetObject, sun);
-            
+
             CreateNewPlanet(planetSprites[3], planetObject.name, planetObject, variableProperties, new Dictionary<string, string>(), liveStats, planetObject.name);
         }
     }

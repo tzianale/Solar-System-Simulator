@@ -1,16 +1,22 @@
 using NUnit.Framework;
-using Utils; // Ensure this namespace includes TwoObjectContainer
+using Utils;
 
 namespace Tests.EditMode
 {
+    /// <summary>
+    /// Test fixture for testing the TwoObjectContainer class.
+    /// </summary>
     [TestFixture]
     public class TwoObjectContainerTests
     {
+        /// <summary>
+        /// Tests that the constructor correctly sets the FirstObject and SecondObject properties.
+        /// </summary>
         [Test]
         public void Constructor_SetsFirstAndSecondObject()
         {
             // Arrange
-            int expectedFirst = 10; 
+            int expectedFirst = 10;
             string expectedSecond = "Hello";
 
             // Act
@@ -21,6 +27,9 @@ namespace Tests.EditMode
             Assert.AreEqual(expectedSecond, container.SecondObject, "SecondObject should be set to the initial value provided.");
         }
 
+        /// <summary>
+        /// Tests that the container can hold different types of objects.
+        /// </summary>
         [Test]
         public void Container_HoldsDifferentTypes()
         {
@@ -36,6 +45,9 @@ namespace Tests.EditMode
             Assert.AreEqual(expectedSecond, container.SecondObject, "SecondObject should correctly hold a bool.");
         }
 
+        /// <summary>
+        /// Tests that the container allows null values for its properties.
+        /// </summary>
         [Test]
         public void Container_AllowsNullValues()
         {

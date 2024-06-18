@@ -1,18 +1,23 @@
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using SystemObject = System.Object;
 using Models;
 
 namespace Tests.EditMode
 {
+    /// <summary>
+    /// Test fixture for testing the EditablePropertyController class.
+    /// </summary>
     public class EditablePropertyControllerTests
     {
         private GameObject gameObject;
         private EditablePropertyController controller;
         private TMP_InputField inputField;
 
+        /// <summary>
+        /// Sets up the test environment by creating a new GameObject and adding the required components.
+        /// </summary>
         [SetUp]
         public void Setup()
         {
@@ -26,11 +31,14 @@ namespace Tests.EditMode
             field.SetValue(controller, inputField);
         }
 
+        /// <summary>
+        /// Tests that the SetText method sets the text of the TMP_InputField correctly.
+        /// </summary>
         [Test]
         public void SetText_SetsInputFieldText()
         {
             // Arrange
-            SystemObject[] texts = {"Hello", ", ", "World"};
+            SystemObject[] texts = { "Hello", ", ", "World" };
 
             // Act
             controller.SetText(texts);
@@ -39,6 +47,9 @@ namespace Tests.EditMode
             Assert.AreEqual("Hello, World", inputField.text);
         }
 
+        /// <summary>
+        /// Tests that the DestroyProperty method destroys the GameObject.
+        /// </summary>
         [Test]
         public void DestroyProperty_DestroysGameObject()
         {

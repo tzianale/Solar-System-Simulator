@@ -13,7 +13,7 @@ namespace UI
     {
         [SerializeField]
         private GameObject panel;
-        
+
         public GameObject Panel { private get; set; }
 
         private void Start()
@@ -48,7 +48,7 @@ namespace UI
         /// </summary>
         public void EscapeGame()
         {
-            SceneManager.LoadSceneAsync((int) ScenesIndexes.MainMenu);
+            SceneManager.LoadSceneAsync((int)ScenesIndexes.MainMenu);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace UI
         public static void OnExplorerButton()
         {
             SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Explorer;
-            SceneManager.LoadSceneAsync((int) ScenesIndexes.Explorer);
+            SceneManager.LoadSceneAsync((int)ScenesIndexes.Explorer);
         }
 
         /// <summary>
@@ -40,9 +40,9 @@ namespace UI
         public static void OnSandboxButton()
         {
             SimulationModeState.currentSimulationMode = SimulationModeState.SimulationMode.Sandbox;
-            SceneManager.LoadSceneAsync((int) ScenesIndexes.Sandbox);
+            SceneManager.LoadSceneAsync((int)ScenesIndexes.Sandbox);
         }
-        
+
         /// <summary>
         /// Activates the settings panel while hiding the main menu panel
         /// </summary>

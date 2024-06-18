@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Models;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,7 +26,7 @@ namespace Models
         [SerializeField] private GameObject datePanel;
 
         // Start is called before the first frame update
-        private readonly List<string> options = new List<string>();        
+        private readonly List<string> options = new List<string>();
 
         private int previousYear = -1;
         private int previousMonth = -1;
@@ -162,7 +160,7 @@ namespace Models
         {
             yearInputField.GetComponent<InputField>().text = year;
         }
-        
+
         /// <summary>
         /// Closes the date panel.
         /// </summary>

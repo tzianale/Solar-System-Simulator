@@ -1,18 +1,23 @@
 using NUnit.Framework;
 using UnityEngine;
-using System.Collections;
 using System;
 using Models;
 
 
 namespace Tests.EditMode
 {
+    /// <summary>
+    /// Test fixture for testing the CelestialBodyGenerator.
+    /// </summary>
     [TestFixture]
 
     public class CelestialBodyGeneratorTests
     {
         private GameObject createdObject;
 
+        /// <summary>
+        /// Tests the creation of a new celestial body GameObject and validates its properties.
+        /// </summary>
         [Test]
         public void CreateNewCelestialBodyGameObject_CreatesGameObjectWithCorrectProperties()
         {
@@ -45,6 +50,9 @@ namespace Tests.EditMode
             Assert.AreEqual(expectedColor, createdBodyRenderer.sharedMaterial.color);
         }
 
+        /// <summary>
+        /// Tests that creating a celestial body GameObject with a null name throws an ArgumentException.
+        /// </summary>
         [Test]
         public void CreateNewCelestialBodyGameObject_WithNullName_ThrowsArgumentException()
         {
@@ -54,6 +62,9 @@ namespace Tests.EditMode
             );
         }
 
+        /// <summary>
+        /// Tests that creating a celestial body GameObject with a negative mass throws an ArgumentException.
+        /// </summary>
         [Test]
         public void CreateNewCelestialBodyGameObject_WithNegativeMass_ThrowsArgumentException()
         {
@@ -63,6 +74,9 @@ namespace Tests.EditMode
             );
         }
 
+        /// <summary>
+        /// Tests that creating a celestial body GameObject with a negative diameter throws an ArgumentException.
+        /// </summary>
         [Test]
         public void CreateNewCelestialBodyGameObject_WithNegativeDiameter_ThrowsArgumentException()
         {

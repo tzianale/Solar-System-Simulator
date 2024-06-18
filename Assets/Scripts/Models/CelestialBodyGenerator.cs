@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 using LightType = UnityEngine.LightType;
 
 namespace Models
@@ -49,7 +48,7 @@ namespace Models
             gameObject.transform.localScale = new Vector3(diameter, diameter, diameter);
             gameObject.transform.position = position;
             gameObject.name = name;
-            
+
             Material material = new Material(Shader.Find("Standard"));
             material.color = color;
 
@@ -59,11 +58,11 @@ namespace Models
                 newPointLight.type = LightType.Point;
                 newPointLight.range = SunLightRange;
                 newPointLight.intensity = SunLightIntensity;
-                
+
                 material.EnableKeyword(KeywordEmission);
                 material.SetColor(EmissionColor, color * SunEmissionIntensity);
             }
-            
+
             gameObject.GetComponent<Renderer>().material = material;
 
             AddNewCelestialBodyToGameObject(gameObject, type, velocity, mass);

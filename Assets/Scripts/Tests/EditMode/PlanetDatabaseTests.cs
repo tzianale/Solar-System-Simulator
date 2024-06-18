@@ -5,10 +5,16 @@ using UnityEngine;
 
 namespace Tests.EditMode
 {
+    /// <summary>
+    /// Test fixture for testing the PlanetDatabase class.
+    /// </summary>
     public class PlanetDatabaseTests
     {
         private List<string> logOutput;
 
+        /// <summary>
+        /// Sets up the test environment by initializing the log output list and subscribing to the log message event.
+        /// </summary>
         [SetUp]
         public void SetUp()
         {
@@ -17,6 +23,9 @@ namespace Tests.EditMode
             Application.logMessageReceived += LogMessageReceived;
         }
 
+        /// <summary>
+        /// Cleans up the test environment by unsubscribing from the log message event.
+        /// </summary>
         [TearDown]
         public void TearDown()
         {
@@ -30,6 +39,9 @@ namespace Tests.EditMode
             logOutput.Add(condition);
         }
 
+        /// <summary>
+        /// Tests that the PrintKeys method outputs all the planet keys to the log.
+        /// </summary>
         [Test]
         public void TestPrintKeys()
         {

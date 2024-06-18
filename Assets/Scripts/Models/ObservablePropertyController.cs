@@ -42,7 +42,7 @@ namespace Models
             planetPropertyValue.onSelect.AddListener(listener);
             planetPropertyMeasurementUnit.onSelect.AddListener(listener);
         }
-        
+
         /// <summary>
         /// Adds a listener that will be called when an editing end event occurs in any of the relevant Input Fields
         /// </summary>
@@ -76,10 +76,10 @@ namespace Models
         /// </param>
         public override void SetText(SystemObject[] text)
         {
-            planetPropertyDescription.text = text[(int) DataIndexes.PropertyDescription].ToString();
-            
-            SetValue(text[(int) DataIndexes.PropertyValue].ToString());
-            SetUnit(text[(int) DataIndexes.PropertyUnit].ToString());
+            planetPropertyDescription.text = text[(int)DataIndexes.PropertyDescription].ToString();
+
+            SetValue(text[(int)DataIndexes.PropertyValue].ToString());
+            SetUnit(text[(int)DataIndexes.PropertyUnit].ToString());
         }
 
         private void SetValue(string value)
@@ -89,7 +89,7 @@ namespace Models
         private void SetUnit(string text)
         {
             text ??= "";
-            
+
             planetPropertyMeasurementUnit.text = text;
         }
     }

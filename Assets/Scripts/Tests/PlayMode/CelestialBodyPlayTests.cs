@@ -7,6 +7,9 @@ using UnityEngine.EventSystems;
 
 namespace Tests.PlayMode
 {
+    /// <summary>
+    /// Test fixture for play mode tests of the CelestialBody class.
+    /// </summary>
     public class CelestialBodyPlayTests
     {
         private GameObject sun;
@@ -17,6 +20,9 @@ namespace Tests.PlayMode
         private CameraControlV2 cameraControl;
         private GameObject eventSystem;
 
+        /// <summary>
+        /// Sets up the test environment by initializing the required GameObjects and components.
+        /// </summary>
         [SetUp]
         public void SetUp()
         {
@@ -73,6 +79,9 @@ namespace Tests.PlayMode
             planetCB.cameraControl = cameraControl;
         }
 
+        /// <summary>
+        /// Tests that the celestial bodies update their velocity and position due to gravity.
+        /// </summary>
         [UnityTest]
         public IEnumerator CelestialBodies_UpdateVelocityAndPositionDueToGravity()
         {
@@ -86,10 +95,12 @@ namespace Tests.PlayMode
             Assert.Less(newDistance, initialDistance, "Planet should move closer to the sun due to gravitational attraction.");
         }
 
+        /// <summary>
+        /// Cleans up the objects created for the test to prevent memory leaks and test cross-contamination.
+        /// </summary>
         [TearDown]
         public void Teardown()
         {
-            // Cleanup
             if (sun != null)
                 Object.DestroyImmediate(sun);
             if (planet != null)

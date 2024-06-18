@@ -23,7 +23,7 @@ namespace Utils
             var basePath = Path.Combine(Application.streamingAssetsPath, path);
             var table = new List<List<string>>();
             using var reader = new StreamReader(basePath);
-            
+
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
@@ -34,7 +34,7 @@ namespace Utils
 
                     table.Add(new List<string>(values));
                 }
-                
+
             }
 
             reader.Close();

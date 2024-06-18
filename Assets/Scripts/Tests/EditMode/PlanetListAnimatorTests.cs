@@ -24,12 +24,12 @@ namespace Tests.EditMode
             _containerGameObject = new GameObject();
 
             var containerGameObjectRecTransform = _containerGameObject.AddComponent<RectTransform>();
-            
+
             _animator = _containerGameObject.AddComponent<PlanetListAnimator>();
-            
+
             _animator.buttonText = new GameObject("TextObject").AddComponent<TextMeshProUGUI>();
             _animator.buttonText.text = AnimatorInitText; // Initialize text 
-            
+
             // Directly use the existing transform rather than assigning a new one
             _animator.PlanetListContainerTransform = containerGameObjectRecTransform;
         }

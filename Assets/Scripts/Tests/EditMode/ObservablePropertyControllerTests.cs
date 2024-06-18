@@ -1,19 +1,22 @@
 using NUnit.Framework;
 using UnityEngine;
 using Models;
-using UnityEngine.UI;
 using TMPro;
-using System.Collections;
-using UnityEngine.TestTools;
 
 namespace Tests.EditMode
 {
+    /// <summary>
+    /// Test fixture for testing the ObservablePropertyController class.
+    /// </summary>
     public class ObservablePropertyControllerTests
     {
         private GameObject testObject;
         private ObservablePropertyController controller;
         private TMP_InputField descriptionField, valueField, unitField;
 
+        /// <summary>
+        /// Sets up the test environment by creating a new GameObject and adding the required components.
+        /// </summary>
         [SetUp]
         public void SetUp()
         {
@@ -32,6 +35,9 @@ namespace Tests.EditMode
             controller.GetType().GetField("planetPropertyMeasurementUnit", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(controller, unitField);
         }
 
+        /// <summary>
+        /// Tests that the SetText method updates all TMP_InputFields correctly.
+        /// </summary>
         [Test]
         public void SetText_UpdatesAllFieldsCorrectly()
         {
@@ -43,6 +49,9 @@ namespace Tests.EditMode
             Assert.AreEqual("Unit", unitField.text);
         }
 
+        /// <summary>
+        /// Tests that the AddListenerToPropertyValueEditEnd method adds a listener correctly.
+        /// </summary>
         [Test]
         public void AddListenerToPropertyValue_AddsListenerCorrectly()
         {
@@ -55,6 +64,9 @@ namespace Tests.EditMode
             Assert.IsTrue(wasCalled);
         }
 
+        /// <summary>
+        /// Cleans up the objects created for the test to prevent memory leaks and test cross-contamination.
+        /// </summary>
         [TearDown]
         public void TearDown()
         {

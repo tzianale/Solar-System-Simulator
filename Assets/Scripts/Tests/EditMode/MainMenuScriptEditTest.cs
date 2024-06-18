@@ -4,8 +4,14 @@ using UnityEngine;
 
 namespace Tests.EditMode
 {
+    /// <summary>
+    /// Test fixture for testing the MainMenuScript class.
+    /// </summary>
     public class MainMenuScriptEditTests
     {
+        /// <summary>
+        /// Tests that the OpenPanel method activates the panel.
+        /// </summary>
         [Test]
         public void OpenPanel_ActivatesPanel()
         {
@@ -23,6 +29,9 @@ namespace Tests.EditMode
             Assert.IsFalse(panelObject.activeSelf, "Panel should be inactive after openPanel is called");
         }
 
+        /// <summary>
+        /// Tests that the ClosePanel method deactivates the panel.
+        /// </summary>
         [Test]
         public void ClosePanel_DeactivatesPanel()
         {

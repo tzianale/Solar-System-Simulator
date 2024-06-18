@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Models;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI
 {
@@ -13,7 +12,7 @@ namespace UI
     public class DropdownInputCelestialBodyType : MonoBehaviour
     {
         private TMP_Dropdown _dropdown;
-        
+
         private void Start()
         {
             _dropdown = GetComponent<TMP_Dropdown>();

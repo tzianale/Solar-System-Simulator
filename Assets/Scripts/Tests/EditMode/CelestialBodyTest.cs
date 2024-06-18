@@ -4,11 +4,17 @@ using UnityEngine;
 
 namespace Tests.EditMode
 {
+    /// <summary>
+    /// Test fixture for testing the CelestialBody class.
+    /// </summary>
     public class CelestialBodyTest
     {
         private CelestialBody celestialBody;
         private GameObject celestialBodyObject;
 
+        /// <summary>
+        /// Sets up the test environment by creating a new GameObject and adding a CelestialBody component to it.
+        /// </summary>
         [SetUp]
         public void SetUp()
         {
@@ -16,6 +22,9 @@ namespace Tests.EditMode
             celestialBody = celestialBodyObject.AddComponent<CelestialBody>();
         }
 
+        /// <summary>
+        /// Tests the initialization of a CelestialBody as a Sun.
+        /// </summary>
         [Test]
         public void CelestialBody_Initializes_SunCorrectly()
         {
@@ -35,6 +44,9 @@ namespace Tests.EditMode
             Assert.AreEqual(1, celestialBody.GetRatioToEarthYear());
         }
 
+        /// <summary>
+        /// Tests the initialization of a CelestialBody as Earth.
+        /// </summary>
         [Test]
         public void CelestialBody_Initializes_EarthCorrectly()
         {
@@ -50,6 +62,9 @@ namespace Tests.EditMode
             Assert.AreEqual(earthMass, celestialBody.GetMass());
         }
 
+        /// <summary>
+        /// Tests that the GetExplorerLinePoints method returns the correct number of points.
+        /// </summary>
         [Test]
         public void GetOrbitLinePoints_ShouldReturnCorrectNumberOfPoints()
         {
@@ -63,6 +78,9 @@ namespace Tests.EditMode
             Assert.AreEqual(360, points.Length, "GetOrbitLinePoints should return 360 points.");
         }
 
+        /// <summary>
+        /// Tears down the test environment by destroying the GameObject created for the test.
+        /// </summary>
         [TearDown]
         public void TearDown()
         {

@@ -11,17 +11,17 @@ namespace Models
     {
         [SerializeField] private RectTransform planetListContainerTransform;
         [SerializeField] private RectTransform planetListScrollViewTransform;
-        
+
         [SerializeField] private Vector3 moveOffset;
         [SerializeField] private float moveSpeed = 1.0f;
-        
+
         private bool _listIsOpen;
         private bool _initialised;
-        
+
         public TextMeshProUGUI buttonText;
         private Vector3 _moveDistanceImproved;
-        
-        
+
+
         public RectTransform PlanetListContainerTransform { private get; set; }
 
         private Vector3 MoveOffset { get; set; }
@@ -30,7 +30,7 @@ namespace Models
 
         public bool ListIsOpen { get; private set; }
 
-        
+
         private void Start()
         {
             PlanetListContainerTransform = planetListContainerTransform;
@@ -38,13 +38,13 @@ namespace Models
             MoveSpeed = moveSpeed;
             ListIsOpen = _listIsOpen;
         }
-        
+
         private void Update()
         {
             if (PlanetListContainerTransform)
             {
                 _moveDistanceImproved = MoveOffset;
-                _moveDistanceImproved.y += planetListScrollViewTransform.rect.height 
+                _moveDistanceImproved.y += planetListScrollViewTransform.rect.height
                                            * planetListScrollViewTransform.lossyScale.y;
             }
         }
@@ -67,7 +67,7 @@ namespace Models
                 buttonText.text = "↓";
             }
         }
-        
+
         private IEnumerator MovePanel(Vector3 vectorToTarget)
         {
             var startPosition = PlanetListContainerTransform.position;

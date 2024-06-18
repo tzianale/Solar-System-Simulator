@@ -31,7 +31,7 @@ namespace Models
         {
             celestialBodies = new List<CelestialBody>(FindObjectsOfType<CelestialBody>());
             transform.Rotate(Vector3.right, obliquityToOrbit);
-            
+
 
             if (SimulationModeState.currentSimulationMode == SimulationModeState.SimulationMode.Explorer && celestType != CelestialBodyType.Sun)
             {
@@ -39,7 +39,8 @@ namespace Models
                 UpdatePositionUsingAccurateKepler();
                 UpdateRotation(true, (float)GameStateController.GetExplorerModeDay());
                 transform.Rotate(Vector3.up, 80f, Space.Self);
-            } else
+            }
+            else
             {
                 // Multiply the rotation period by a factor, so planets rotate in sandbox mode visibly, but not realisticly.
                 sideRealRotationPeriod = sideRealRotationPeriod * 36;
@@ -70,7 +71,7 @@ namespace Models
                 if (planet != this)
                 {
                     UpdateVelocity(planet);
-        
+
                 }
             }
 
@@ -203,8 +204,7 @@ namespace Models
             float dE = dM / (1 - e * Mathf.Cos(E * toRad));
             return dE;
         }
-        
-        // CHECK FABIAN
+
         private void InitializeOrbitLine(Transform meshTransform)
         {
             GameObject orbitLineGameObject = new GameObject("OrbitLine");

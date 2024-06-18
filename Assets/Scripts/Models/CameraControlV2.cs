@@ -28,7 +28,7 @@ namespace Models
 
         [SerializeField]
         private float minDistanceToSurfaceRadiusFactor;
-        
+
         // Constants for mouse buttons
         private const int LeftMouseButton = 0;
         private const int RightMouseButton = 1;
@@ -38,7 +38,7 @@ namespace Models
 
         private const float PositionZero = 0;
         private const float PositionTolerance = 0.00001f;
-        
+
         private Vector3 _pivotPoint;
 
         private bool _followModeActive;
@@ -57,7 +57,7 @@ namespace Models
         // Zoom stuff
         private float _zoomStrength = 1f;
         private float _maxZoomDistance;
-        
+
         private const float MinZoomDistance = 10.0f;
         private const float MaxZoomDistanceMultiplier = 2;
 
@@ -73,12 +73,12 @@ namespace Models
         // Keymappings
         private Dictionary<KeyCode, Action> _keyMappings;
 
-        private static readonly Vector3 Keypad7FixedView = new (1, 1, 1);
-        private static readonly Vector3 Alpha7FixedView = new (1, 1, 1);
+        private static readonly Vector3 Keypad7FixedView = new(1, 1, 1);
+        private static readonly Vector3 Alpha7FixedView = new(1, 1, 1);
 
         private bool _keyboardLock;
-        
-        
+
+
         private void Start()
         {
             InitializeKeyMappings();
@@ -95,7 +95,7 @@ namespace Models
             _defaultCamToPivotDistance = _camToPivotDistance;
         }
 
-        
+
         private void Update()
         {
             if (_followModeActive)
@@ -112,11 +112,11 @@ namespace Models
             {
                 HandleDefaultMovement();
             }
-            
+
             UpdateCameraPosition();
         }
 
-        
+
         private void InitializeKeyMappings()
         {
             _keyMappings = new Dictionary<KeyCode, Action>
@@ -125,10 +125,10 @@ namespace Models
                 { KeyCode.Alpha1,  () => SetFixedView(Vector3.up) }, // kb1
                 { KeyCode.Keypad3, () => SetFixedView(Vector3.forward) },
                 { KeyCode.Alpha3,  () => SetFixedView(Vector3.forward) },
-                
+
                 { KeyCode.Keypad7, () => SetFixedView(Keypad7FixedView) },
                 { KeyCode.Alpha7,  () => SetFixedView(Alpha7FixedView) },
-                
+
                 { KeyCode.R,       ResetCameraView },
                 { KeyCode.Keypad6, RotateCam45DegRight },
                 { KeyCode.Alpha6,  RotateCam45DegRight },
@@ -140,7 +140,7 @@ namespace Models
                 { KeyCode.Alpha2,  RotateCam45DegDown }
             };
         }
-        
+
         private void CheckForKeyPresses()
         {
             foreach (var keyMapping in _keyMappings.Where(keyValuePair => Input.GetKeyDown(keyValuePair.Key)))
@@ -153,7 +153,7 @@ namespace Models
         {
             _pivotPoint = _followTarget.position;
         }
-        
+
         private void HandlePan()
         {
             if (Input.GetMouseButtonDown(LeftMouseButton))
@@ -189,7 +189,7 @@ namespace Models
                 }
             }
         }
-        
+
         private void HandleDefaultMovement()
         {
             if (Input.GetMouseButtonDown(RightMouseButton))
@@ -205,7 +205,7 @@ namespace Models
             if (!EventSystem.current.IsPointerOverGameObject())
             {
                 var mouseScroll = Input.mouseScrollDelta.y;
-                
+
                 if (!FloatEqualToValue(mouseScroll, NoMouseScroll, ScrollTolerance))
                 {
                     Zoom(mouseScroll);
@@ -214,7 +214,7 @@ namespace Models
 
             CheckForKeyPresses();
         }
-        
+
         private void UpdateLastMousePosition()
         {
             _lastMousePosition = Input.mousePosition;
@@ -223,14 +223,14 @@ namespace Models
         private void CamOrbit(float customDeltaX = 0, float customDeltaY = 0)
         {
             Vector3 delta = Input.mousePosition - _lastMousePosition;
-            
+
             _lastMousePosition = Input.mousePosition;
 
             float horizontalInput = delta.x * RotationSpeed * 0.1f;
             float verticalInput = delta.y * RotationSpeed * 0.1f;
-            
+
             if (!FloatEqualToValue(customDeltaX, PositionZero, PositionTolerance)
-                || 
+                ||
                 !FloatEqualToValue(customDeltaY, PositionZero, PositionTolerance))
             {
                 horizontalInput = customDeltaX;
@@ -299,7 +299,7 @@ namespace Models
             _followModeActive = false;
 
         }
-        
+
         /// <summary>
         /// Gets the target that the camera is currently following
         /// </summary>
@@ -311,7 +311,7 @@ namespace Models
         {
             return _followTarget;
         }
-        
+
         /// <summary>
         /// Sets a specific target for the camera to follow 
         /// </summary>
@@ -327,7 +327,7 @@ namespace Models
 
         }
 
-        
+
         private void SetFixedView(Vector3 direction)
         {
             Debug.Log("Before direction: " + _camToPivotDirection);
@@ -347,13 +347,13 @@ namespace Models
         private float RayCastPlanetRadius()
         {
             Ray ray = new Ray(camHolder.transform.position, cam.transform.forward);
-            
+
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 float planetRadius = hit.transform.lossyScale.x / 2f;
                 return planetRadius * minDistanceToSurfaceRadiusFactor;
             }
-            
+
             return MinZoomDistance;
         }
 
