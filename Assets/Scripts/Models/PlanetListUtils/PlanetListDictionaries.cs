@@ -68,8 +68,6 @@ namespace Models.PlanetListUtils
                             if (updatedMass > NoMass)
                             {
                                 currentPlanetModel.GetComponent<CelestialBody>().SetMass(updatedMass);
-
-                                Debug.Log("Changed mass to " + updatedMass);
                             }
                         })
                 },
@@ -88,8 +86,6 @@ namespace Models.PlanetListUtils
                             currentPlanetPosition.x = updatedX;
 
                             currentPlanetModel.transform.SetPositionAndRotation(currentPlanetPosition, currentPlanetRotation);
-                                
-                            Debug.Log("Changed x-coordinate to " + updatedX);
                         })
                 },
                 {
@@ -107,8 +103,6 @@ namespace Models.PlanetListUtils
                             currentPlanetPosition.y = updatedY;
 
                             currentPlanetModel.transform.SetPositionAndRotation(currentPlanetPosition, currentPlanetRotation);
-                                
-                            Debug.Log("Changed y-coordinate to " + updatedY);
                         })
                 },
                 {
@@ -126,8 +120,6 @@ namespace Models.PlanetListUtils
                             currentPlanetPosition.z = updatedZ;
 
                             currentPlanetModel.transform.SetPositionAndRotation(currentPlanetPosition, currentPlanetRotation);
-                                
-                            Debug.Log("Changed z-coordinate to " + updatedZ);
                         })
                 }
             };

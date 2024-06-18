@@ -109,8 +109,6 @@ namespace UI
             switch (clickCount)
             {
                 case 1:
-                    Debug.Log("Planet " + planetName.GetComponent<TextMeshProUGUI>().text + " single clicked");
-
                     if(CloseCurrentlyOpenTab()) break;
                     
                     _planetInfoTab.SetActive(true);
@@ -120,8 +118,6 @@ namespace UI
                     
                     break;
                 case 2: 
-                    Debug.Log("Planet " + planetName.GetComponent<TextMeshProUGUI>().text + " double clicked");
-
                     if (cameraControl.GetFollowingTarget() != null && cameraControl.GetFollowingTarget().Equals(_planet3DObject.transform))
                     {
                         cameraControl.StopFollowing();

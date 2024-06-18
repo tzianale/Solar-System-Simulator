@@ -121,7 +121,7 @@ namespace Models
         {
             if (!PlanetDatabase.Planets.ContainsKey(gameObject.name))
             {
-                Debug.Log("THIS PLANET DOES NOT EXIST: " + gameObject.name);
+                Debug.LogError(gameObject.name + "This planet does not exist!");
                 return;
             }
 

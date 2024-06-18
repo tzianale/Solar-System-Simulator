@@ -282,7 +282,6 @@ namespace Models
 
         private void ResetCameraView()
         {
-            Debug.Log(camHolder.transform.rotation);
             _followModeActive = false;
             _camToPivotDirection = _defaultCamToPivotDirection;
             _camToPivotDistance = _defaultCamToPivotDistance;
@@ -330,10 +329,8 @@ namespace Models
 
         private void SetFixedView(Vector3 direction)
         {
-            Debug.Log("Before direction: " + _camToPivotDirection);
-            _camToPivotDirection = direction; // Ensure direction is normalized
+            _camToPivotDirection = direction;
             camHolder.transform.rotation = Quaternion.LookRotation(-direction);
-            Debug.Log("Quaternion: " + camHolder.transform.rotation);
         }
 
         private void UpdateCameraPosition()
